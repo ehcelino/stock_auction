@@ -1,24 +1,26 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+App gerado com o comando `rails new stock_auction --minimal -j esbuild --css bootstrap`
 
-Things you may want to cover:
+Um teste demonstrou que o javascript do bootstrap não estava ativo. Para corrigir foram usados os seguintes comandos:
+`bundle add jsbundling-rails`
+`rails javascript:install:esbuild`
 
-* Ruby version
+Depois foi adicionado o comando
+`import * as bootstrap from "bootstrap"`
+no arquivo `app/javascript/application.js`
 
-* System dependencies
+Este procedimento ativou corretamente o javascript do bootstrap.
 
-* Configuration
+Adicionados os comandos
+`gem "rspec-rails"`
+`gem "capybara"`
+ao gemfile e executado `bundle install`
+em seguida, executado `rails generate rspec:install`
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+adicionado
+```
+config.before(type: :system) do
+  driven_by(:rack_test)
+end
+```
+em `rails_helper.rb`

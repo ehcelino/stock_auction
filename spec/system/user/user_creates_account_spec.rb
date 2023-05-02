@@ -22,7 +22,7 @@ describe 'Usuário acessa o sistema e se cadastra' do
     expect(page).to have_content 'Leilão do Galpão'
     expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
     within('nav') do
-      expect(page).to have_content 'Usuário: João'
+      expect(page).to have_content 'João - joao@leilaodogalpao.com.br'
       expect(page).to have_button 'Sair'
     end
 

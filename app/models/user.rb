@@ -12,10 +12,18 @@ class User < ApplicationRecord
   validates :email, :cpf, uniqueness: true
   validates :name, presence: true
 
+  def user_email
+    "#{name} - #{email}"
+  end
+
+  def formatted_cpf
+    self.cpf.to_s.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
+  end
+
   private
 
   def email_for_admin
-    if self.email.present? && self.role.present? && self.role == 1
+    if self.email.present? && self.role.present? && self.role == "admin"
       unless self.email =~ /\A[\w.+-]+@leilaodogalpao.com.br/
         self.errors.add(:email, 'e-mail de administrador inválido')
       end

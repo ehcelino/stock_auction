@@ -34,7 +34,7 @@ instalação da gem Devise com os comandos:
 `rails generate devise:install`
 
 Em `config/application.rb` ativada a linha
-`require "action_mailer/railtie`
+`require "action_mailer/railtie"`
 
 Criado modelo de usuário com o comando
 `rails generate devise user name:string cpf:integer admin:integer`
@@ -50,3 +50,8 @@ Adicionado arquivo `config/initializers/locale.rb`
 Adicionado arquivo `config/locales/user.pt-BR.yml`
 
 Executado comando `rails g devise:views`
+
+Em `config/application.rb` ativada a linha
+`require "active_storage/engine"`
+
+Executado comando `bin/rails active_storage:install`

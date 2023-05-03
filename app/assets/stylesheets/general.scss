@@ -2,3 +2,6 @@
   border:0;
   background-color:transparent;
 }
+
+.alert-alert { @extend .alert-warning; }
+.alert-notice { @extend .alert-success; }

@@ -13,6 +13,9 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   def user_email
+    if self.admin?
+      return "#{name} - #{email} (ADMIN)"
+    end
     "#{name} - #{email}"
   end
 
@@ -25,7 +28,7 @@ class User < ApplicationRecord
   def email_for_admin
     if self.email.present? && self.role.present? && self.role == "admin"
       unless self.email =~ /\A[\w.+-]+@leilaodogalpao.com.br/
-        self.errors.add(:email, 'e-mail de administrador inválido')
+        self.errors.add(:email, 'de administrador inválido')
       end
     end
   end

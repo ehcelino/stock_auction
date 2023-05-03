@@ -7,3 +7,6 @@
 #   Character.create(name: "Luke", movie: movies.first)
 User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br', role: 1, password: 'password')
 User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br', role: 0, password: 'password')
+
+Category.create!(name:'Geral')
+Category.create!(name:'Informática')

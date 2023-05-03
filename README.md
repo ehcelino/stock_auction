@@ -55,3 +55,14 @@ Em `config/application.rb` ativada a linha
 `require "active_storage/engine"`
 
 Executado comando `bin/rails active_storage:install`
+
+Criado modelo de categoria com o comando
+`rails g model category name`
+
+Criado modelo de item com o comando
+`rails g model item name description image:attachment weight:integer width:integer height:integer depth:integer category:references code`
+
+Criada a pasta `spec/support` e adicionado o arquivo `devise_methods.rb`
+
+Em `spec/rails_helper`, habilitada a linha
+`Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }`

@@ -5,7 +5,6 @@ describe 'Usuário acessa o sistema e se cadastra' do
 
     # Arrange
 
-
     # Act
     visit root_path
     click_on 'Cadastrar'
@@ -31,7 +30,6 @@ describe 'Usuário acessa o sistema e se cadastra' do
   it 'com CPF inválido' do
 
     # Arrange
-
 
     # Act
     visit root_path

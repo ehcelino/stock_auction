@@ -1,4 +1,6 @@
 class AuctionLotsController < ApplicationController
+  before_action :admin_only, only: [:new, :create]
+
 
   def new
     @auction_lot = AuctionLot.new
@@ -9,12 +11,15 @@ class AuctionLotsController < ApplicationController
     @auction_lot.created_by = current_user.id
     if @auction_lot.save
       flash[:success] = 'Lote criado com sucesso'
-      return redirect_to root_path
+      return redirect_to @auction_lot
     end
     flash.now[:danger] = 'Lote inválido'
     render :new
   end
 
+  def show
+    @auction_lot = AuctionLot.find(params[:id])
+  end
 
   private
 

@@ -11,3 +11,6 @@ pt-BR:
         min_bid_difference: 'Diferença entre lances'
         created_by: 'Criado por'
         approved_by: 'Aprovado por'
+        pending: 'Aguardando aprovação'
+        approved: 'Aprovado'
+        cancelled: 'Cancelado'

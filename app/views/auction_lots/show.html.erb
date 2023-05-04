@@ -1,0 +1,15 @@
+<div class="mb-5">
+  <h3>Lote para leilão código <%= @auction_lot.code %></h3>
+</div>
+
+<p><%= AuctionLot.human_attribute_name(:start_date) %>: <%= I18n.localize(@auction_lot.start_date) %></p>
+<p><%= AuctionLot.human_attribute_name(:end_date) %>: <%= I18n.localize(@auction_lot.end_date) %></p>
+<p><%= AuctionLot.human_attribute_name(:min_bid_amount) %>: <%= number_to_currency(@auction_lot.min_bid_amount) %></p>
+<p><%= AuctionLot.human_attribute_name(:min_bid_difference) %>: <%= number_to_currency(@auction_lot.min_bid_difference) %></p>
+<p><%= AuctionLot.human_attribute_name(:status) %>: <%= AuctionLot.human_attribute_name(@auction_lot.status) %></p>
+<p><%= AuctionLot.human_attribute_name(:created_by) %>: <%= User.find(@auction_lot.created_by).email %></p>
+<p><%= AuctionLot.human_attribute_name(:approved_by) %>: <%= @auction_lot.approved_by %></p>
+
+<% if @auction_lot.status == "pending" %>
+
+<% end %>

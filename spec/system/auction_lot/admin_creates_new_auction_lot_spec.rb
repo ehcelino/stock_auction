@@ -21,7 +21,13 @@ describe 'Admin cria um novo lote' do
 
     # Assert
     expect(page).to have_content 'Lote criado com sucesso'
-    # expect(page).to have_content
+    expect(page).to have_content 'Lote para leilão código ABC123456'
+    expect(page).to have_content 'Data de início: 20/05/2023'
+    expect(page).to have_content 'Data de término: 30/05/2023'
+    expect(page).to have_content 'Lance inicial: R$ 100,00'
+    expect(page).to have_content 'Diferença entre lances: R$ 50,00'
+    expect(page).to have_content 'Status: Aguardando aprovação'
+    expect(page).to have_content 'Criado por: joao@leilaodogalpao.com.br'
 
   end
 

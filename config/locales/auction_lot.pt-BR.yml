@@ -1,0 +1,13 @@
+pt-BR:
+  activerecord:
+    models:
+      auction_lot: 'Lote'
+    attributes:
+      auction_lot:
+        code: 'Código'
+        start_date: 'Data de início'
+        end_date: 'Data de término'
+        min_bid_amount: 'Lance inicial'
+        min_bid_difference: 'Diferença entre lances'
+        created_by: 'Criado por'
+        approved_by: 'Aprovado por'

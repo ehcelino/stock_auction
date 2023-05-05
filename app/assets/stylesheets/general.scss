@@ -5,3 +5,8 @@
 
 .alert-alert { @extend .alert-warning; }
 .alert-notice { @extend .alert-success; }
+
+.img-resize {
+  width: 100px;
+  height: auto;
+}

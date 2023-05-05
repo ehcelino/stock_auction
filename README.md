@@ -66,3 +66,13 @@ Criada a pasta `spec/support` e adicionado o arquivo `devise_methods.rb`
 
 Em `spec/rails_helper`, habilitada a linha
 `Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }`
+
+Criado o arquivo `config/storage.yml`
+
+No arquivo `environment/development.rb` adicionada a linha
+
+`config.active_storage.service = :local`
+
+No arquivo `environment/test.rb` adicionada a linha
+
+`config.active_storage.service = :test`

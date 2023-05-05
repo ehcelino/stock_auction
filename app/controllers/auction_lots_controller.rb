@@ -1,5 +1,5 @@
 class AuctionLotsController < ApplicationController
-  before_action :admin_only, only: [:new, :create]
+  before_action :admin_only, only: [:new, :create, :index]
 
 
   def new
@@ -17,8 +17,30 @@ class AuctionLotsController < ApplicationController
     render :new
   end
 
+  def index
+    @auction_lots = AuctionLot.pending
+  end
+
   def show
     @auction_lot = AuctionLot.find(params[:id])
+  end
+
+  def approved
+    @auction_lot = AuctionLot.find(params[:id])
+    user = User.find(@auction_lot.created_by)
+    if current_user == user
+      flash[:danger] = 'Um lote não pode ser aprovado pelo usuário que o criou'
+      return redirect_to @auction_lot
+    elsif @auction_lot.items.count == 0
+      flash[:danger] = 'Um lote não pode ser aprovado sem itens'
+      return redirect_to @auction_lot
+    else
+      @auction_lot.approved_by = current_user.id
+      @auction_lot.save
+      @auction_lot.approved!
+      flash[:success] = 'Este lote foi aprovado com sucesso'
+      redirect_to @auction_lot
+    end
   end
 
   private

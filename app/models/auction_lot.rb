@@ -4,7 +4,8 @@ class AuctionLot < ApplicationRecord
   validate :check_end_date
   validate :check_start_date
   validates :code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, presence: true
-
+  has_many :lot_items
+  has_many :items, through: :lot_items
 
   enum status: { pending: 0, approved: 5, cancelled: 9 }
 

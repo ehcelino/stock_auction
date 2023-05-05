@@ -10,12 +10,12 @@
         <%= link_to auction_lot_path(lot.id), class:"nav-link" do %>
           <span>Lote </span>
           <%= lot.code %>
-          <span> - Iniciado em: </span>
-          <%= I18n.localize(lot.start_date) %>
-          <span> Termina em: </span>
-          <%= I18n.localize(lot.end_date) %>
-          <span> Lances: </span>
         <% end %>
+        <span>Iniciado em: </span>
+        <%= I18n.localize(lot.start_date) %>
+        <span> Termina em: </span>
+        <%= I18n.localize(lot.end_date) %>
+        <span> Lances: </span>
       </div>
     <% end %>
   <% else %>
@@ -31,12 +31,12 @@
         <%= link_to auction_lot_path(lot.id), class:"nav-link" do %>
           <span>Lote </span>
           <%= lot.code %>
-          <span> - Inicia em: </span>
-          <%= I18n.localize(lot.start_date) %>
-          <span> Termina em: </span>
-          <%= I18n.localize(lot.end_date) %>
-          <span> Lances: </span>
         <% end %>
+        <span>Inicia em: </span>
+        <%= I18n.localize(lot.start_date) %>
+        <span> Termina em: </span>
+        <%= I18n.localize(lot.end_date) %>
+        <span> Lances: </span>
       </div>
     <% end %>
   <% else %>

@@ -23,6 +23,10 @@ class User < ApplicationRecord
     self.cpf.to_s.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
   end
 
+  # def is_admin?
+  #   self.role == "admin"
+  # end
+
   private
 
   def email_for_admin

@@ -15,8 +15,16 @@ User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
 Category.create!(name:'Geral')
 Category.create!(name:'Informática')
 
-Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
-            width: 6, height: 3, depth: 11, category_id: 2)
+item_1 = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
+                     width: 6, height: 3, depth: 11, category_id: 2)
+item_2 = Item.create!(name:'Mouse Microsoft', description:'Mouse laser sem fio', weight: 200,
+                     width: 6, height: 3, depth: 11, category_id: 2)
+item_3 = Item.create!(name:'Thumb drive Sandisk', description:'Thumb drive USB3 32Gb', weight: 50,
+                     width: 2, height: 1, depth: 5, category_id: 2)
+
+item_1.image.attach(io: File.open(Rails.root.join("app/assets/images/mouse.jpg")), filename: "mouse.jpg")
+item_2.image.attach(io: File.open(Rails.root.join("app/assets/images/msmouse.png")), filename: "msmouse.png")
+item_3.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg")), filename: "tdrive.jpg")
 
 AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
               min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: 1)

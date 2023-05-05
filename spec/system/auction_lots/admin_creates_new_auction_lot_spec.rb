@@ -54,28 +54,31 @@ describe 'Admin cria um novo lote' do
 
   end
 
-  it 'e usa uma data de início inválida' do
+  # O teste abaixo foi desabilitado devido à necessidade de desabilitar a função de
+  # checagem de datas para possibilitar a criação de lotes retroativos.
 
-    # Arrange
-    user = User.create!(name: 'João', cpf: 62053621044, email: 'joao@leilaodogalpao.com.br', role: 1, password: 'password')
+  # it 'e usa uma data de início inválida' do
 
-    # Act
-    login_as user
-    visit root_path
-    click_on 'Funções administrativas'
-    click_on 'Novo lote para leilão'
-    fill_in 'Código', with: 'ABC123456'
-    fill_in 'Data de início', with: '20/04/2023'
-    fill_in 'Data de término', with: '30/04/2023'
-    fill_in 'Lance inicial', with: 100
-    fill_in 'Diferença entre lances', with: 50
-    click_on 'Criar lote'
+  #   # Arrange
+  #   user = User.create!(name: 'João', cpf: 62053621044, email: 'joao@leilaodogalpao.com.br', role: 1, password: 'password')
 
-    # Assert
-    expect(page).to have_content 'Lote inválido'
-    expect(page).to have_content 'Data de início deve ser futura'
+  #   # Act
+  #   login_as user
+  #   visit root_path
+  #   click_on 'Funções administrativas'
+  #   click_on 'Novo lote para leilão'
+  #   fill_in 'Código', with: 'ABC123456'
+  #   fill_in 'Data de início', with: '20/04/2023'
+  #   fill_in 'Data de término', with: '30/04/2023'
+  #   fill_in 'Lance inicial', with: 100
+  #   fill_in 'Diferença entre lances', with: 50
+  #   click_on 'Criar lote'
 
-  end
+  #   # Assert
+  #   expect(page).to have_content 'Lote inválido'
+  #   expect(page).to have_content 'Data de início deve ser futura'
+
+  # end
 
   it 'e não preenche todos os campos' do
 

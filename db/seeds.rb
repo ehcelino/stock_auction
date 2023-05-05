@@ -26,7 +26,9 @@ item_1.image.attach(io: File.open(Rails.root.join("app/assets/images/mouse.jpg")
 item_2.image.attach(io: File.open(Rails.root.join("app/assets/images/msmouse.png")), filename: "msmouse.png")
 item_3.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg")), filename: "tdrive.jpg")
 
-AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-              min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: 1)
-AuctionLot.create!(code:'BGO570364', start_date: '20/06/2024', end_date: '10/07/2024',
-              min_bid_amount: 500, min_bid_difference: 10, status: 0, created_by: 1)
+auction_lot_1 = AuctionLot.create!(code:'XPG035410', start_date: '01/05/2023', end_date: '10/06/2023',
+                                  min_bid_amount: 300, min_bid_difference: 50, status: 5, created_by: 1, approved_by: 2)
+auction_lot_2 = AuctionLot.create!(code:'BGO570364', start_date: '20/06/2024', end_date: '10/07/2024',
+                                  min_bid_amount: 500, min_bid_difference: 10, status: 0, created_by: 1)
+
+LotItem.create!(auction_lot_id: auction_lot_1.id, item_id: item_1.id)

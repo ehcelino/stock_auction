@@ -4,7 +4,7 @@ class Item < ApplicationRecord
   before_validation :generate_code, on: :create
   has_many :lot_items
   has_many :auction_lots, through: :lot_items
-  validates :name, :weight, :width, :height, :depth, presence: true
+  validates :code, :name, :weight, :width, :height, :depth, presence: true
 
   private
 

@@ -12,8 +12,8 @@ describe 'Administrador acessa um lote' do
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
-    item_2 = Item.create!(name:'Mouse Microsoft', description:'Mouse laser sem fio', weight: 200,
-                          width: 6, height: 3, depth: 11, category_id: category.id)
+    second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse laser sem fio', weight: 200,
+                               width: 6, height: 3, depth: 11, category_id: category.id)
     allow(SecureRandom).to receive(:alphanumeric).with(10).and_return('ABC1234567')
 
     # Act

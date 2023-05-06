@@ -7,8 +7,23 @@ class AuctionLot < ApplicationRecord
   validates :code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, presence: true
   has_many :lot_items
   has_many :items, through: :lot_items
+  has_many :bids
+  has_many :users, through: :bids
 
   enum status: { pending: 0, approved: 5, cancelled: 9 }
+
+  def biddable?
+    self.status == 'approved' && self.end_date > Date.today
+  end
+
+  def minimum_value
+    if self.bids.none?
+      return self.min_bid_amount + 1
+    else
+      return self.bids.last.value + self.min_bid_difference
+    end
+  end
+
 
   private
 

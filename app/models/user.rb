@@ -11,6 +11,9 @@ class User < ApplicationRecord
   validate :email_for_admin
   validates :email, :cpf, uniqueness: true
   validates :name, presence: true
+  has_many :bids
+  has_many :auction_lots, through: :bids
+
 
   def user_email
     if self.admin?

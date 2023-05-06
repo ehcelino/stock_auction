@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_05_014644) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_06_014137) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -50,6 +50,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_014644) do
     t.integer "approved_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "bids", force: :cascade do |t|
+    t.integer "auction_lot_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "value"
+    t.index ["auction_lot_id"], name: "index_bids_on_auction_lot_id"
+    t.index ["user_id"], name: "index_bids_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -98,6 +108,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_014644) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bids", "auction_lots"
+  add_foreign_key "bids", "users"
   add_foreign_key "items", "categories"
   add_foreign_key "lot_items", "auction_lots"
   add_foreign_key "lot_items", "items"

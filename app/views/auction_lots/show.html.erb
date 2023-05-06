@@ -57,3 +57,8 @@
   <% end %>
 
 <% end %>
+
+
+<% if !current_user.nil? && @auction_lot.biddable? %>
+  <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-secondary" %>
+<% end %>

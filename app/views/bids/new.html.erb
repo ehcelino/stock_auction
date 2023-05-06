@@ -1,0 +1,14 @@
+<h3>Postar um lance para o lote <%= @auction_lot.code %> </h3>
+<p>Valor mínimo: <%= number_to_currency(@auction_lot.minimum_value) %> </p>
+<%= form_with model: [ @auction_lot, @bid] do |f| %>
+  <%= render "form_errors", object: @bid %>
+
+  <div class="field mb-3">
+    <%= f.label :value, class:"form-label" %>
+    <%= f.number_field :value, autofocus: true, class:"form-control" %>
+  </div>
+
+  <div class="field mb-3">
+    <%= f.submit 'Confirmar lance', class:"btn btn-secondary" %>
+  </div>
+<% end %>

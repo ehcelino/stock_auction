@@ -11,7 +11,6 @@ describe 'Admin vê os lotes aguardando aprovação' do
                                role: 1, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
                                      min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: first_admin.id)
-    category = Category.create!(name:'Informática')
 
     # Act
     login_as second_admin

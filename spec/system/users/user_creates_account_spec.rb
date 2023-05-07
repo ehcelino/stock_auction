@@ -8,14 +8,12 @@ describe 'Usuário acessa o sistema e se cadastra' do
     # Act
     visit root_path
     click_on 'Cadastrar'
-    within('form') do
-      fill_in 'E-mail', with: 'joao@ig.com.br'
-      fill_in 'Nome', with: 'João'
-      fill_in 'CPF', with: '62059576040'
-      fill_in 'Senha', with: 'password'
-      fill_in 'Confirme sua senha', with: 'password'
-      click_on 'Criar conta'
-    end
+    fill_in 'E-mail', with: 'joao@ig.com.br'
+    fill_in 'Nome', with: 'João'
+    fill_in 'CPF', with: '62059576040'
+    fill_in 'Senha', with: 'password'
+    fill_in 'Confirme sua senha', with: 'password'
+    click_on 'Criar conta'
 
     # Assert
     expect(page).to have_content 'Leilão do Galpão'
@@ -34,14 +32,12 @@ describe 'Usuário acessa o sistema e se cadastra' do
     # Act
     visit root_path
     click_on 'Cadastrar'
-    within('form') do
-      fill_in 'E-mail', with: 'joao@ig.com.br'
-      fill_in 'Nome', with: 'João'
-      fill_in 'CPF', with: '62059576041'
-      fill_in 'Senha', with: 'password'
-      fill_in 'Confirme sua senha', with: 'password'
-      click_on 'Criar conta'
-    end
+    fill_in 'E-mail', with: 'joao@ig.com.br'
+    fill_in 'Nome', with: 'João'
+    fill_in 'CPF', with: '62059576041'
+    fill_in 'Senha', with: 'password'
+    fill_in 'Confirme sua senha', with: 'password'
+    click_on 'Criar conta'
 
     # Assert
     expect(page).to have_content 'Leilão do Galpão'
@@ -58,14 +54,12 @@ describe 'Usuário acessa o sistema e se cadastra' do
     # Act
     visit root_path
     click_on 'Cadastrar'
-    within('form') do
-      fill_in 'E-mail', with: 'michael@ig.com.br'
-      fill_in 'Nome', with: 'Michael'
-      fill_in 'CPF', with: '62053621044'
-      fill_in 'Senha', with: 'password'
-      fill_in 'Confirme sua senha', with: 'password'
-      click_on 'Criar conta'
-    end
+    fill_in 'E-mail', with: 'michael@ig.com.br'
+    fill_in 'Nome', with: 'Michael'
+    fill_in 'CPF', with: '62053621044'
+    fill_in 'Senha', with: 'password'
+    fill_in 'Confirme sua senha', with: 'password'
+    click_on 'Criar conta'
 
     # Assert
     expect(page).to have_content 'Leilão do Galpão'
@@ -81,14 +75,12 @@ describe 'Usuário acessa o sistema e se cadastra' do
     # Act
     visit root_path
     click_on 'Cadastrar'
-    within('form') do
-      fill_in 'E-mail', with: 'joao@leilaodogalpao.com.br'
-      fill_in 'Nome', with: 'João'
-      fill_in 'CPF', with: '62059576040'
-      fill_in 'Senha', with: 'password'
-      fill_in 'Confirme sua senha', with: 'password'
-      click_on 'Criar conta'
-    end
+    fill_in 'E-mail', with: 'joao@leilaodogalpao.com.br'
+    fill_in 'Nome', with: 'João'
+    fill_in 'CPF', with: '62059576040'
+    fill_in 'Senha', with: 'password'
+    fill_in 'Confirme sua senha', with: 'password'
+    click_on 'Criar conta'
 
     # Assert
     expect(page).to have_content 'Não foi possível salvar usuário'

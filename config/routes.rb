@@ -13,4 +13,5 @@ Rails.application.routes.draw do
     get 'closed_list', on: :collection
   end
   resources :blocked_cpfs, only: [:new, :create, :index]
+  get 'search', to: 'home#search'
 end

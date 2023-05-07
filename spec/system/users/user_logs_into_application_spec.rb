@@ -9,11 +9,9 @@ describe 'Usuário acessa o sistema' do
     # Act
     visit root_path
     click_on 'Entrar'
-    within('form') do
-      fill_in 'E-mail', with: 'joao@ig.com.br'
-      fill_in 'Senha', with: 'password'
-      click_on 'Entrar'
-    end
+    fill_in 'E-mail', with: 'joao@ig.com.br'
+    fill_in 'Senha', with: 'password'
+    click_on 'Entrar no sistema'
 
     # Assert
     expect(page).to have_content 'Login efetuado com sucesso.'
@@ -32,11 +30,9 @@ describe 'Usuário acessa o sistema' do
     # Act
     visit root_path
     click_on 'Entrar'
-    within('form') do
-      fill_in 'E-mail', with: 'joao@leilaodogalpao.com.br'
-      fill_in 'Senha', with: 'password'
-      click_on 'Entrar'
-    end
+    fill_in 'E-mail', with: 'joao@leilaodogalpao.com.br'
+    fill_in 'Senha', with: 'password'
+    click_on 'Entrar no sistema'
 
     # Assert
     expect(page).to have_content 'Leilão do Galpão'
@@ -55,11 +51,9 @@ describe 'Usuário acessa o sistema' do
     # Act
     visit root_path
     click_on 'Entrar'
-    within('form') do
-      fill_in 'E-mail', with: 'joao@leilaodogalpao.com.br'
-      fill_in 'Senha', with: 'password'
-      click_on 'Entrar'
-    end
+    fill_in 'E-mail', with: 'joao@leilaodogalpao.com.br'
+    fill_in 'Senha', with: 'password'
+    click_on 'Entrar no sistema'
     click_on 'João - joao@leilaodogalpao.com.br (ADMIN)'
 
     # Assert

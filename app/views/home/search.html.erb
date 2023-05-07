@@ -1,0 +1,22 @@
+<h3>Resultados da busca</h3>
+
+<div class="mb-3">
+  <% if @auction_lots != nil && @auction_lots.any?  %>
+    <% @auction_lots.each do |lot| %>
+      <div class="mb-2">
+        <%= link_to auction_lot_path(lot.id), class:"nav-link" do %>
+          <span>Lote </span>
+          <%= lot.code %>
+        <% end %>
+        <span>Início em: </span>
+        <%= I18n.localize(lot.start_date) %>
+        <span> Término em: </span>
+        <%= I18n.localize(lot.end_date) %>
+        <span> Lances: </span>
+        <%= lot.bids.count %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Nenhum lote encontrado</p>
+  <% end %>
+</div>

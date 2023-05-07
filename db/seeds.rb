@@ -25,12 +25,15 @@ item_4 = Item.create!(name:'Thumb drive Sandisk 64GB', description:'Thumb drive 
                       width: 2, height: 1, depth: 5, category_id: 2)
 item_5 = Item.create!(name:'Thumb drive Sandisk 128GB', description:'Thumb drive USB3 128GB', weight: 50,
                       width: 2, height: 1, depth: 5, category_id: 2)
+item_6 = Item.create!(name:'Thumb drive Sandisk 256GB', description:'Thumb drive USB3 256GB', weight: 50,
+                      width: 2, height: 1, depth: 5, category_id: 2)
 
 item_1.image.attach(io: File.open(Rails.root.join("app/assets/images/mouse.jpg")), filename: "mouse.jpg")
 item_2.image.attach(io: File.open(Rails.root.join("app/assets/images/msmouse.png")), filename: "msmouse.png")
 item_3.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg")), filename: "tdrive.jpg")
 item_4.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg")), filename: "tdrive.jpg")
 item_5.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg")), filename: "tdrive.jpg")
+item_6.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg")), filename: "tdrive.jpg")
 
 auction_lot_1 = AuctionLot.create!(code:'XPG035410', start_date: '01/05/2023', end_date: 1.month.from_now,
                                   min_bid_amount: 100, min_bid_difference: 2, status: 5, created_by: admin_1.id, approved_by: admin_2.id)
@@ -42,12 +45,17 @@ auction_lot_4 = AuctionLot.create!(code:'JKY174683', start_date: '01/03/2023', e
                                   min_bid_amount: 100, min_bid_difference: 10, status: 5, created_by: admin_1.id, approved_by: admin_2.id)
 auction_lot_5 = AuctionLot.create!(code:'CVZ574198', start_date: 10.days.from_now, end_date: 1.month.from_now,
                                   min_bid_amount: 100, min_bid_difference: 10, status: 5, created_by: admin_1.id, approved_by: admin_2.id)
+auction_lot_6 = AuctionLot.create!(code:'LHD753159', start_date: '01/02/2023', end_date: '20/02/2023',
+                                  min_bid_amount: 100, min_bid_difference: 10, status: 5, created_by: admin_1.id, approved_by: admin_2.id)
 
 LotItem.create!(auction_lot_id: auction_lot_1.id, item_id: item_1.id)
 LotItem.create!(auction_lot_id: auction_lot_3.id, item_id: item_2.id)
 LotItem.create!(auction_lot_id: auction_lot_4.id, item_id: item_3.id)
 LotItem.create!(auction_lot_id: auction_lot_5.id, item_id: item_4.id)
+LotItem.create!(auction_lot_id: auction_lot_6.id, item_id: item_6.id)
 
 
 Bid.create!(auction_lot_id: auction_lot_3.id, user_id: user.id, value: 101)
+Bid.create!(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 101)
 
+auction_lot_6.closed!

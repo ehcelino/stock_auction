@@ -20,10 +20,12 @@ describe 'Administrador cria um novo item' do
     fill_in 'Altura', with: '3'
     fill_in 'Profundidade', with: '11'
     select 'Informática', from: 'Categoria'
+    attach_file 'Imagem', "#{Rails.root}/app/assets/images/mouse.jpg"
     click_on 'Cadastrar'
 
     # Assert
     expect(page).to have_content 'Item cadastrado com sucesso'
+    expect(page).to have_css('img[src*="mouse.jpg"]')
     expect(page).to have_content 'Mouse Logitech'
     expect(page).to have_content 'Mouse Gamer 1200dpi'
     expect(page).to have_content '200 g.'

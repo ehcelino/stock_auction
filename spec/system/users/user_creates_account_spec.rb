@@ -9,7 +9,7 @@ describe 'Usuário acessa o sistema e se cadastra' do
     visit root_path
     click_on 'Cadastrar'
     within('form') do
-      fill_in 'E-mail', with: 'joao@leilaodogalpao.com.br'
+      fill_in 'E-mail', with: 'joao@ig.com.br'
       fill_in 'Nome', with: 'João'
       fill_in 'CPF', with: '62059576040'
       fill_in 'Senha', with: 'password'
@@ -21,7 +21,7 @@ describe 'Usuário acessa o sistema e se cadastra' do
     expect(page).to have_content 'Leilão do Galpão'
     expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
     within('nav') do
-      expect(page).to have_content 'João - joao@leilaodogalpao.com.br'
+      expect(page).to have_content 'João - joao@ig.com.br'
       expect(page).to have_button 'Sair'
     end
 
@@ -35,7 +35,7 @@ describe 'Usuário acessa o sistema e se cadastra' do
     visit root_path
     click_on 'Cadastrar'
     within('form') do
-      fill_in 'E-mail', with: 'joao@leilaodogalpao.com.br'
+      fill_in 'E-mail', with: 'joao@ig.com.br'
       fill_in 'Nome', with: 'João'
       fill_in 'CPF', with: '62059576041'
       fill_in 'Senha', with: 'password'
@@ -71,6 +71,28 @@ describe 'Usuário acessa o sistema e se cadastra' do
     expect(page).to have_content 'Leilão do Galpão'
     expect(page).to have_content 'Não foi possível salvar usuário'
     expect(page).to have_content 'CPF já está em uso'
+
+  end
+
+  it 'com email de administrador sem ter as permissões necessárias' do
+
+    # Arrange
+
+    # Act
+    visit root_path
+    click_on 'Cadastrar'
+    within('form') do
+      fill_in 'E-mail', with: 'joao@leilaodogalpao.com.br'
+      fill_in 'Nome', with: 'João'
+      fill_in 'CPF', with: '62059576040'
+      fill_in 'Senha', with: 'password'
+      fill_in 'Confirme sua senha', with: 'password'
+      click_on 'Criar conta'
+    end
+
+    # Assert
+    expect(page).to have_content 'Não foi possível salvar usuário'
+    expect(page).to have_content 'E-mail não pode pertencer a este domínio'
 
   end
 

@@ -6,6 +6,8 @@ describe 'Administrador cria um novo item' do
     user = User.create!(name: 'João', cpf: 62053621044, email: 'joao@leilaodogalpao.com.br', role: 1, password: 'password')
     Category.create!(name: 'Geral')
     Category.create!(name: 'Informática')
+    allow(SecureRandom).to receive(:alphanumeric).with(10).and_return('ABC1234567')
+
     # Act
     login_as user
     visit root_path
@@ -21,8 +23,13 @@ describe 'Administrador cria um novo item' do
     click_on 'Cadastrar'
 
     # Assert
-    expect(current_path).to eq root_path
     expect(page).to have_content 'Item cadastrado com sucesso'
+    expect(page).to have_content 'Mouse Logitech'
+    expect(page).to have_content 'Mouse Gamer 1200dpi'
+    expect(page).to have_content '200 g.'
+    expect(page).to have_content '6 x 3 x 11 cm'
+    expect(page).to have_content 'ABC1234567'
+    expect(page).to have_content 'Informática'
 
   end
 

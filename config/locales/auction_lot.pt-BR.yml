@@ -13,4 +13,5 @@ pt-BR:
         approved_by: 'Aprovado por'
         pending: 'Aguardando aprovação'
         approved: 'Aprovado'
+        closed: 'Finalizado'
         cancelled: 'Cancelado'

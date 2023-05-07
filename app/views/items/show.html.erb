@@ -1,0 +1,25 @@
+<h3>Item para leilão: <%= @item.name %> </h3>
+<table class="table">
+  <tr>
+    <th>Imagem</th>
+    <th>Nome</th>
+    <th>Descrição</th>
+    <th>Peso</th>
+    <th>Dimensões</th>
+    <th>Código</th>
+    <th>Categoria</th>
+  </tr>
+  <tr>
+    <% if @item.image.attached? %>
+      <td><%= image_tag @item.image, class:"img-resize" %> </td>
+    <% else %>
+      <td></td>
+    <% end %>
+    <td><%= @item.name %></td>
+    <td><%= @item.description %></td>
+    <td><%= @item.weight %> g.</td>
+    <td><%= @item.width %> x <%= @item.height %> x <%= @item.depth %> cm</td>
+    <td><%= @item.code %></td>
+    <td><%= @item.category.name %></td>
+  </tr>
+</table>

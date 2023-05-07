@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   validate :cpf_is_valid
   validate :email_for_admin
+  validate :not_admin_email
   validates :email, :cpf, uniqueness: true
   validates :name, presence: true
   has_many :bids
@@ -26,20 +27,23 @@ class User < ApplicationRecord
     self.cpf.to_s.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
   end
 
-  # def is_admin?
-  #   self.role == "admin"
-  # end
-
   private
 
   def email_for_admin
     if self.email.present? && self.role.present? && self.role == "admin"
       unless self.email =~ /\A[\w.+-]+@leilaodogalpao.com.br/
-        self.errors.add(:email, 'de administrador inválido')
+        self.errors.add(:email, 'de administrador deve ter o domínio @leilaodogalpao.com.br')
       end
     end
   end
 
+  def not_admin_email
+    if self.email.present? && self.role.present? && self.role == "default"
+      if self.email =~ /\A[\w.+-]+@leilaodogalpao.com.br/
+        self.errors.add(:email, 'não pode pertencer a este domínio')
+      end
+    end
+  end
 
   def cpf_is_valid
     result = true

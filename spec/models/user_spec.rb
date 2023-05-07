@@ -21,7 +21,7 @@ RSpec.describe User, type: :model do
 
       # Assert
       expect(user.valid?).to eq false
-      expect(user.errors.full_messages[0]).to eq "E-mail de administrador inválido"
+      expect(user.errors.full_messages[0]).to eq "E-mail de administrador deve ter o domínio @leilaodogalpao.com.br"
     end
 
   end

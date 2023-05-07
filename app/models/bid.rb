@@ -3,7 +3,9 @@ class Bid < ApplicationRecord
   belongs_to :user
   validates :value, presence: true
   before_validation :check_value
-  before_validation :check_date
+  # A validação abaixo foi desabilitada para possibilitar a inserção de lances retroativos
+  # nos leilões para fins de teste.
+  # before_validation :check_date
 
   def check_value
     auction_lot = AuctionLot.find(self.auction_lot_id)

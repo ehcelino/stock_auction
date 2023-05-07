@@ -1,5 +1,6 @@
 class AuctionLotsController < ApplicationController
   before_action :admin_only, only: [:new, :create, :index]
+  before_action :set_auction_lot, only: [:show, :approved, :closed, :canceled]
 
 
   def new
@@ -22,11 +23,9 @@ class AuctionLotsController < ApplicationController
   end
 
   def show
-    @auction_lot = AuctionLot.find(params[:id])
   end
 
   def approved
-    @auction_lot = AuctionLot.find(params[:id])
     user = User.find(@auction_lot.created_by)
     if current_user == user
       flash[:danger] = 'Um lote não pode ser aprovado pelo usuário que o criou'
@@ -43,10 +42,34 @@ class AuctionLotsController < ApplicationController
     end
   end
 
+  def expired
+    @auction_lots = AuctionLot.where("end_date < ?", Date.today).approved
+  end
+
+  def closed
+    @auction_lot.closed!
+    flash[:success] = 'Lote finalizado com sucesso'
+    redirect_to @auction_lot
+  end
+
+  def canceled
+    @auction_lot.release_items
+    @auction_lot.canceled!
+    flash[:success] = 'Lote cancelado com sucesso'
+    redirect_to @auction_lot
+  end
+
+  def closed_list
+    @auction_lots = AuctionLot.closed
+  end
+
   private
 
   def auction_lot_params
     params.require(:auction_lot).permit(:code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, :status, :created_by, :approved_by)
   end
 
+  def set_auction_lot
+    @auction_lot = AuctionLot.find(params[:id])
+  end
 end

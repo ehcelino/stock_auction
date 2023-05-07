@@ -1,17 +1,12 @@
 class BidsController < ApplicationController
+  before_action :set_auction_lot, only: [:new, :create]
 
   def new
     @bid = Bid.new
-    @auction_lot = AuctionLot.find(params[:auction_lot_id])
   end
 
   def create
-    @auction_lot = AuctionLot.find(params[:auction_lot_id])
     @bid = Bid.new(bid_params)
-    # if @bid.value < @auction_lot.minimum_value
-    #   flash.now[:danger] = 'Valor menor que o mínimo necessário para o lance'
-    #   render :new
-    # end
     @bid.auction_lot = @auction_lot
     @bid.user = current_user
     if @bid.save
@@ -26,6 +21,10 @@ class BidsController < ApplicationController
 
   def bid_params
     params.require(:bid).permit(:value)
+  end
+
+  def set_auction_lot
+    @auction_lot = AuctionLot.find(params[:auction_lot_id])
   end
 
 end

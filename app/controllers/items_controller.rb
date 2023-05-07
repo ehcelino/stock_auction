@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     if @item.save
       flash[:success] = "Item cadastrado com sucesso"
-      redirect_to root_path
+      redirect_to @item
     else
       flash.now[:danger] = "Não foi possível cadastrar o item"
       @categories = Category.all
@@ -18,7 +18,9 @@ class ItemsController < ApplicationController
     end
   end
 
-
+  def show
+    @item = Item.find(params[:id])
+  end
 
   private
 

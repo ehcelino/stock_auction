@@ -10,20 +10,29 @@ class AuctionLot < ApplicationRecord
   has_many :bids
   has_many :users, through: :bids
 
-  enum status: { pending: 0, approved: 5, cancelled: 9 }
+  enum status: { pending: 0, approved: 5, closed: 7, canceled: 9 }
 
   def biddable?
-    self.status == 'approved' && self.end_date > Date.today
+    self.status == 'approved' && self.end_date > Date.today && self.start_date < Date.today
   end
 
   def minimum_value
     if self.bids.none?
-      return self.min_bid_amount + 1
+      self.min_bid_amount + 1
     else
-      return self.bids.last.value + self.min_bid_difference
+      self.bids.last.value + self.min_bid_difference
     end
   end
 
+  def release_items
+    if self.items.count > 0
+      self.lot_items.destroy_all
+    end
+  end
+
+  def expired?
+    self.end_date < Date.today
+  end
 
   private
 

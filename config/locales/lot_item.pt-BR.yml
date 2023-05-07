@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      lot_item: 'Item'
+    attributes:
+      lot_item:
+        auction_lot: 'Lote'
+        auction_lot_id: 'Lote'
+        item: 'Item'
+        item_id: 'Item'

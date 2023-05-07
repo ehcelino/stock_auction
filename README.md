@@ -1,3 +1,8 @@
+#stock_auction
+
+###Documento usado durante o desenvolvimento do aplicativo:
+[documento do google](https://docs.google.com/document/d/1nbUgFEDsCoDWohQGvsMc1p699bbuLrHR4jbBfwN2npI/edit?usp=sharing)
+
 
 App gerado com o comando `rails new stock_auction --minimal -j esbuild --css bootstrap`
 
@@ -17,13 +22,13 @@ Adicionados os comandos
 ao gemfile e executado `bundle install`
 em seguida, executado `rails generate rspec:install`
 
-adicionado
+no arquivo `rails_helper.rb` adicionado
 ```
 config.before(type: :system) do
   driven_by(:rack_test)
 end
 ```
-em `rails_helper.rb`
+
 
 Feito um teste inicial de acesso do sistema.
 
@@ -51,11 +56,6 @@ Adicionado arquivo `config/locales/user.pt-BR.yml`
 
 Executado comando `rails g devise:views`
 
-Em `config/application.rb` ativada a linha
-`require "active_storage/engine"`
-
-Executado comando `bin/rails active_storage:install`
-
 Criado modelo de categoria com o comando
 `rails g model category name`
 
@@ -66,6 +66,14 @@ Criada a pasta `spec/support` e adicionado o arquivo `devise_methods.rb`
 
 Em `spec/rails_helper`, habilitada a linha
 `Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }`
+
+Em `config/application.rb` ativada a linha
+`require "active_storage/engine"`
+
+Executado comando `bin/rails active_storage:install`
+
+No arquivo `config/application.rb`, habilitada a linha
+`require "active_storage/engine"`
 
 Criado o arquivo `config/storage.yml`
 

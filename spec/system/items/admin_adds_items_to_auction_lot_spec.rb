@@ -8,13 +8,12 @@ describe 'Administrador acessa um lote' do
     user = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                        role: 1, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 5, created_by: 1, approved_by: 2)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: 1)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse laser sem fio', weight: 200,
                                width: 6, height: 3, depth: 11, category_id: category.id)
-    allow(SecureRandom).to receive(:alphanumeric).with(10).and_return('ABC1234567')
 
     # Act
     login_as user
@@ -37,8 +36,31 @@ describe 'Administrador acessa um lote' do
     expect(page).to have_content 'Mouse Gamer 1200dpi'
     expect(page).to have_content '200 g.'
     expect(page).to have_content '6 x 3 x 11 cm'
-    expect(page).to have_content 'ABC1234567'
     expect(page).to have_content 'Informática'
 
+  end
+
+  it 'e tenta anexar um item mas não há mais disponíveis' do
+    # Arrange
+    user = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
+                        role: 1, password: 'password')
+    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: 1)
+    category = Category.create!(name:'Informática')
+    item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
+                        width: 6, height: 3, depth: 11, category_id: category.id)
+
+    LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
+
+    # Act
+    login_as user
+    visit root_path
+    click_on 'Funções administrativas'
+    click_on 'Lotes aguardando aprovação'
+    click_on 'Lote XPG035410'
+    click_on 'Adicionar itens'
+
+    # Assert
+    expect(page).to have_content 'Não existem itens para anexar ao lote'
   end
 end

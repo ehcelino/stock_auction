@@ -1,0 +1,20 @@
+<h3>Lotes expirados</h3>
+
+<div class="mb-3">
+  <% if @auction_lots.any? %>
+    <% @auction_lots.each do |lot| %>
+      <div class="mb-2">
+        <%= link_to auction_lot_path(lot.id), class:"nav-link" do %>
+          <span>Lote </span>
+          <%= lot.code %>
+        <% end %>
+        <span>Iniciado em: </span>
+        <%= I18n.localize(lot.start_date) %>
+        <span> Finalizado em: </span>
+        <%= I18n.localize(lot.end_date) %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Nenhum lote</p>
+  <% end %>
+</div>

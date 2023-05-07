@@ -1,0 +1,12 @@
+<%= form_with model: @blocked_cpf do |f| %>
+  <%= render "form_errors", object: @blocked_cpf %>
+
+  <div class="field mb-3">
+    <%= f.label :cpf, class:"form-label" %>
+    <%= f.number_field :cpf, autofocus: true, class:"form-control" %>
+  </div>
+
+  <div class="actions mb-3">
+    <%= f.submit "Cadastrar", class:"btn btn-secondary" %>
+  </div>
+<% end %>

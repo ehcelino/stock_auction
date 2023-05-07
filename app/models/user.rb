@@ -6,10 +6,12 @@ class User < ApplicationRecord
 
   enum role: { default: 0, admin: 1 }
 
+  enum status: { normal: 0, blocked: 5 }
 
   validate :cpf_is_valid
   validate :email_for_admin
   validate :not_admin_email
+  validate :cpf_is_blocked
   validates :email, :cpf, uniqueness: true
   validates :name, presence: true
   has_many :bids
@@ -25,6 +27,16 @@ class User < ApplicationRecord
 
   def formatted_cpf
     self.cpf.to_s.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
+  end
+
+  def block_user
+    list = BlockedCpf.all.map {|x| x.cpf}
+    unless list.count == 0
+      if list.include?(self.cpf)
+        self.status = 5
+        # self.save!
+      end
+    end
   end
 
   private
@@ -72,5 +84,15 @@ class User < ApplicationRecord
       self.errors.add(:cpf, "não pode ficar em branco")
     end
   end
+
+  def cpf_is_blocked
+    list = BlockedCpf.all.map {|x| x.cpf}
+    unless list.count == 0
+      if list.include?(self.cpf)
+        self.errors.add(:cpf, 'está bloqueado para criação de nova conta')
+      end
+    end
+  end
+
 
 end

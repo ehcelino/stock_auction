@@ -1,0 +1,13 @@
+<h3>Lista de CPFs bloqueados no sistema</h3>
+<p>
+Os usuários que tentarem criar uma conta no sistema com os cpfs abaixo serão
+impedidos, e aqueles que já tem conta terão seu acesso limitado.
+</p>
+<p>
+<%= link_to 'Adicionar CPF à lista de bloqueio', new_blocked_cpf_path %>
+</p>
+<% @blocked_cpfs.each do |bc| %>
+  <p>
+    <%= bc.formatted_cpf %>
+  </p>
+<% end %>

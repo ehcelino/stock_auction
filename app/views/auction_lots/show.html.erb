@@ -62,7 +62,7 @@
 
 <% end %>
 
-<% if !current_user.nil? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" %>
+<% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" %>
   <h3>Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
   <% if @auction_lot.bids.count == 0 %>
     <%= button_to 'Cancelar o lote', canceled_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
@@ -73,6 +73,6 @@
 
 
 
-<% if !current_user.nil? && @auction_lot.biddable? %>
+<% if user_signed_in? && @auction_lot.biddable? && current_user.status != "blocked" %>
   <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-secondary" %>
 <% end %>

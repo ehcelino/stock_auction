@@ -12,4 +12,5 @@ Rails.application.routes.draw do
     get 'expired', on: :collection
     get 'closed_list', on: :collection
   end
+  resources :blocked_cpfs, only: [:new, :create, :index]
 end

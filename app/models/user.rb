@@ -16,7 +16,17 @@ class User < ApplicationRecord
   validates :name, presence: true
   has_many :bids
   has_many :auction_lots, through: :bids
+  has_many :favorites
 
+
+  def is_favorite?(auction_lot)
+    self.favorites.each do |fav|
+      if auction_lot.id == fav.auction_lot_id
+        return true
+      end
+    end
+    false
+  end
 
   def user_email
     if self.admin?

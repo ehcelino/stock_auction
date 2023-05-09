@@ -1,6 +1,6 @@
 class AuctionLotsController < ApplicationController
   before_action :admin_only, only: [:new, :create, :index]
-  before_action :set_auction_lot, only: [:show, :approved, :closed, :canceled]
+  before_action :set_auction_lot, only: [:show, :approved, :closed, :canceled, :favorite, :unfavorite]
 
 
   def new
@@ -61,6 +61,19 @@ class AuctionLotsController < ApplicationController
 
   def closed_list
     @auction_lots = AuctionLot.closed
+  end
+
+  def favorite
+    Favorite.create!(user_id: current_user.id, auction_lot_id: @auction_lot.id)
+    flash[:success] = 'Lote adicionado aos favoritos'
+    redirect_to @auction_lot
+  end
+
+  def unfavorite
+    favorites = Favorite.where(user_id: current_user.id, auction_lot_id: @auction_lot.id)
+    favorites[0].destroy
+    flash[:success] = 'Lote removido dos favoritos'
+    redirect_to @auction_lot
   end
 
   private

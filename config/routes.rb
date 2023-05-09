@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     post 'canceled', on: :member
     get 'expired', on: :collection
     get 'closed_list', on: :collection
+    post 'favorite', on: :member
+    delete 'unfavorite', on: :member
   end
   resources :blocked_cpfs, only: [:new, :create, :index]
   get 'search', to: 'home#search'

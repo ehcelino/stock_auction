@@ -64,15 +64,29 @@
 
 <% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" %>
   <h3>Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
-  <% if @auction_lot.bids.count == 0 %>
-    <%= button_to 'Cancelar o lote', canceled_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
-  <% else %>
-    <%= button_to 'Finalizar o lote', closed_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
-  <% end %>
+  <div class="mb-3">
+    <% if @auction_lot.bids.count == 0 %>
+      <%= button_to 'Cancelar o lote', canceled_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
+    <% else %>
+      <%= button_to 'Finalizar o lote', closed_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
+    <% end %>
+  </div>
 <% end %>
 
 
 
 <% if user_signed_in? && @auction_lot.biddable? && current_user.status != "blocked" %>
-  <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-secondary" %>
+  <div class="mb-3">
+    <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-secondary" %>
+  </div>
+<% end %>
+
+<% if user_signed_in? && current_user.status != "blocked" && @auction_lot.status != "closed" %>
+  <div class="mb-3">
+    <% if current_user.is_favorite?(@auction_lot) %>
+      <%= button_to "Remover dos favoritos", unfavorite_auction_lot_path(@auction_lot), method: :delete, class:"btn btn-secondary" %>
+    <% else %>
+      <%= button_to "Adicionar aos favoritos", favorite_auction_lot_path(@auction_lot), method: :post, class:"btn btn-secondary" %>
+    <% end %>
+  </div>
 <% end %>

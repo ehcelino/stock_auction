@@ -16,3 +16,18 @@
     <p>Valor: <%= number_to_currency(al.bids.last.value) %> </p>
   <% end %>
 <% end %>
+
+<h3>Lotes favoritos</h3>
+<% if current_user.favorites.any? %>
+  <% current_user.favorites.each do |f| %>
+    <div class="mb-3">
+      <% lot = AuctionLot.find(f.auction_lot_id) %>
+      <%= link_to lot, class:"nav-link" do %>
+        Lote <%= lot.code %>
+      <% end %>
+      <% if lot.end_date < Date.today %>
+        (vencido)
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

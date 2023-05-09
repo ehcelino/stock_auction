@@ -8,26 +8,30 @@
 </div>
 
 <% if current_user.auction_lots.closed.count > 0 %>
-  <h3>Leilões vencedores</h3>
-  <% current_user.auction_lots.closed.each do |al| %>
-    <%= link_to al, class:"nav-link" do %>
-      <h5>Lote: <%= al.code %> </h5>
+  <p class="mb-3">
+    <h3>Leilões vencedores</h3>
+    <% current_user.auction_lots.closed.each do |al| %>
+      <%= link_to al, class:"nav-link" do %>
+        <h5>Lote: <%= al.code %> </h5>
+      <% end %>
+      <p>Valor: <%= number_to_currency(al.bids.last.value) %> </p>
     <% end %>
-    <p>Valor: <%= number_to_currency(al.bids.last.value) %> </p>
-  <% end %>
+  </div>
 <% end %>
 
-<h3>Lotes favoritos</h3>
 <% if current_user.favorites.any? %>
-  <% current_user.favorites.each do |f| %>
-    <div class="mb-3">
-      <% lot = AuctionLot.find(f.auction_lot_id) %>
-      <%= link_to lot, class:"nav-link" do %>
-        Lote <%= lot.code %>
-      <% end %>
-      <% if lot.end_date < Date.today %>
-        (vencido)
-      <% end %>
-    </div>
-  <% end %>
+  <div class="mb=3">
+    <h3>Lotes favoritos</h3>
+    <% current_user.favorites.each do |f| %>
+      <div class="mb-3">
+        <% lot = AuctionLot.find(f.auction_lot_id) %>
+        <%= link_to lot, class:"nav-link" do %>
+          Lote <%= lot.code %>
+        <% end %>
+        <% if lot.end_date < Date.today %>
+          (vencido)
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>

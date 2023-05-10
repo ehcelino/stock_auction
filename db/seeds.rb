@@ -11,6 +11,10 @@ admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodo
                       role: 1, password: 'password')
 user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                    role: 0, password: 'password')
+user = User.create!(name: 'Fernando', cpf: 12920704044, email: 'fernando@ig.com.br',
+                    role: 0, password: 'password')
+
+BlockedCpf.create!(cpf: 12920704044)
 
 Category.create!(name:'Geral')
 Category.create!(name:'Informática')
@@ -59,3 +63,6 @@ Bid.create!(auction_lot_id: auction_lot_3.id, user_id: user.id, value: 101)
 Bid.create!(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 101)
 
 auction_lot_6.closed!
+
+Qna.create!(auction_lot_id: auction_lot_1.id, question: 'Este lote será entregue em minha residência?',
+            answer: 'Não, ele deve ser retirado na empresa.', user_id: admin_1.id)

@@ -129,7 +129,7 @@ describe 'Entra no sistema e busca' do
     # Act
     visit root_path
     within('nav') do
-    fill_in 'search', with: 'DNS320013'
+    fill_in 'search', with: ''
     click_on 'Buscar'
     end
 

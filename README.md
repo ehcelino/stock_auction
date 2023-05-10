@@ -1,5 +1,34 @@
 #stock_auction
 
+Projeto de leilão de lotes
+Usa bootstrap para estilos e active storage para imagens dos produtos.
+
+###Orientações
+
+Na página inicial são listados os lotes em andamento e os lotes futuros. Clicando no código de um lote o usuário vê detalhes daquele lote, seus ítens e perguntas e respostas se houver.
+Na barra de navegação há um formulário de busca onde o usuário pode inserir o código (parcial ou completo) de um lote, ou o nome (também parcial ou completo) de um produto.
+Ao tentar fazer um cadastro é verificado o CPF do usuário, se ele consta da lista de CPFs banidos o cadastro é negado. Se o usuário logar com um CPF que foi banido posteriormente à criação da conta, uma mensagem persiste na tela e as funções do sistema lhe são negadas.
+Um usuário logado no sistema pode dar um lance em leilões correntes, adicionar um leilão aos favoritos ou fazer uma pergunta em um lote.
+Ele também pode ver uma lista de lotes finalizados, e ao clicar em seu nome e email na barra de navegação ele vê seus dados bem como os lotes onde ele foi vencedor.
+Um administrador ao logar no sistema vê um dropdown de nome "Funções administrativas", com as seguintes opções:
+
+* Cadastrar item - cadastra um item que pode ser adicionado a um lote
+* Novo lote para leilão - cria um novo lote
+* Lotes aguardando aprovação - lista os lotes que ainda não foram aprovados
+* Lotes expirados - lista os lotes expirados aguardando um administrador
+* Responder perguntas - lista as perguntas dos usuários em diferentes lotes
+* Bloqueio de CPF - lista os CPFs bloqueados e permite adicionar outros à lista
+
+Usuários adicionados ao banco de dados a partir do arquivo seeds (todos usam a senha "password"):
+administradores:
+john@leilaodogalpao.com.br
+daniel@leilaodogalpao.com.br
+usuários:
+michael@ig.com.br
+fernando@ig.com.br
+
+
+
 ###Documento usado durante o desenvolvimento do aplicativo:
 [documento do google](https://docs.google.com/document/d/1nbUgFEDsCoDWohQGvsMc1p699bbuLrHR4jbBfwN2npI/edit?usp=sharing)
 
@@ -28,9 +57,6 @@ config.before(type: :system) do
   driven_by(:rack_test)
 end
 ```
-
-
-Feito um teste inicial de acesso do sistema.
 
 instalação da gem Devise com os comandos:
 
@@ -71,9 +97,6 @@ Em `config/application.rb` ativada a linha
 `require "active_storage/engine"`
 
 Executado comando `bin/rails active_storage:install`
-
-No arquivo `config/application.rb`, habilitada a linha
-`require "active_storage/engine"`
 
 Criado o arquivo `config/storage.yml`
 

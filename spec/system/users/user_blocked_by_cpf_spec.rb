@@ -80,5 +80,31 @@ describe 'Administrador bloqueia um CPF' do
     expect(page).not_to have_link 'Dar um lance'
   end
 
+  it 'e usuário não pode fazer perguntas' do
+    # Arrange
+    User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
+                role: 1, password: 'password')
+    User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
+                role: 1, password: 'password')
+    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
+                              min_bid_amount: 300, min_bid_difference: 50, status: 5, created_by: 1, approved_by: 2)
+    category = Category.create!(name:'Informática')
+    item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
+                        width: 6, height: 3, depth: 11, category_id: category.id)
+    LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
+    user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
+                        role: 0, password: 'password')
+    BlockedCpf.create!(cpf: 62059576040)
+
+    # Act
+    login_as user
+    visit root_path
+    click_on 'Lote XPG035410'
+
+    # Assert
+    expect(page).to have_content 'Seu usuário está bloqueado para as funções do site. Fale com seu administrador.'
+    expect(page).not_to have_link 'Fazer uma pergunta'
+  end
+
 
 end

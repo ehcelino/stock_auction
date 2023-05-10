@@ -9,8 +9,9 @@ class User < ApplicationRecord
   enum status: { normal: 0, blocked: 5 }
 
   validate :cpf_is_valid
-  validate :email_for_admin
-  validate :not_admin_email
+  # validate :email_for_admin
+  # validate :not_admin_email
+  before_validation :set_admin_by_email_domain, on: :create
   validate :cpf_is_blocked
   validates :email, :cpf, uniqueness: true
   validates :name, presence: true
@@ -63,6 +64,14 @@ class User < ApplicationRecord
     if self.email.present? && self.role.present? && self.role == "default"
       if self.email =~ /\A[\w.+-]+@leilaodogalpao.com.br/
         self.errors.add(:email, 'não pode pertencer a este domínio')
+      end
+    end
+  end
+
+  def set_admin_by_email_domain
+    if self.email.present?
+      if self.email =~ /\A[\w.+-]+@leilaodogalpao.com.br/
+        self.role = 1
       end
     end
   end

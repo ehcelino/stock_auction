@@ -68,7 +68,7 @@ describe 'Usuário acessa o sistema e se cadastra' do
 
   end
 
-  it 'com email de administrador sem ter as permissões necessárias' do
+  it 'com email de administrador' do
 
     # Arrange
 
@@ -83,9 +83,11 @@ describe 'Usuário acessa o sistema e se cadastra' do
     click_on 'Criar conta'
 
     # Assert
-    expect(page).to have_content 'Não foi possível salvar usuário'
-    expect(page).to have_content 'E-mail não pode pertencer a este domínio'
-
+    expect(page).to have_content 'Bem vindo! Você realizou seu registro com sucesso.'
+    within('nav') do
+      expect(page).to have_content 'João - joao@leilaodogalpao.com.br (ADMIN)'
+      expect(page).to have_button 'Sair'
+    end
   end
 
 end

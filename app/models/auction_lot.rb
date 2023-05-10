@@ -9,6 +9,7 @@ class AuctionLot < ApplicationRecord
   has_many :items, through: :lot_items
   has_many :bids
   has_many :users, through: :bids
+  has_many :qnas
 
   enum status: { pending: 0, approved: 5, closed: 7, canceled: 9 }
 

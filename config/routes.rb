@@ -13,7 +13,14 @@ Rails.application.routes.draw do
     get 'closed_list', on: :collection
     post 'favorite', on: :member
     delete 'unfavorite', on: :member
+    resources :qnas, only: [:new, :create] do
+      get 'answer', on: :member
+      post 'answered', on: :member
+      post 'hidden', on: :member
+    end
   end
   resources :blocked_cpfs, only: [:new, :create, :index]
   get 'search', to: 'home#search'
+  get 'qna/index', to: 'qnas#index'
+  post 'answerquestion', to: 'qnas#answer'
 end

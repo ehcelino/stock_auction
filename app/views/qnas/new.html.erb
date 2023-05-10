@@ -1,0 +1,14 @@
+<h3>Nova pergunta</h3>
+
+<%= form_with model: [ @auction_lot, @qna ] do |f| %>
+  <%= render "form_errors", object: @qna %>
+
+  <div class="field mb-3">
+    <%= f.label :question, class:"form-label" %>
+    <%= f.text_field :question, autofocus: true, class:"form-control" %>
+  </div>
+
+   <div class="actions mb-3">
+    <%= f.submit "Cadastrar", class:"btn btn-secondary" %>
+  </div>
+<% end %>

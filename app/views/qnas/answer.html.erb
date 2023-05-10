@@ -1,0 +1,18 @@
+<h3>Resposta</h3>
+
+<%= form_with url: answered_auction_lot_qna_path do |f| %>
+  <%= render "form_errors", object: @qna %>
+
+  <div class="field mb-3">
+    Pergunta: <%= @qna.question %>
+  </div>
+
+  <div class="field mb-3">
+    <%= f.label :answer, "Resposta", class:"form-label" %>
+    <%= f.text_field :answer, autofocus: true, class:"form-control" %>
+  </div>
+
+   <div class="actions mb-3">
+    <%= f.submit "Cadastrar", class:"btn btn-secondary" %>
+  </div>
+<% end %>

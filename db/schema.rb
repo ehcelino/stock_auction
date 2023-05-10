@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_08_214810) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_09_152527) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -105,6 +105,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_214810) do
     t.index ["item_id"], name: "index_lot_items_on_item_id"
   end
 
+  create_table "qnas", force: :cascade do |t|
+    t.string "question"
+    t.string "answer"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "auction_lot_id", null: false
+    t.integer "status", default: 0
+    t.index ["auction_lot_id"], name: "index_qnas_on_auction_lot_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -129,4 +140,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_214810) do
   add_foreign_key "items", "categories"
   add_foreign_key "lot_items", "auction_lots"
   add_foreign_key "lot_items", "items"
+  add_foreign_key "qnas", "auction_lots"
 end

@@ -1,0 +1,21 @@
+<div class="mb-3">
+  <h3>Questões de usuários</h3>
+</div>
+
+<% if @qnas.any? %>
+  <% @qnas.each do |qna| %>
+    <div class="mb-3">
+      <p>Lote <%= qna.auction_lot.code %></p>
+      <p>Questão: <%= qna.question %></p>
+      <% if qna.status == "hidden" %>
+        <span class="text-danger">Pergunta oculta por administrador</span>
+      <% end %>
+      <% if qna.answer.present? %>
+        <p>Resposta: <%= qna.answer %></p>
+      <% else %>
+        <p><%= link_to "Responder", answer_auction_lot_qna_path(qna.auction_lot_id, qna), id: dom_id(qna) %> </p>
+      <% end %>
+      <%= button_to "Ocultar", hidden_auction_lot_qna_path(qna.auction_lot_id, qna), method: :post, class:"btn btn-secondary", id: "ocultar-#{dom_id(qna)}" %>
+    </div>
+  <% end %>
+<% end %>

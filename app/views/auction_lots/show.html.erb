@@ -73,6 +73,20 @@
   </div>
 <% end %>
 
+<% if @auction_lot.qnas.present? %>
+  <h4>Perguntas e respostas</h4>
+  <div class="mb-3">
+    <% @auction_lot.qnas.each do |qna| %>
+       <% if qna.status != 'hidden' %>
+        <p>Questão: <%= qna.question %></p>
+        <p>Resposta: <%= qna.answer %> </p>
+        <% if qna.user_id.present? %>
+          <p>Respondida por: <%= User.find(qna.user_id).email %> </p>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
 
 
 <% if user_signed_in? && @auction_lot.biddable? && current_user.status != "blocked" %>
@@ -90,3 +104,11 @@
     <% end %>
   </div>
 <% end %>
+
+<% if user_signed_in? && current_user.status != "blocked" && @auction_lot.biddable? %>
+  <div class="mb-3">
+    <%= link_to "Fazer uma pergunta", new_auction_lot_qna_path(@auction_lot), class:"btn btn-secondary" %>
+  </div>
+<% end %>
+
+

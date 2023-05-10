@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    models:
+      qna: 'Pergunta'
+    attributes:
+      qna:
+        question: 'Pergunta'
+        answer: 'Resposta'

@@ -4,7 +4,7 @@ Os usuários que tentarem criar uma conta no sistema com os cpfs abaixo serão
 impedidos, e aqueles que já tem conta terão seu acesso limitado.
 </p>
 <p>
-<%= link_to 'Adicionar CPF à lista de bloqueio', new_blocked_cpf_path %>
+<%= link_to 'Adicionar CPF à lista de bloqueio', new_blocked_cpf_path, class:"clean-link" %>
 </p>
 <% @blocked_cpfs.each do |bc| %>
   <p>

@@ -6,7 +6,7 @@
   <% @qnas.each do |qna| %>
     <div class="mb-3">
       <p>Lote <%= qna.auction_lot.code %></p>
-      <p>Questão: <%= qna.question %></p>
+      <p>Pergunta: <%= qna.question %></p>
       <% if qna.status == "hidden" %>
         <span class="text-danger">Pergunta oculta por administrador</span>
       <% end %>

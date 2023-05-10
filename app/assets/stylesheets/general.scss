@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
+
 .navbar button {
   border:0;
   background-color:transparent;
@@ -9,4 +11,17 @@
 .img-resize {
   width: 100px;
   height: auto;
+}
+
+.main-brand {
+  font-family: 'Patua One', cursive;
+}
+
+h3 {
+  font-family: 'Patua One', cursive;
+}
+
+.clean-link {
+  color: black;
+  display: block;
 }

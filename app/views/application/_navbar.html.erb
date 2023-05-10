@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <i class="bi bi-hammer"></i><span>&nbsp;&nbsp;</span>
-    <span class="navbar-brand mb-0 h1"><%= link_to "Leilão do Galpão", root_path, class:"nav-link" %></span>
+    <span class="navbar-brand mb-0 h1 main-brand"><%= link_to "Leilão do Galpão", root_path, class:"nav-link" %></span>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <% if user_signed_in? %>
         <li class="nav-item">
@@ -29,8 +29,8 @@
     <div class="d-flex">
       <%= form_with url: search_path, method: :get, class:"d-flex" do |f| %>
         <%# f.label :query, 'Search' %>
-        <%= f.text_field :query, placeholder: 'código do lote ou produto', class:"form-control me-2 form-control-sm", id:"search" %>
-        <%= f.submit 'Buscar', class:"btn btn-secondary btn-sm" %>
+        <%= f.text_field :query, placeholder: 'código do lote ou produto', class:"form-control me-2", id:"search" %>
+        <%= f.submit 'Buscar', class:"btn btn-secondary " %>
       <% end %>
       <% if user_signed_in? %>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">

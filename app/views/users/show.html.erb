@@ -11,7 +11,7 @@
   <p class="mb-3">
     <h3>Leilões vencedores</h3>
     <% current_user.auction_lots.closed.each do |al| %>
-      <%= link_to al, class:"nav-link" do %>
+      <%= link_to al, class:"clean-link" do %>
         <h5>Lote: <%= al.code %> </h5>
       <% end %>
       <p>Valor: <%= number_to_currency(al.bids.last.value) %> </p>
@@ -25,7 +25,7 @@
     <% current_user.favorites.each do |f| %>
       <div class="mb-3">
         <% lot = AuctionLot.find(f.auction_lot_id) %>
-        <%= link_to lot, class:"nav-link" do %>
+        <%= link_to lot, class:"clean-link" do %>
           Lote <%= lot.code %>
         <% end %>
         <% if lot.end_date < Date.today %>

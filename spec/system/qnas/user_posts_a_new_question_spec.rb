@@ -33,7 +33,7 @@ describe 'Usuário entra no sistema' do
 
     # Assert
     expect(page).to have_content 'Sua pergunta foi registrada'
-    expect(page).to have_content 'Questão: Este lote será entregue em minha residência?'
+    expect(page).to have_content 'Pergunta: Este lote será entregue em minha residência?'
     expect(page).to have_content 'Resposta:'
 
   end
@@ -72,7 +72,7 @@ describe 'Usuário entra no sistema' do
 
     # Assert
     expect(page).to have_content 'Resposta gravada com sucesso'
-    expect(page).to have_content 'Questão: Este lote será entregue em minha residência?'
+    expect(page).to have_content 'Pergunta: Este lote será entregue em minha residência?'
     expect(page).to have_content 'Resposta: Não, ele deve ser retirado na empresa.'
 
   end
@@ -108,7 +108,7 @@ describe 'Usuário entra no sistema' do
 
     # Assert
     expect(page).to have_content 'Perguntas e respostas'
-    expect(page).to have_content 'Questão: Este lote será entregue em minha residência?'
+    expect(page).to have_content 'Pergunta: Este lote será entregue em minha residência?'
     expect(page).to have_content 'Resposta: Não, ele deve ser retirado na empresa.'
     expect(page).to have_content 'Respondida por: john@leilaodogalpao.com.br'
 

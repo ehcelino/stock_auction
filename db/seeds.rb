@@ -11,7 +11,7 @@ admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodo
                       role: 1, password: 'password')
 user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                    role: 0, password: 'password')
-user = User.create!(name: 'Fernando', cpf: 12920704044, email: 'fernando@ig.com.br',
+user_2 = User.create!(name: 'Fernando', cpf: 12920704044, email: 'fernando@ig.com.br',
                     role: 0, password: 'password')
 
 BlockedCpf.create!(cpf: 12920704044)

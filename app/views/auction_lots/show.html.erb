@@ -15,51 +15,55 @@
 </p>
 
 <% if @auction_lot.status == "closed" %>
-  <h3>Este lote foi finalizado. Usuário vencedor: <%= @auction_lot.users.last.name %> - <%= @auction_lot.users.last.email %></h3>
+  <div class="mb-3">
+    <h3>Este lote foi finalizado. Usuário vencedor: <%= @auction_lot.users.last.name %> - <%= @auction_lot.users.last.email %></h3>
+  </div>
 <% end %>
 
 
-<% if @auction_lot.items.present? %>
-  <h4>Itens deste Lote</h4>
-  <table class="table">
-    <tr>
-      <th>Imagem</th>
-      <th>Nome</th>
-      <th>Descrição</th>
-      <th>Peso</th>
-      <th>Dimensões</th>
-      <th>Código</th>
-      <th>Categoria</th>
-    </tr>
-    <% @auction_lot.items.each do |item| %>
+<div class="mb-3">
+  <% if @auction_lot.items.present? %>
+    <h3>Itens deste Lote</h3>
+    <table class="table">
       <tr>
-        <% if item.image.attached? %>
-          <td><%= image_tag item.image, class:"img-resize" %> </td>
-        <% else %>
-          <td></td>
-        <% end %>
-        <td><%= item.name %></td>
-        <td><%= item.description %></td>
-        <td><%= item.weight %> g.</td>
-        <td><%= item.width %> x <%= item.height %> x <%= item.depth %> cm</td>
-        <td><%= item.code %></td>
-        <td><%= item.category.name %></td>
+        <th>Imagem</th>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Peso</th>
+        <th>Dimensões</th>
+        <th>Código</th>
+        <th>Categoria</th>
       </tr>
-    <% end %>
-  </table>
-<% else %>
-  <h4>Este lote ainda não possui itens cadastrados</h4>
-<% end %>
+      <% @auction_lot.items.each do |item| %>
+        <tr>
+          <% if item.image.attached? %>
+            <td><%= image_tag item.image, class:"img-resize" %> </td>
+          <% else %>
+            <td></td>
+          <% end %>
+          <td><%= item.name %></td>
+          <td><%= item.description %></td>
+          <td><%= item.weight %> g.</td>
+          <td><%= item.width %> x <%= item.height %> x <%= item.depth %> cm</td>
+          <td><%= item.code %></td>
+          <td><%= item.category.name %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <h3>Este lote ainda não possui itens cadastrados</h3>
+  <% end %>
+</div>
 
 <% if !current_user.nil? && current_user.admin? %>
-
-  <% if @auction_lot.status == "pending" %>
-    <div class="d-flex gap-3">
-      <%= link_to 'Adicionar itens', new_auction_lot_lot_item_path(@auction_lot), class:"btn btn-secondary" %>
-      <%= button_to 'Aprovar lote', approved_auction_lot_path, class:"btn btn-secondary" %>
-    </div>
-  <% end %>
-
+  <div class="mb-3">
+    <% if @auction_lot.status == "pending" %>
+      <div class="d-flex gap-3">
+        <%= link_to 'Adicionar itens', new_auction_lot_lot_item_path(@auction_lot), class:"btn btn-secondary" %>
+        <%= button_to 'Aprovar lote', approved_auction_lot_path, class:"btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
 <% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" %>
@@ -72,22 +76,6 @@
     <% end %>
   </div>
 <% end %>
-
-<% if @auction_lot.qnas.present? %>
-  <h4>Perguntas e respostas</h4>
-  <div class="mb-3">
-    <% @auction_lot.qnas.each do |qna| %>
-       <% if qna.status != 'hidden' %>
-        <p>Questão: <%= qna.question %></p>
-        <p>Resposta: <%= qna.answer %> </p>
-        <% if qna.user_id.present? %>
-          <p>Respondida por: <%= User.find(qna.user_id).email %> </p>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
-
 
 <% if user_signed_in? && @auction_lot.biddable? && current_user.status != "blocked" %>
   <div class="mb-3">
@@ -105,10 +93,25 @@
   </div>
 <% end %>
 
+<% if @auction_lot.qnas.present? %>
+  <h3>Perguntas e respostas</h3>
+  <div class="mb-3">
+    <% @auction_lot.qnas.each do |qna| %>
+       <% if qna.status != 'hidden' %>
+        <p>Pergunta: <%= qna.question %></p>
+        <p>Resposta: <%= qna.answer %> </p>
+        <% if qna.user_id.present? %>
+          <p>Respondida por: <%= User.find(qna.user_id).email %> </p>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
 <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.biddable? %>
   <div class="mb-3">
     <%= link_to "Fazer uma pergunta", new_auction_lot_qna_path(@auction_lot), class:"btn btn-secondary" %>
   </div>
 <% end %>
 
-
+<%= link_to "Voltar", :back %>

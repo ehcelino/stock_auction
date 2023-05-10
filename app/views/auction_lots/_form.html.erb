@@ -1,31 +1,71 @@
 <%= form_with model: auction_lot do |f| %>
   <%= render "form_errors", object: auction_lot %>
 
+  <% invalid = auction_lot.errors.include?(:code) %>
   <div class="field mb-3">
     <%= f.label :code, class:"form-label" %>
-    <%= f.text_field :code, autofocus: true, placeholder:"XXX000000", class:"form-control" %>
+    <%= f.text_field :code, autofocus: true, placeholder:"XXX000000", class:"form-control #{'is-invalid' if invalid}" %>
+    <% if invalid %>
+      <div class="invalid-feedback d-block">
+        <% auction_lot.errors.full_messages_for(:code).each do |error_message| %>
+          <%= error_message %>.
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
+  <% invalid = auction_lot.errors.include?(:start_date) %>
   <div class="field mb-3">
     <%= f.label :start_date, class:"form-label" %>
-    <%= f.date_field :start_date, class:"form-control" %>
+    <%= f.date_field :start_date, class:"form-control #{'is-invalid' if invalid}" %>
+    <% if invalid %>
+      <div class="invalid-feedback d-block">
+        <% auction_lot.errors.full_messages_for(:start_date).each do |error_message| %>
+          <%= error_message %>.
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
+  <% invalid = auction_lot.errors.include?(:end_date) %>
   <div class="field mb-3">
     <%= f.label :end_date, class:"form-label" %>
-    <%= f.date_field :end_date, class:"form-control" %>
+    <%= f.date_field :end_date, class:"form-control #{'is-invalid' if invalid}" %>
+    <% if invalid %>
+      <div class="invalid-feedback d-block">
+        <% auction_lot.errors.full_messages_for(:end_date).each do |error_message| %>
+          <%= error_message %>.
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
+    <% invalid = auction_lot.errors.include?(:min_bid_amount) %>
   <div class="field mb-3">
     <%= f.label :min_bid_amount, class:"form-label" %>
     <span>R$</span>
-    <%= f.number_field :min_bid_amount, class:"form-control" %>
+    <%= f.number_field :min_bid_amount, class:"form-control #{'is-invalid' if invalid}" %>
+    <% if invalid %>
+      <div class="invalid-feedback d-block">
+        <% auction_lot.errors.full_messages_for(:min_bid_amount).each do |error_message| %>
+          <%= error_message %>.
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
+  <% invalid = auction_lot.errors.include?(:min_bid_difference) %>
   <div class="field mb-3">
     <%= f.label :min_bid_difference, class:"form-label" %>
     <span>R$</span>
-    <%= f.number_field :min_bid_difference, class:"form-control" %>
+    <%= f.number_field :min_bid_difference, class:"form-control #{'is-invalid' if invalid}" %>
+    <% if invalid %>
+      <div class="invalid-feedback d-block">
+        <% auction_lot.errors.full_messages_for(:min_bid_difference).each do |error_message| %>
+          <%= error_message %>.
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <div class="field mb-3">

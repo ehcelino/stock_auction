@@ -1,5 +1,5 @@
 <%= form_with model: item do |f| %>
-  <%= render "form_errors", object: item %>
+  <%# render "form_errors", object: item %>
 
   <% invalid = item.errors.include?(:name) %>
   <div class="form-group field mb-3">
@@ -43,6 +43,13 @@
       <%= f.label :width, class:"form-label" %>
       <span>(cm)</span>
       <%= f.number_field :width, class:"form-control #{'is-invalid' if invalid}" %>
+      <% if invalid %>
+        <div class="invalid-feedback d-block">
+          <% item.errors.full_messages_for(:width).each do |error_message| %>
+            <%= error_message %>.
+          <% end %>
+        </div>
+      <% end %>
     </div>
 
     <div class="col">
@@ -50,6 +57,13 @@
       <%= f.label :height, class:"form-label" %>
       <span>(cm)</span>
       <%= f.number_field :height, class:"form-control #{'is-invalid' if invalid}" %>
+      <% if invalid %>
+        <div class="invalid-feedback d-block">
+          <% item.errors.full_messages_for(:height).each do |error_message| %>
+            <%= error_message %>.
+          <% end %>
+        </div>
+      <% end %>
     </div>
 
     <div class="col">
@@ -57,6 +71,13 @@
       <%= f.label :depth, class:"form-label" %>
       <span>(cm)</span>
       <%= f.number_field :depth, class:"form-control #{'is-invalid' if invalid}" %>
+      <% if invalid %>
+        <div class="invalid-feedback d-block">
+          <% item.errors.full_messages_for(:depth).each do |error_message| %>
+            <%= error_message %>.
+          <% end %>
+        </div>
+      <% end %>
     </div>
 
   </div>

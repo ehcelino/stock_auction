@@ -1,5 +1,5 @@
 <%= form_with model: auction_lot do |f| %>
-  <%= render "form_errors", object: auction_lot %>
+  <%# render "form_errors", object: auction_lot %>
 
   <% if auction_lot.new_record? %>
     <% invalid = auction_lot.errors.include?(:code) %>

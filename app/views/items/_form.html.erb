@@ -93,6 +93,10 @@
   </div>
 
   <div class="actions mb-3">
-    <%= f.submit "Cadastrar", class:"btn btn-secondary" %>
+    <% if item.new_record? %>
+      <%= f.submit "Cadastrar", class:"btn btn-secondary" %>
+    <% else %>
+      <%= f.submit "Salvar alterações", class:"btn btn-secondary" %>
+    <% end %>
   </div>
 <% end %>

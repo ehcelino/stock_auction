@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :admin_only, only: [:new, :create]
+  before_action :admin_only, only: [:new, :create, :index, :edit, :update]
+  before_action :set_item, only: [:edit, :update, :show]
 
   def new
     @item = Item.new
@@ -18,8 +19,26 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit
+    @categories = Category.all
+  end
+
+  def update
+    if @item.update(item_params)
+      flash[:success] = 'Item atualizado com sucesso'
+      return redirect_to @item
+    end
+    flash.now[:danger] = 'Falha na atualização'
+    @categories = Category.all
+    render :edit
+  end
+
+
   def show
-    @item = Item.find(params[:id])
+  end
+
+  def index
+    @items = Item.where.missing(:lot_items)
   end
 
   private
@@ -27,4 +46,9 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:name, :description, :weight, :width, :height, :depth, :category_id, :code, :image)
   end
+
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
 end

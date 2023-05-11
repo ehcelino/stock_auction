@@ -5,6 +5,7 @@ class AuctionLot < ApplicationRecord
   # Validação desabilitada para possibilitar a criação de lotes com data retroativa
   # validate :check_start_date
   validates :code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, presence: true
+  validates :code, uniqueness: true
   validates :min_bid_amount, :min_bid_difference, numericality: { greater_than: 1 }
   has_many :lot_items
   has_many :items, through: :lot_items
@@ -14,8 +15,16 @@ class AuctionLot < ApplicationRecord
 
   enum status: { pending: 0, approved: 5, closed: 7, canceled: 9 }
 
+  scope :current,  -> { where('start_date <= ? AND end_date >= ?', Date.today, Date.today) }
+  scope :future,  -> { where('start_date > ?', Date.today) }
+  scope :expired, -> { where('end_date < ?', Date.today) }
+
   def biddable?
     self.status == 'approved' && self.end_date > Date.today && self.start_date < Date.today
+  end
+
+  def questionable?
+    self.status == 'approved' && self.end_date > Date.today
   end
 
   def favoritable?
@@ -49,7 +58,7 @@ class AuctionLot < ApplicationRecord
   def check_code
     if self.code.present?
       unless self.code =~ /[a-zA-Z]{3}[0-9]{6}/
-        self.errors.add(:code, 'inválido')
+        self.errors.add(:code, 'inválido. O formato é XXX000000')
       end
     end
   end

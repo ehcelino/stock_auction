@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   has_many :lot_items
   has_many :auction_lots, through: :lot_items
   validates :code, :name, :weight, :width, :height, :depth, presence: true
+  validates :weight, :width, :height, :depth, numericality: { greater_than: 0 }
 
   private
 

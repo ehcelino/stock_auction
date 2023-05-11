@@ -1,15 +1,23 @@
-#stock_auction
+# stock_auction
 
 Projeto de leilão de lotes
+
 Usa bootstrap para estilos e active storage para imagens dos produtos.
 
-###Orientações
+### Orientações
 
-Na página inicial são listados os lotes em andamento e os lotes futuros. Clicando no código de um lote o usuário vê detalhes daquele lote, seus ítens e perguntas e respostas se houver.
+Na página inicial são listados os lotes em andamento e os lotes futuros.
+
+Clicando no código de um lote o usuário vê detalhes daquele lote, seus ítens e perguntas e respostas se houver.
+
 Na barra de navegação há um formulário de busca onde o usuário pode inserir o código (parcial ou completo) de um lote, ou o nome (também parcial ou completo) de um produto.
+
 Ao tentar fazer um cadastro é verificado o CPF do usuário, se ele consta da lista de CPFs banidos o cadastro é negado. Se o usuário logar com um CPF que foi banido posteriormente à criação da conta, uma mensagem persiste na tela e as funções do sistema lhe são negadas.
+
 Um usuário logado no sistema pode dar um lance em leilões correntes, adicionar um leilão aos favoritos ou fazer uma pergunta em um lote.
+
 Ele também pode ver uma lista de lotes finalizados, e ao clicar em seu nome e email na barra de navegação ele vê seus dados bem como os lotes onde ele foi vencedor.
+
 Um administrador ao logar no sistema vê um dropdown de nome "Funções administrativas", com as seguintes opções:
 
 * Cadastrar item - cadastra um item que pode ser adicionado a um lote
@@ -20,18 +28,24 @@ Um administrador ao logar no sistema vê um dropdown de nome "Funções administ
 * Bloqueio de CPF - lista os CPFs bloqueados e permite adicionar outros à lista
 
 Usuários adicionados ao banco de dados a partir do arquivo seeds (todos usam a senha "password"):
+
 administradores:
+
 john@leilaodogalpao.com.br
+
 daniel@leilaodogalpao.com.br
+
 usuários:
+
 michael@ig.com.br
+
 fernando@ig.com.br (usuário restrito por CPF)
 
 Originalmente meu sistema havia sido desenvolvido para cadastrar administradores apenas pelo console, por isso existem duas validações relacionadas no modelo User. Porém depois de uma pergunta de um colega durante um dos encontros alterei o sistema para que qualquer usuário cadastrado com o domínio @leilaodogalpao.com.br seja automaticamente transformado em administrador.
 
 
 
-###Documento usado durante o desenvolvimento do aplicativo:
+### Documento usado durante o desenvolvimento do aplicativo:
 [documento do google](https://docs.google.com/document/d/1nbUgFEDsCoDWohQGvsMc1p699bbuLrHR4jbBfwN2npI/edit?usp=sharing)
 
 
@@ -51,6 +65,7 @@ Adicionados os comandos
 `gem "rspec-rails"`
 `gem "capybara"`
 ao gemfile e executado `bundle install`
+
 em seguida, executado `rails generate rspec:install`
 
 no arquivo `rails_helper.rb` adicionado
@@ -109,3 +124,12 @@ No arquivo `environment/development.rb` adicionada a linha
 No arquivo `environment/test.rb` adicionada a linha
 
 `config.active_storage.service = :test`
+
+No arquivo `config/application.rb` adicionado
+
+```
+config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+  html_tag
+}
+```
+para impedir que os formulários percam formatação em caso de erros

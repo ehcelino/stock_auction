@@ -55,7 +55,7 @@ class AuctionLotsController < ApplicationController
   end
 
   def expired
-    @auction_lots = AuctionLot.where("end_date < ?", Date.today).approved
+    @auction_lots = AuctionLot.expired.approved
   end
 
   def closed

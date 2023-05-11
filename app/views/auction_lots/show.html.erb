@@ -121,7 +121,7 @@
     </div>
   <% end %>
 
-  <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.biddable? %>
+  <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.questionable? %>
     <div class="mb-3">
       <%= link_to "Fazer uma pergunta", new_auction_lot_qna_path(@auction_lot), class:"btn btn-secondary" %>
     </div>

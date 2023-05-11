@@ -12,7 +12,7 @@ Clicando no código de um lote o usuário vê detalhes daquele lote, seus ítens
 
 Na barra de navegação há um formulário de busca onde o usuário pode inserir o código (parcial ou completo) de um lote, ou o nome (também parcial ou completo) de um produto.
 
-Ao tentar fazer um cadastro é verificado o CPF do usuário, se ele consta da lista de CPFs banidos o cadastro é negado. Se o usuário logar com um CPF que foi banido posteriormente à criação da conta, uma mensagem persiste na tela e as funções do sistema lhe são negadas.
+Ao tentar fazer um cadastro é verificado o CPF do usuário, se ele consta da lista de CPFs banidos o cadastro é negado. Se o usuário logar com um CPF que foi banido posteriormente à criação da conta, uma mensagem avisa do bloqueio no momento do login e as funções do sistema lhe são negadas.
 
 Um usuário logado no sistema pode dar um lance em leilões correntes, adicionar um leilão aos favoritos ou fazer uma pergunta em um lote.
 
@@ -21,6 +21,7 @@ Ele também pode ver uma lista de lotes finalizados, e ao clicar em seu nome e e
 Um administrador ao logar no sistema vê um dropdown de nome "Funções administrativas", com as seguintes opções:
 
 * Cadastrar item - cadastra um item que pode ser adicionado a um lote
+* Itens avulsos - itens que não estão vinculados a um lote
 * Novo lote para leilão - cria um novo lote
 * Lotes aguardando aprovação - lista os lotes que ainda não foram aprovados
 * Lotes expirados - lista os lotes expirados aguardando um administrador
@@ -48,6 +49,12 @@ Originalmente meu sistema havia sido desenvolvido para cadastrar administradores
 ### Documento usado durante o desenvolvimento do aplicativo:
 [documento do google](https://docs.google.com/document/d/1nbUgFEDsCoDWohQGvsMc1p699bbuLrHR4jbBfwN2npI/edit?usp=sharing)
 
+### Mockups de tela:
+[tela inicial](https://excalidraw.com/#json=qnHL3yEYa4TwYO1UeC8ur,MU5dxEDRSWSjo2gHNaajQA)
+
+[tela de lote](https://excalidraw.com/#json=P427IC1ZGvr1TUzyztIq7,mvG10dgt5NOg71IH5_WQBQ)
+
+[administrador](https://excalidraw.com/#json=c-x-uycNkM0vhZrOCfdgv,de__sAKWHWzevRJb9RWD7Q)
 
 App gerado com o comando `rails new stock_auction --minimal -j esbuild --css bootstrap`
 

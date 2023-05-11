@@ -5,6 +5,7 @@ class AuctionLot < ApplicationRecord
   # Validação desabilitada para possibilitar a criação de lotes com data retroativa
   # validate :check_start_date
   validates :code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, presence: true
+  validates :min_bid_amount, :min_bid_difference, numericality: { greater_than: 1 }
   has_many :lot_items
   has_many :items, through: :lot_items
   has_many :bids
@@ -15,6 +16,14 @@ class AuctionLot < ApplicationRecord
 
   def biddable?
     self.status == 'approved' && self.end_date > Date.today && self.start_date < Date.today
+  end
+
+  def favoritable?
+    self.status != "closed" && self.status != "pending" && self.end_date > Date.today
+  end
+
+  def editable?
+    (self.status == "pending" || self.status == "approved") && self.end_date > Date.today
   end
 
   def minimum_value

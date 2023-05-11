@@ -1,18 +1,22 @@
 <%= form_with model: auction_lot do |f| %>
   <%= render "form_errors", object: auction_lot %>
 
-  <% invalid = auction_lot.errors.include?(:code) %>
-  <div class="field mb-3">
-    <%= f.label :code, class:"form-label" %>
-    <%= f.text_field :code, autofocus: true, placeholder:"XXX000000", class:"form-control #{'is-invalid' if invalid}" %>
-    <% if invalid %>
-      <div class="invalid-feedback d-block">
-        <% auction_lot.errors.full_messages_for(:code).each do |error_message| %>
-          <%= error_message %>.
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+  <% if auction_lot.new_record? %>
+    <% invalid = auction_lot.errors.include?(:code) %>
+    <div class="field mb-3">
+      <%= f.label :code, class:"form-label" %>
+      <%= f.text_field :code, autofocus: true, placeholder:"XXX000000", class:"form-control #{'is-invalid' if invalid}" %>
+      <% if invalid %>
+        <div class="invalid-feedback d-block">
+          <% auction_lot.errors.full_messages_for(:code).each do |error_message| %>
+            <%= error_message %>.
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>O código do lote não pode ser atualizado.</p>
+  <% end %>
 
   <% invalid = auction_lot.errors.include?(:start_date) %>
   <div class="field mb-3">
@@ -69,7 +73,11 @@
   </div>
 
   <div class="field mb-3">
-    <%= f.submit 'Criar lote', class:"btn btn-secondary" %>
+    <% if auction_lot.new_record? %>
+      <%= f.submit 'Criar lote', class:"btn btn-secondary" %>
+    <% else %>
+      <%= f.submit 'Atualizar lote', class:"btn btn-secondary" %>
+    <% end %>
   </div>
 
 <% end %>

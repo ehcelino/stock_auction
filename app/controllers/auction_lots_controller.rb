@@ -1,6 +1,6 @@
 class AuctionLotsController < ApplicationController
   before_action :admin_only, only: [:new, :create, :index]
-  before_action :set_auction_lot, only: [:show, :approved, :closed, :canceled, :favorite, :unfavorite]
+  before_action :set_auction_lot, only: [:show, :approved, :closed, :canceled, :favorite, :unfavorite, :edit, :update]
 
 
   def new
@@ -16,6 +16,18 @@ class AuctionLotsController < ApplicationController
     end
     flash.now[:danger] = 'Lote inválido'
     render :new
+  end
+
+  def edit
+  end
+
+  def update
+    if @auction_lot.update(auction_lot_params)
+      flash[:success] = 'Lote atualizado com sucesso'
+      return redirect_to @auction_lot
+    end
+    flash.now[:danger] = 'Lote inválido'
+    render :edit
   end
 
   def index

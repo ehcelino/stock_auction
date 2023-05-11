@@ -1,27 +1,78 @@
-<div class="mb-5">
-  <h3>Lote para leilão código <%= @auction_lot.code %></h3>
-</div>
+<div class="row">
+  <div class="col-8">
+    <div class="mb-5">
+      <h3>Lote para leilão código <%= @auction_lot.code %></h3>
+    </div>
 
-<p><%= AuctionLot.human_attribute_name(:start_date) %>: <%= I18n.localize(@auction_lot.start_date) %></p>
-<p><%= AuctionLot.human_attribute_name(:end_date) %>: <%= I18n.localize(@auction_lot.end_date) %></p>
-<p><%= AuctionLot.human_attribute_name(:min_bid_amount) %>: <%= number_to_currency(@auction_lot.min_bid_amount) %></p>
-<p><%= AuctionLot.human_attribute_name(:min_bid_difference) %>: <%= number_to_currency(@auction_lot.min_bid_difference) %></p>
-<p><%= AuctionLot.human_attribute_name(:status) %>: <%= AuctionLot.human_attribute_name(@auction_lot.status) %></p>
-<p><%= AuctionLot.human_attribute_name(:created_by) %>: <%= User.find(@auction_lot.created_by).email %></p>
-<p><%= AuctionLot.human_attribute_name(:approved_by) %>:
-  <% if @auction_lot.approved_by.present? %>
-    <%= User.find(@auction_lot.approved_by).email %>
-  <% end %>
-</p>
+    <p><%= AuctionLot.human_attribute_name(:start_date) %>: <%= I18n.localize(@auction_lot.start_date) %></p>
+    <p><%= AuctionLot.human_attribute_name(:end_date) %>: <%= I18n.localize(@auction_lot.end_date) %></p>
+    <p><%= AuctionLot.human_attribute_name(:min_bid_amount) %>: <%= number_to_currency(@auction_lot.min_bid_amount) %></p>
+    <p><%= AuctionLot.human_attribute_name(:min_bid_difference) %>: <%= number_to_currency(@auction_lot.min_bid_difference) %></p>
+    <p><%= AuctionLot.human_attribute_name(:status) %>: <%= AuctionLot.human_attribute_name(@auction_lot.status) %></p>
+    <p><%= AuctionLot.human_attribute_name(:created_by) %>: <%= User.find(@auction_lot.created_by).email %></p>
+    <p><%= AuctionLot.human_attribute_name(:approved_by) %>:
+      <% if @auction_lot.approved_by.present? %>
+        <%= User.find(@auction_lot.approved_by).email %>
+      <% end %>
+    </p>
 
-<% if @auction_lot.status == "closed" %>
-  <div class="mb-3">
-    <h3>Este lote foi finalizado. Usuário vencedor: <%= @auction_lot.users.last.name %> - <%= @auction_lot.users.last.email %></h3>
+
+
+
   </div>
-<% end %>
+  <div class="col">
+    <% if !current_user.nil? && current_user.admin? %>
+      <div class="mb-3">
+        <% if @auction_lot.status == "pending" %>
+          <div class="d-flex gap-3">
+            <%= link_to 'Adicionar itens', new_auction_lot_lot_item_path(@auction_lot), class:"btn btn-secondary" %>
+            <%= button_to 'Aprovar lote', approved_auction_lot_path, class:"btn btn-secondary" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
 
+    <% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" %>
+      <h3>Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
+      <div class="mb-3">
+        <% if @auction_lot.bids.count == 0 %>
+          <%= button_to 'Cancelar o lote', canceled_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
+        <% else %>
+          <%= button_to 'Finalizar o lote', closed_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
+        <% end %>
+      </div>
+    <% end %>
 
-<div class="mb-3">
+    <% if user_signed_in? && @auction_lot.biddable? && current_user.status != "blocked" %>
+      <div class="mb-3">
+        <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-secondary" %>
+      </div>
+    <% end %>
+
+    <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.favoritable? %>
+      <div class="mb-3">
+        <% if current_user.is_favorite?(@auction_lot) %>
+          <%= button_to "Remover dos favoritos", unfavorite_auction_lot_path(@auction_lot), method: :delete, class:"btn btn-secondary" %>
+        <% else %>
+          <%= button_to "Adicionar aos favoritos", favorite_auction_lot_path(@auction_lot), method: :post, class:"btn btn-secondary" %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if user_signed_in? && current_user.admin? && @auction_lot.editable? %>
+      <div class="mb-3">
+        <%= link_to "Editar lote", edit_auction_lot_path(@auction_lot.id), class:"btn btn-secondary" %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @auction_lot.status == "closed" %>
+    <div class="mb-3">
+      <h3>Este lote foi finalizado. Usuário vencedor: <%= @auction_lot.users.last.name %> - <%= @auction_lot.users.last.email %></h3>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
   <% if @auction_lot.items.present? %>
     <h3>Itens deste Lote</h3>
     <table class="table">
@@ -55,63 +106,27 @@
   <% end %>
 </div>
 
-<% if !current_user.nil? && current_user.admin? %>
-  <div class="mb-3">
-    <% if @auction_lot.status == "pending" %>
-      <div class="d-flex gap-3">
-        <%= link_to 'Adicionar itens', new_auction_lot_lot_item_path(@auction_lot), class:"btn btn-secondary" %>
-        <%= button_to 'Aprovar lote', approved_auction_lot_path, class:"btn btn-secondary" %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-
-<% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" %>
-  <h3>Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
-  <div class="mb-3">
-    <% if @auction_lot.bids.count == 0 %>
-      <%= button_to 'Cancelar o lote', canceled_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
-    <% else %>
-      <%= button_to 'Finalizar o lote', closed_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
-    <% end %>
-  </div>
-<% end %>
-
-<% if user_signed_in? && @auction_lot.biddable? && current_user.status != "blocked" %>
-  <div class="mb-3">
-    <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-secondary" %>
-  </div>
-<% end %>
-
-<% if user_signed_in? && current_user.status != "blocked" && @auction_lot.status != "closed" %>
-  <div class="mb-3">
-    <% if current_user.is_favorite?(@auction_lot) %>
-      <%= button_to "Remover dos favoritos", unfavorite_auction_lot_path(@auction_lot), method: :delete, class:"btn btn-secondary" %>
-    <% else %>
-      <%= button_to "Adicionar aos favoritos", favorite_auction_lot_path(@auction_lot), method: :post, class:"btn btn-secondary" %>
-    <% end %>
-  </div>
-<% end %>
-
-<% if @auction_lot.qnas.present? %>
-  <h3>Perguntas e respostas</h3>
-  <div class="mb-3">
-    <% @auction_lot.qnas.each do |qna| %>
-       <% if qna.status != 'hidden' %>
-        <p>Pergunta: <%= qna.question %></p>
-        <p>Resposta: <%= qna.answer %> </p>
-        <% if qna.user_id.present? %>
-          <p>Respondida por: <%= User.find(qna.user_id).email %> </p>
+  <% if @auction_lot.qnas.present? %>
+    <h3>Perguntas e respostas</h3>
+    <div class="mb-3">
+      <% @auction_lot.qnas.each do |qna| %>
+        <% if qna.status != 'hidden' %>
+          <p>Pergunta: <%= qna.question %></p>
+          <p>Resposta: <%= qna.answer %> </p>
+          <% if qna.user_id.present? %>
+            <p>Respondida por: <%= User.find(qna.user_id).email %> </p>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
-  </div>
-<% end %>
+    </div>
+  <% end %>
 
-<% if user_signed_in? && current_user.status != "blocked" && @auction_lot.biddable? %>
-  <div class="mb-3">
-    <%= link_to "Fazer uma pergunta", new_auction_lot_qna_path(@auction_lot), class:"btn btn-secondary" %>
-  </div>
-<% end %>
+  <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.biddable? %>
+    <div class="mb-3">
+      <%= link_to "Fazer uma pergunta", new_auction_lot_qna_path(@auction_lot), class:"btn btn-secondary" %>
+    </div>
+  <% end %>
 
-<%= link_to "Voltar", :back %>
+
+  <%= link_to "Voltar", :back %>
+</div>

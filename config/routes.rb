@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "home#index"
   get "/user", to: "users#show"
   resources :items, only: [:new, :create, :show]
-  resources :auction_lots, only: [:new, :create, :show, :index] do
+  resources :auction_lots, only: [:new, :create, :show, :index, :edit, :update] do
     resources :lot_items, only: [:new, :create]
     resources :bids, only: [:new, :create]
     post 'approved', on: :member

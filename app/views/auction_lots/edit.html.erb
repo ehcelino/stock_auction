@@ -1,0 +1,9 @@
+<h3>Editar Lote</h3>
+
+<% if @auction_lot.status != "pending" && @auction_lot.status != "approved" %>
+  <h3>Atenção</h3>
+  <p>Este lote não pode ser editado.</p>
+  <%= link_to "Voltar", :back %>
+<% else %>
+  <%= render partial: 'form', locals: { auction_lot: @auction_lot } %>
+<% end %>

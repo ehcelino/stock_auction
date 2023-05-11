@@ -5,7 +5,9 @@
 <% if @qnas.any? %>
   <% @qnas.each do |qna| %>
     <div class="mb-3">
-      <p>Lote <%= qna.auction_lot.code %></p>
+      <%= link_to auction_lot_path(qna.auction_lot.id), class:"clean-link" do %>
+        <p>Lote <%= qna.auction_lot.code %></p>
+      <% end %>
       <p>Pergunta: <%= qna.question %></p>
       <% if qna.status == "hidden" %>
         <span class="text-danger">Pergunta oculta por administrador</span>

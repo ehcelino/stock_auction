@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_blocked_user
+  before_action :set_blocked_user, only: [:create]
   add_flash_types :danger, :info, :warning, :success, :messages
 
 

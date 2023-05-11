@@ -45,7 +45,7 @@ class User < ApplicationRecord
     unless list.count == 0
       if list.include?(self.cpf)
         self.status = 5
-        # self.save!
+        self.save!(validate: false)
       end
     end
   end

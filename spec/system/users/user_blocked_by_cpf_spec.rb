@@ -47,8 +47,10 @@ describe 'Administrador bloqueia um CPF' do
     BlockedCpf.create!(cpf: 62059576040)
 
     # Act
-    login_as user
-    visit root_path
+    visit new_user_session_path
+    fill_in 'E-mail', with: 'michael@ig.com.br'
+    fill_in 'Senha', with: 'password'
+    click_on 'Entrar no sistema'
 
     # Assert
     expect(page).to have_content 'Seu usuário está bloqueado para as funções do site. Fale com seu administrador.'
@@ -60,7 +62,7 @@ describe 'Administrador bloqueia um CPF' do
                 role: 1, password: 'password')
     User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                 role: 1, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
+    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '01/05/2023', end_date: 1.month.from_now,
                               min_bid_amount: 300, min_bid_difference: 50, status: 5, created_by: 1, approved_by: 2)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
@@ -71,12 +73,14 @@ describe 'Administrador bloqueia um CPF' do
     BlockedCpf.create!(cpf: 62059576040)
 
     # Act
-    login_as user
+    visit new_user_session_path
+    fill_in 'E-mail', with: 'michael@ig.com.br'
+    fill_in 'Senha', with: 'password'
+    click_on 'Entrar no sistema'
     visit root_path
     click_on 'Lote XPG035410'
 
     # Assert
-    expect(page).to have_content 'Seu usuário está bloqueado para as funções do site. Fale com seu administrador.'
     expect(page).not_to have_link 'Dar um lance'
   end
 
@@ -97,12 +101,14 @@ describe 'Administrador bloqueia um CPF' do
     BlockedCpf.create!(cpf: 62059576040)
 
     # Act
-    login_as user
+    visit new_user_session_path
+    fill_in 'E-mail', with: 'michael@ig.com.br'
+    fill_in 'Senha', with: 'password'
+    click_on 'Entrar no sistema'
     visit root_path
     click_on 'Lote XPG035410'
 
     # Assert
-    expect(page).to have_content 'Seu usuário está bloqueado para as funções do site. Fale com seu administrador.'
     expect(page).not_to have_link 'Fazer uma pergunta'
   end
 

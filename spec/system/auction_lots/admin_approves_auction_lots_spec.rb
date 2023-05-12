@@ -48,7 +48,7 @@ describe 'Admin vê os lotes aguardando aprovação' do
 
   end
 
-  it 'e aprova o lote' do
+  it 'e aprova o lote com sucesso' do
 
     # Arrange
     first_admin = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',

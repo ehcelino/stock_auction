@@ -10,7 +10,7 @@ describe 'Usuário vê lotes vencedores' do
                                 role: 1, password: 'password')
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
+    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '10/03/2023', end_date: '01/04/2023',
                                     min_bid_amount: 300, min_bid_difference: 50, status: 7, created_by: first_admin.id, approved_by: second_admin.id)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
@@ -34,8 +34,9 @@ describe 'Usuário vê lotes vencedores' do
     # Assert
     expect(page).to have_content 'Lotes finalizados'
     expect(page).to have_content 'Lote XPG035410'
-    expect(page).to have_content 'Iniciado em: 20/04/2023 Finalizado em: 01/05/2023'
+    expect(page).to have_content 'Iniciado em: 10/03/2023 Finalizado em: 01/04/2023'
     expect(page).to have_content 'Lote ABC035410'
+    expect(page).to have_content 'Iniciado em: 20/04/2023 Finalizado em: 01/05/2023'
 
   end
 

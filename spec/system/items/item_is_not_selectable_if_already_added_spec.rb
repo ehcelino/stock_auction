@@ -2,23 +2,29 @@ require 'rails_helper'
 
 describe 'Administrador visualiza um lote e tenta cadastrar um item' do
 
-  it 'e não vê um item previamente cadastrado na caixa de seleção' do
+  it 'e não vê um item já vendido na caixa de seleção' do
 
     # Arrange
-    user = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
+    admin = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                       role: 1, password: 'password')
+    user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
+                        role: 0, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
                                     min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: 1)
+    second_auction_lot = AuctionLot.create!(code:'BGO570364', start_date: '20/03/2024', end_date: '10/04/2024',
+                                            min_bid_amount: 500, min_bid_difference: 10, status: 7, created_by: 1, approved_by: 2)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse laser sem fio', weight: 200,
                               width: 6, height: 3, depth: 11, category_id: category.id)
-    LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
+    LotItem.create!(auction_lot_id: second_auction_lot.id, item_id: item.id)
+    bid = Bid.new(auction_lot_id: second_auction_lot.id, user_id: user.id, value: 510)
+    bid.save!(validate: false)
 
 
     # Act
-    login_as user
+    login_as admin
     visit root_path
     click_on 'Funções administrativas'
     click_on 'Lotes aguardando aprovação'

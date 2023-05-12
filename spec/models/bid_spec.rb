@@ -11,13 +11,13 @@ RSpec.describe Bid, type: :model do
     LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
+    bid = Bid.new(auction_lot: auction_lot, user: user, value: 320)
 
     # Act
-    bid = Bid.new(auction_lot: auction_lot, user: user, value: 320)
-    bid.valid?
-    result = bid.errors.full_messages
+    result = bid.valid?
 
     # Assert
-    expect(result[0]).to eq 'Este leilão não pode receber novos lances'
+    expect(result).to be false
+    expect(bid.errors[:base]).to include 'Este leilão não pode receber novos lances'
   end
 end

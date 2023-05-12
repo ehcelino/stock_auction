@@ -68,6 +68,31 @@ describe 'Usuário acessa o sistema e se cadastra' do
 
   end
 
+  it 'com campos em branco' do
+
+    # Arrange
+    User.create!(name: 'João', cpf: 62053621044, email: 'joao@leilaodogalpao.com.br', role: 1, password: 'password')
+
+    # Act
+    visit root_path
+    click_on 'Cadastrar'
+    fill_in 'E-mail', with: ''
+    fill_in 'Nome', with: ''
+    fill_in 'CPF', with: ''
+    fill_in 'Senha', with: ''
+    fill_in 'Confirme sua senha', with: ''
+    click_on 'Criar conta'
+
+    # Assert
+    expect(page).to have_content 'Leilão do Galpão'
+    expect(page).to have_content 'Não foi possível salvar usuário'
+    expect(page).to have_content 'E-mail não pode ficar em branco'
+    expect(page).to have_content 'Senha não pode ficar em branco'
+    expect(page).to have_content 'CPF não pode ficar em branco'
+    expect(page).to have_content 'Nome não pode ficar em branco'
+
+  end
+
   it 'com email de administrador' do
 
     # Arrange

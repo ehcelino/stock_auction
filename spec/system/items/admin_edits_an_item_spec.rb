@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Admin entra no sistema' do
-  it 'e vê lista de itens não associados com lotes' do
+describe 'Administrador edita um item' do
+  it 'com sucesso' do
     # Arrange
     admin = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                         role: 1, password: 'password')
@@ -21,20 +21,15 @@ describe 'Admin entra no sistema' do
     visit root_path
     click_on 'Funções administrativas'
     click_on 'Itens avulsos'
+    find('#edit-item_1').click
+    fill_in 'Nome', with: 'Mouse Logitech Max'
+    fill_in 'Descrição', with: 'Mouse Gamer 6 botões macro'
+    click_on 'Salvar alterações'
 
     # Assert
-    expect(page).to have_css('img[src*="mouse.jpg"]')
-    expect(page).to have_content 'Mouse Logitech'
-    expect(page).to have_content 'Mouse Gamer 1200dpi'
-    expect(page).to have_css('img[src*="msmouse.png"]')
-    expect(page).to have_content 'Mouse Microsoft'
-    expect(page).to have_content 'Mouse laser sem fio'
-    expect(page).to have_css('img[src*="tdrive.jpg"]')
-    expect(page).to have_content 'Thumb drive Sandisk 32GB'
-    expect(page).to have_content 'Thumb drive USB3 32GB'
+    expect(page).to have_content 'Item atualizado com sucesso'
+    expect(page).to have_content 'Item para leilão: Mouse Logitech Max'
+    expect(page).to have_content 'Mouse Gamer 6 botões macro'
 
   end
-
-
-
 end

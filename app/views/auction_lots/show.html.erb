@@ -102,12 +102,16 @@
     <% end %>
   </div>
 
-  <% if @auction_lot.bids.present? %>
-    <div class="mb-3">
+  <% if @auction_lot.bids.present? && @auction_lot.biddable? %>
+    <div class="mb-3 border rounded px-2">
       <h3>Lances recebidos</h3>
-      <% @auction_lot.bids.each do |bid| %>
+      <% @auction_lot.bids.each_with_index do |bid, idx| %>
         <div class="mb-2">
-          <%= l bid.created_at.in_time_zone("America/Sao_Paulo"), format: :short %> - <%= bid.user.name %> - <%= number_to_currency(bid.value) %>
+          <% if idx == (@auction_lot.bids.size - 1) %>
+            <%= l bid.created_at.in_time_zone("America/Sao_Paulo"), format: :short %> - <%= bid.user.name %> - <%= number_to_currency(bid.value) %> <span class="text-danger">Lance vencedor no momento</span>
+          <% else %>
+            <%= l bid.created_at.in_time_zone("America/Sao_Paulo"), format: :short %> - <%= bid.user.name %> - <%= number_to_currency(bid.value) %>
+          <% end %>
         </div>
       <% end %>
     </div>

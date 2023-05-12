@@ -26,6 +26,7 @@ describe 'Usuário vê um leilão e dá um lance' do
 
     # Assert
     expect(page).to have_content 'Lance registrado com sucesso'
+    expect(page).to have_content 'Michael - R$ 301,00'
   end
 
   it 'depois de outro lance' do

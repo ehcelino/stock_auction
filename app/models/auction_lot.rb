@@ -7,6 +7,7 @@ class AuctionLot < ApplicationRecord
   validates :code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, presence: true
   validates :code, uniqueness: true
   validates :min_bid_amount, :min_bid_difference, numericality: { greater_than: 1 }
+  before_validation :check_user
   has_many :lot_items
   has_many :items, through: :lot_items
   has_many :bids
@@ -54,6 +55,12 @@ class AuctionLot < ApplicationRecord
   end
 
   private
+
+  def check_user
+    if self.created_by == self.approved_by
+      self.errors.add(:base, 'Um lote não pode ser aprovado pelo usuário que o criou')
+    end
+  end
 
   def check_code
     if self.code.present?

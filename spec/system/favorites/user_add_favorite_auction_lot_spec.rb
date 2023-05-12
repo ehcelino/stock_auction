@@ -84,13 +84,15 @@ describe 'Usuário entra no sistema' do
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
     width: 6, height: 3, depth: 11, category_id: category.id)
     LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
-    Bid.create!(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
+    bid = Bid.new(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
+    bid.save!(validate: false)
     second_auction_lot = AuctionLot.create!(code:'ABC035410', start_date: '20/04/2023', end_date: 1.month.from_now,
                       min_bid_amount: 300, min_bid_difference: 50, status: 5, created_by: first_admin.id, approved_by: second_admin.id)
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse sem fio', weight: 200,
           width: 6, height: 3, depth: 11, category_id: category.id)
     LotItem.create!(auction_lot_id: second_auction_lot.id, item_id: second_item.id)
-    Bid.create!(auction_lot_id: second_auction_lot.id, user_id: user.id, value: 301)
+    second_bid = Bid.new(auction_lot_id: second_auction_lot.id, user_id: user.id, value: 301)
+    second_bid.save!(validate: false)
     Favorite.create!(user_id: user.id, auction_lot_id: auction_lot.id)
 
     # Act

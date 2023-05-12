@@ -59,8 +59,10 @@ LotItem.create!(auction_lot_id: auction_lot_5.id, item_id: item_4.id)
 LotItem.create!(auction_lot_id: auction_lot_6.id, item_id: item_6.id)
 
 
-Bid.create!(auction_lot_id: auction_lot_3.id, user_id: user.id, value: 101)
-Bid.create!(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 101)
+bid_1 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user.id, value: 101)
+bid_1.save!(validate: false)
+bid_2 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 101)
+bid_2.save!(validate: false)
 
 auction_lot_6.closed!
 

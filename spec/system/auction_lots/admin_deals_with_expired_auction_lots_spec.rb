@@ -40,7 +40,8 @@ describe 'Admin vê os lotes expirados' do
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
     LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
-    Bid.create!(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
+    bid = Bid.new(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
+    bid.save!(validate: false)
 
     # Act
     login_as first_admin

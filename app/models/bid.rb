@@ -3,9 +3,8 @@ class Bid < ApplicationRecord
   belongs_to :user
   validates :value, presence: true
   before_validation :check_value
-  # A validação abaixo foi desabilitada para possibilitar a inserção de lances retroativos
-  # nos leilões para fins de teste.
-  # before_validation :check_date
+  before_validation :check_date
+  before_validation :check_user
 
   def check_value
     auction_lot = AuctionLot.find(self.auction_lot_id)
@@ -17,9 +16,14 @@ class Bid < ApplicationRecord
   end
 
   def check_date
-    auction_lot = AuctionLot.find(self.auction_lot_id)
-    if auction_lot.end_date <= Date.today
+    if self.auction_lot.end_date < Date.today
       self.errors.add(:base, "Este leilão não pode receber novos lances")
+    end
+  end
+
+  def check_user
+    if self.user.present? && self.user.role == "admin"
+      self.errors.add(:base, 'Usuários administradores não podem fazer lances')
     end
   end
 

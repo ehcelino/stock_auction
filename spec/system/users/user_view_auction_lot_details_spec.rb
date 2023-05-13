@@ -5,12 +5,12 @@ describe 'Usuário vê detalhes de um lote' do
   it 'como usuário sem cadastro' do
 
     # Arrange
-    User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
+    admin_1 = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                 role: 1, password: 'password')
-    User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
+    admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                 role: 1, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 5, created_by: 1, approved_by: 2)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: admin_1, approver: admin_2)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
@@ -42,14 +42,14 @@ describe 'Usuário vê detalhes de um lote' do
   it 'como usuário cadastrado' do
 
     # Arrange
-    User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
+    admin_1 = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                 role: 1, password: 'password')
-    User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
+    admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                 role: 1, password: 'password')
     user = User.create!(name: 'Fernando', cpf: 88262301021, email: 'fernando@ig.com.br',
                         role: 0, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 5, created_by: 1, approved_by: 2)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: admin_1, approver: admin_2)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)

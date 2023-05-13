@@ -10,7 +10,7 @@ describe 'Admin vê os lotes aguardando aprovação' do
     second_admin = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                                role: 1, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-                                     min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: first_admin.id)
+                                     min_bid_amount: 300, min_bid_difference: 50, status: 0, creator: first_admin)
 
     # Act
     login_as second_admin
@@ -32,7 +32,7 @@ describe 'Admin vê os lotes aguardando aprovação' do
     admin = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                         role: 1, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-                              min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: admin.id)
+                              min_bid_amount: 300, min_bid_difference: 50, status: 0, creator: admin)
 
     # Act
     login_as admin
@@ -56,7 +56,7 @@ describe 'Admin vê os lotes aguardando aprovação' do
     second_admin = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                                 role: 1, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-                              min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: first_admin.id)
+                              min_bid_amount: 300, min_bid_difference: 50, status: 0, creator: first_admin)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                   width: 6, height: 3, depth: 11, category_id: category.id)

@@ -5,10 +5,10 @@ describe 'Administrador acessa um lote' do
   it 'e cadastra um item' do
 
     # Arrange
-    user = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
+    admin = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                        role: 1, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: 1)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 0, creator: admin)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
@@ -16,7 +16,7 @@ describe 'Administrador acessa um lote' do
                                width: 6, height: 3, depth: 11, category_id: category.id)
 
     # Act
-    login_as user
+    login_as admin
     visit root_path
     click_on 'Funções administrativas'
     click_on 'Lotes aguardando aprovação'
@@ -42,10 +42,10 @@ describe 'Administrador acessa um lote' do
 
   it 'e tenta anexar um item mas não há mais disponíveis' do
     # Arrange
-    user = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
+    admin = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                         role: 1, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: 1)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 0, creator: admin)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
@@ -53,7 +53,7 @@ describe 'Administrador acessa um lote' do
     LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
 
     # Act
-    login_as user
+    login_as admin
     visit root_path
     click_on 'Funções administrativas'
     click_on 'Lotes aguardando aprovação'

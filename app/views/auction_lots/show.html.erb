@@ -8,10 +8,10 @@
     <p><%= AuctionLot.human_attribute_name(:min_bid_amount) %>: <%= number_to_currency(@auction_lot.min_bid_amount) %></p>
     <p><%= AuctionLot.human_attribute_name(:min_bid_difference) %>: <%= number_to_currency(@auction_lot.min_bid_difference) %></p>
     <p><%= AuctionLot.human_attribute_name(:status) %>: <%= AuctionLot.human_attribute_name(@auction_lot.status) %></p>
-    <p><%= AuctionLot.human_attribute_name(:created_by) %>: <%= User.find(@auction_lot.created_by).email %></p>
-    <p><%= AuctionLot.human_attribute_name(:approved_by) %>:
-      <% if @auction_lot.approved_by.present? %>
-        <%= User.find(@auction_lot.approved_by).email %>
+    <p><%= AuctionLot.human_attribute_name(:creator) %>: <%= @auction_lot.creator.email %></p>
+    <p><%= AuctionLot.human_attribute_name(:approver) %>:
+      <% if @auction_lot.approver.present? %>
+        <%= @auction_lot.approver.email %>
       <% end %>
     </p>
   </div>

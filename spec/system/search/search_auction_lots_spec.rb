@@ -10,7 +10,7 @@ describe 'Entra no sistema e busca' do
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, created_by: first_admin.id, approved_by: second_admin.id)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
@@ -18,7 +18,7 @@ describe 'Entra no sistema e busca' do
     bid = Bid.new(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
     bid.save!(validate: false)
     second_auction_lot = AuctionLot.create!(code:'ABC035410', start_date: '20/04/2023', end_date: '01/05/2023',
-                                            min_bid_amount: 300, min_bid_difference: 50, status: 7, created_by: first_admin.id, approved_by: second_admin.id)
+                                            min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse sem fio', weight: 200,
                               width: 6, height: 3, depth: 11, category_id: category.id)
     LotItem.create!(auction_lot_id: second_auction_lot.id, item_id: second_item.id)
@@ -46,7 +46,7 @@ describe 'Entra no sistema e busca' do
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, created_by: first_admin.id, approved_by: second_admin.id)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
@@ -54,7 +54,7 @@ describe 'Entra no sistema e busca' do
     bid = Bid.new(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
     bid.save!(validate: false)
     second_auction_lot = AuctionLot.create!(code:'ABC035410', start_date: '20/04/2023', end_date: '01/05/2023',
-                                            min_bid_amount: 300, min_bid_difference: 50, status: 7, created_by: first_admin.id, approved_by: second_admin.id)
+                                            min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse sem fio', weight: 200,
                               width: 6, height: 3, depth: 11, category_id: category.id)
     LotItem.create!(auction_lot_id: second_auction_lot.id, item_id: second_item.id)
@@ -82,7 +82,7 @@ describe 'Entra no sistema e busca' do
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, created_by: first_admin.id, approved_by: second_admin.id)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
@@ -90,7 +90,7 @@ describe 'Entra no sistema e busca' do
     bid = Bid.new(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
     bid.save!(validate: false)
     second_auction_lot = AuctionLot.create!(code:'ABC035410', start_date: '20/04/2023', end_date: '01/05/2023',
-                                            min_bid_amount: 300, min_bid_difference: 50, status: 7, created_by: first_admin.id, approved_by: second_admin.id)
+                                            min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse sem fio', weight: 200,
                               width: 6, height: 3, depth: 11, category_id: category.id)
     LotItem.create!(auction_lot_id: second_auction_lot.id, item_id: second_item.id)
@@ -119,7 +119,7 @@ describe 'Entra no sistema e busca' do
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, created_by: first_admin.id, approved_by: second_admin.id)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
@@ -127,7 +127,7 @@ describe 'Entra no sistema e busca' do
     bid = Bid.new(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
     bid.save!(validate: false)
     second_auction_lot = AuctionLot.create!(code:'ABC035410', start_date: '20/04/2023', end_date: '01/05/2023',
-                                            min_bid_amount: 300, min_bid_difference: 50, status: 7, created_by: first_admin.id, approved_by: second_admin.id)
+                                            min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse sem fio', weight: 200,
                               width: 6, height: 3, depth: 11, category_id: category.id)
     LotItem.create!(auction_lot_id: second_auction_lot.id, item_id: second_item.id)

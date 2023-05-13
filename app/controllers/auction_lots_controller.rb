@@ -9,7 +9,7 @@ class AuctionLotsController < ApplicationController
 
   def create
     @auction_lot = AuctionLot.new(auction_lot_params)
-    @auction_lot.created_by = current_user.id
+    @auction_lot.creator = current_user
     if @auction_lot.save
       flash[:success] = 'Lote criado com sucesso'
       return redirect_to @auction_lot
@@ -38,15 +38,14 @@ class AuctionLotsController < ApplicationController
   end
 
   def approved
-    user = User.find(@auction_lot.created_by)
-    if current_user == user
+    if current_user == @auction_lot.creator
       flash[:danger] = 'Um lote não pode ser aprovado pelo usuário que o criou'
       return redirect_to @auction_lot
     elsif @auction_lot.items.count == 0
       flash[:danger] = 'Um lote não pode ser aprovado sem itens'
       return redirect_to @auction_lot
     else
-      @auction_lot.approved_by = current_user.id
+      @auction_lot.approver = current_user
       @auction_lot.save
       @auction_lot.approved!
       flash[:success] = 'Este lote foi aprovado com sucesso'
@@ -91,7 +90,7 @@ class AuctionLotsController < ApplicationController
   private
 
   def auction_lot_params
-    params.require(:auction_lot).permit(:code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, :status, :created_by, :approved_by)
+    params.require(:auction_lot).permit(:code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, :status, :created_by, :approved_by, :creator_id, :approver_id)
   end
 
   def set_auction_lot

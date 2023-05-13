@@ -13,6 +13,8 @@ class AuctionLot < ApplicationRecord
   has_many :bids
   has_many :users, through: :bids
   has_many :qnas
+  belongs_to :creator, class_name: "User"
+  belongs_to :approver, class_name: "User", optional: true
 
   enum status: { pending: 0, approved: 5, closed: 7, canceled: 9 }
 
@@ -57,7 +59,7 @@ class AuctionLot < ApplicationRecord
   private
 
   def check_user
-    if self.created_by == self.approved_by
+    if self.creator == self.approver
       self.errors.add(:base, 'Um lote não pode ser aprovado pelo usuário que o criou')
     end
   end

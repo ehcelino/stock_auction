@@ -5,14 +5,16 @@ describe 'Administrador visualiza um lote e tenta cadastrar um item' do
   it 'e não vê um item já vendido na caixa de seleção' do
 
     # Arrange
-    admin = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
-                      role: 1, password: 'password')
+    admin_1 = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
+                           role: 1, password: 'password')
+    admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
+                          role: 1, password: 'password')
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: 1)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 0, creator: admin_1)
     second_auction_lot = AuctionLot.create!(code:'BGO570364', start_date: '20/03/2024', end_date: '10/04/2024',
-                                            min_bid_amount: 500, min_bid_difference: 10, status: 7, created_by: 1, approved_by: 2)
+                                            min_bid_amount: 500, min_bid_difference: 10, status: 7, creator: admin_1, approver: admin_2)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
@@ -24,7 +26,7 @@ describe 'Administrador visualiza um lote e tenta cadastrar um item' do
 
 
     # Act
-    login_as admin
+    login_as admin_1
     visit root_path
     click_on 'Funções administrativas'
     click_on 'Lotes aguardando aprovação'
@@ -40,12 +42,12 @@ describe 'Administrador visualiza um lote e tenta cadastrar um item' do
   it 'e não vê um item cadastrado em outro lote' do
 
     # Arrange
-    user = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
+    admin = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                       role: 1, password: 'password')
     auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 0, created_by: 1)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 0, creator: admin)
     second_auction_lot = AuctionLot.create!(code:'BGO570364', start_date: '20/06/2024', end_date: '10/07/2024',
-                                            min_bid_amount: 500, min_bid_difference: 10, status: 0, created_by: 1)
+                                            min_bid_amount: 500, min_bid_difference: 10, status: 0, creator: admin)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
@@ -57,7 +59,7 @@ describe 'Administrador visualiza um lote e tenta cadastrar um item' do
 
 
     # Act
-    login_as user
+    login_as admin
     visit root_path
     click_on 'Funções administrativas'
     click_on 'Lotes aguardando aprovação'

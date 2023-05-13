@@ -40,17 +40,17 @@ item_5.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg"
 item_6.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg")), filename: "tdrive.jpg")
 
 auction_lot_1 = AuctionLot.create!(code:'XPG035410', start_date: '01/05/2023', end_date: 1.month.from_now,
-                                  min_bid_amount: 100, min_bid_difference: 2, status: 5, created_by: admin_1.id, approved_by: admin_2.id)
+                                  min_bid_amount: 100, min_bid_difference: 2, status: 5, creator: admin_1, approver: admin_2)
 auction_lot_2 = AuctionLot.create!(code:'BGO570364', start_date: 2.months.from_now, end_date: 3.months.from_now,
-                                  min_bid_amount: 500, min_bid_difference: 10, status: 0, created_by: admin_1.id)
+                                  min_bid_amount: 500, min_bid_difference: 10, status: 0, creator: admin_1)
 auction_lot_3 = AuctionLot.create!(code:'PGA359841', start_date: '01/04/2023', end_date: '20/04/2023',
-                                  min_bid_amount: 100, min_bid_difference: 10, status: 5, created_by: admin_1.id, approved_by: admin_2.id)
+                                  min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
 auction_lot_4 = AuctionLot.create!(code:'JKY174683', start_date: '01/03/2023', end_date: '20/03/2023',
-                                  min_bid_amount: 100, min_bid_difference: 10, status: 5, created_by: admin_1.id, approved_by: admin_2.id)
+                                  min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
 auction_lot_5 = AuctionLot.create!(code:'CVZ574198', start_date: 10.days.from_now, end_date: 1.month.from_now,
-                                  min_bid_amount: 100, min_bid_difference: 10, status: 5, created_by: admin_1.id, approved_by: admin_2.id)
+                                  min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
 auction_lot_6 = AuctionLot.create!(code:'LHD753159', start_date: '01/02/2023', end_date: '20/02/2023',
-                                  min_bid_amount: 100, min_bid_difference: 10, status: 5, created_by: admin_1.id, approved_by: admin_2.id)
+                                  min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
 
 LotItem.create!(auction_lot_id: auction_lot_1.id, item_id: item_1.id)
 LotItem.create!(auction_lot_id: auction_lot_3.id, item_id: item_2.id)

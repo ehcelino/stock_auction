@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'closed_list', on: :collection
     post 'favorite', on: :member
     delete 'unfavorite', on: :member
+    get 'canceled_list', on: :collection
     resources :qnas, only: [:new, :create] do
       get 'answer', on: :member
       post 'answered', on: :member

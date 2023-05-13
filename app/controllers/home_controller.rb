@@ -7,7 +7,10 @@ class HomeController < ApplicationController
 
   def search
     @query = params["query"]
-    # return @auction_lots if @query == ''
+    if @query == ''
+      flash.now[:danger] = 'Não é possível realizar uma busca vazia'
+      return @auction_lots
+    end
     @auction_lots = AuctionLot.where("code LIKE ?", "%#{@query}%")
     items = Item.where("name LIKE ?", "%#{@query}%").each {|item| item if item.auction_lots.present?}
     if items.present? && @query != ''
@@ -15,7 +18,6 @@ class HomeController < ApplicationController
       other_lots.flatten!
       @auction_lots = @auction_lots + other_lots
     end
-    @auction_lots = @auction_lots.where.not(status: [:pending, :canceled])
   end
 
 

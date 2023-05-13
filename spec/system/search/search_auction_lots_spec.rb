@@ -142,6 +142,7 @@ describe 'Entra no sistema e busca' do
     end
 
     # Assert
+    expect(page).to have_content 'Não é possível realizar uma busca vazia'
     expect(page).to have_content 'Nenhum lote encontrado'
     expect(page).not_to have_content 'Lote XPG035410'
     expect(page).not_to have_content 'Lote ABC035410'

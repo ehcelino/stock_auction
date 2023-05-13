@@ -74,6 +74,10 @@ class AuctionLotsController < ApplicationController
     @auction_lots = AuctionLot.closed
   end
 
+  def canceled_list
+    @auction_lots = AuctionLot.canceled
+  end
+
   def favorite
     Favorite.create!(user_id: current_user.id, auction_lot_id: @auction_lot.id)
     flash[:success] = 'Lote adicionado aos favoritos'

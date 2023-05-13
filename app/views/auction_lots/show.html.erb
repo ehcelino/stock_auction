@@ -38,7 +38,7 @@
         <% end %>
       <% end %>
       <% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" %>
-        <h3>Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
+        <h3 class="my-3">Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
         <div class="my-3">
           <% if @auction_lot.bids.count == 0 %>
             <%= button_to 'Cancelar o lote', canceled_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
@@ -71,7 +71,7 @@
 </div>
 <div>
   <% if @auction_lot.status == "closed" %>
-    <div class="mb-3">
+    <div class="my-3">
       <h3>Este lote foi finalizado. Usuário vencedor: <%= @auction_lot.users.last.name %> - <%= @auction_lot.users.last.email %></h3>
     </div>
   <% end %>
@@ -106,7 +106,11 @@
         <% end %>
       </table>
     <% else %>
-      <h3>Este lote ainda não possui itens cadastrados</h3>
+      <% if @auction_lot.status != "canceled" %>
+        <h3>Este lote ainda não possui itens cadastrados</h3>
+      <% else %>
+        <h3>Este lote foi cancelado.</h3>
+      <% end %>
     <% end %>
   </div>
 

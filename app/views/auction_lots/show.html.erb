@@ -26,49 +26,47 @@
     </p>
   </div>
   <div class="col">
-    <% if !current_user.nil? && current_user.admin? %>
-      <div class="mb-3">
+    <div class="px-3 border rounded shadow" id="actionDiv">
+      <% if !current_user.nil? && current_user.admin? %>
         <% if @auction_lot.status == "pending" %>
-          <div class="d-flex gap-3">
-            <%= link_to 'Adicionar itens', new_auction_lot_lot_item_path(@auction_lot), class:"btn btn-secondary" %>
-            <%= button_to 'Aprovar lote', approved_auction_lot_path, class:"btn btn-secondary" %>
+          <div class="my-3">
+            <div class="d-flex gap-3">
+              <%= link_to 'Adicionar itens', new_auction_lot_lot_item_path(@auction_lot), class:"btn btn-secondary" %>
+              <%= button_to 'Aprovar lote', approved_auction_lot_path, class:"btn btn-secondary" %>
+            </div>
           </div>
         <% end %>
-      </div>
-    <% end %>
-
-    <% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" %>
-      <h3>Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
-      <div class="mb-3">
-        <% if @auction_lot.bids.count == 0 %>
-          <%= button_to 'Cancelar o lote', canceled_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
-        <% else %>
-          <%= button_to 'Finalizar o lote', closed_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
-        <% end %>
-      </div>
-    <% end %>
-
-    <% if user_signed_in? && @auction_lot.biddable? && current_user.status != "blocked" %>
-      <div class="mb-3">
-        <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-secondary" %>
-      </div>
-    <% end %>
-
-    <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.favoritable? %>
-      <div class="mb-3">
-        <% if current_user.is_favorite?(@auction_lot) %>
-          <%= button_to "Remover dos favoritos", unfavorite_auction_lot_path(@auction_lot), method: :delete, class:"btn btn-secondary" %>
-        <% else %>
-          <%= button_to "Adicionar aos favoritos", favorite_auction_lot_path(@auction_lot), method: :post, class:"btn btn-secondary" %>
-        <% end %>
-      </div>
-    <% end %>
-
-    <% if user_signed_in? && current_user.admin? && @auction_lot.editable? %>
-      <div class="mb-3">
-        <%= link_to "Editar lote", edit_auction_lot_path(@auction_lot.id), class:"btn btn-secondary" %>
-      </div>
-    <% end %>
+      <% end %>
+      <% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" %>
+        <h3>Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
+        <div class="my-3">
+          <% if @auction_lot.bids.count == 0 %>
+            <%= button_to 'Cancelar o lote', canceled_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
+          <% else %>
+            <%= button_to 'Finalizar o lote', closed_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
+          <% end %>
+        </div>
+      <% end %>
+      <% if user_signed_in? && @auction_lot.biddable? && current_user.status != "blocked" %>
+        <div class="my-3">
+          <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-secondary" %>
+        </div>
+      <% end %>
+      <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.favoritable? %>
+        <div class="my-3">
+          <% if current_user.is_favorite?(@auction_lot) %>
+            <%= button_to "Remover dos favoritos", unfavorite_auction_lot_path(@auction_lot), method: :delete, class:"btn btn-secondary" %>
+          <% else %>
+            <%= button_to "Adicionar aos favoritos", favorite_auction_lot_path(@auction_lot), method: :post, class:"btn btn-secondary" %>
+          <% end %>
+        </div>
+      <% end %>
+      <% if user_signed_in? && current_user.admin? && @auction_lot.editable? %>
+        <div class="my-3">
+          <%= link_to "Editar lote", edit_auction_lot_path(@auction_lot.id), class:"btn btn-secondary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 <div>
@@ -152,3 +150,10 @@
 
   <%= link_to "Voltar", :back %>
 </div>
+
+<script>
+  const aDiv = document.getElementById('actionDiv');
+  if (!aDiv.innerHTML.trim()) {
+    aDiv.style.display = 'none';
+  }
+</script>

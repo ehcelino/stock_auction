@@ -8,7 +8,7 @@ Usa bootstrap para estilos e active storage para imagens dos produtos.
 
 Na página inicial são listados os lotes em andamento e os lotes futuros.
 
-Clicando no código de um lote o usuário vê detalhes daquele lote, seus ítens e perguntas e respostas se houver.
+Clicando no código de um lote o usuário vê detalhes daquele lote, seus ítens e perguntas e respostas se houver, além de acompanhar os lances efetuados para aquele lote.
 
 Na barra de navegação há um formulário de busca onde o usuário pode inserir o código (parcial ou completo) de um lote, ou o nome (também parcial ou completo) de um produto.
 
@@ -75,6 +75,8 @@ jsbundling-rails - javascript bundling
 
 rspec-rails e capybara - testes
 
+
+### Breve histórico de desenvolvimento
 
 App gerado com o comando `rails new stock_auction --minimal -j esbuild --css bootstrap`
 

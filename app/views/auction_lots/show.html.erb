@@ -1,11 +1,21 @@
 <div class="row">
   <div class="col-8">
     <div class="mb-3">
-      <h3>Lote para leilão código <%= @auction_lot.code %></h3>
+      <h3>
+        Lote para leilão código <%= @auction_lot.code %>
+        <% if @auction_lot.items.present? %>
+         - Itens: <%= @auction_lot.items.count %>
+        <% end %>
+      </h3>
     </div>
     <p><%= AuctionLot.human_attribute_name(:start_date) %>: <%= I18n.localize(@auction_lot.start_date) %></p>
-    <p><%= AuctionLot.human_attribute_name(:end_date) %>: <%= I18n.localize(@auction_lot.end_date) %></p>
-    <p><%= AuctionLot.human_attribute_name(:min_bid_amount) %>: <%= number_to_currency(@auction_lot.min_bid_amount) %></p>
+    <p>
+    <%= AuctionLot.human_attribute_name(:end_date) %>: <%= I18n.localize(@auction_lot.end_date) %>
+    <% if @auction_lot.start_date <= Date.today && @auction_lot.end_date > Date.today %>
+      <strong class="text-primary">EM ANDAMENTO</strong>
+    <% end %>
+    </p>
+    <p><strong><%= AuctionLot.human_attribute_name(:min_bid_amount) %>: <%= number_to_currency(@auction_lot.min_bid_amount) %></strong></p>
     <p><%= AuctionLot.human_attribute_name(:min_bid_difference) %>: <%= number_to_currency(@auction_lot.min_bid_difference) %></p>
     <p><%= AuctionLot.human_attribute_name(:status) %>: <%= AuctionLot.human_attribute_name(@auction_lot.status) %></p>
     <p><%= AuctionLot.human_attribute_name(:creator) %>: <%= @auction_lot.creator.email %></p>

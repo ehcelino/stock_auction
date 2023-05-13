@@ -38,7 +38,7 @@ class AuctionLot < ApplicationRecord
   end
 
   def editable?
-    (self.status == "pending" || self.status == "approved") && self.end_date > Date.today
+    (self.status == "pending" || self.status == "approved") && self.start_date > Date.today
   end
 
   def minimum_value

@@ -56,6 +56,26 @@ Originalmente meu sistema havia sido desenvolvido para cadastrar administradores
 
 [administrador](https://excalidraw.com/#json=c-x-uycNkM0vhZrOCfdgv,de__sAKWHWzevRJb9RWD7Q)
 
+
+### Dependências e instalação
+
+Ruby versão 3.2.2
+
+Rails 7.0.4
+
+Requer a instalação do esbuild, `rails javascript:install:esbuild`
+
+O script `bin/setup` foi alterado para incluir a instalação do esbuild.
+
+### Gems utilizadas
+
+Devise - gerenciamento de usuários e permissões
+
+jsbundling-rails - javascript bundling
+
+rspec-rails e capybara - testes
+
+
 App gerado com o comando `rails new stock_auction --minimal -j esbuild --css bootstrap`
 
 Um teste demonstrou que o javascript do bootstrap não estava ativo. Para corrigir foram usados os seguintes comandos:

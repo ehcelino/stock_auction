@@ -1,5 +1,5 @@
 <%= form_with model: @blocked_cpf do |f| %>
-  <%# render "form_errors", object: @blocked_cpf %>
+  <%= render "form_errors", object: @blocked_cpf %>
 
   <% invalid = @blocked_cpf.errors.include?(:cpf) %>
   <div class="field mb-3">

@@ -1,8 +1,8 @@
-<% if object.errors.any? %>
-    <p>Verifique os erros abaixo:</p>
-    <ul>
-      <% object.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-    </ul>
-  <% end %>
+<% if object.errors.include?(:base) %>
+  <p class="text-danger">Atenção:</p>
+  <ul>
+    <% object.errors.full_messages_for(:base).each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>

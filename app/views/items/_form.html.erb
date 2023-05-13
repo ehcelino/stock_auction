@@ -1,5 +1,5 @@
 <%= form_with model: item do |f| %>
-  <%# render "form_errors", object: item %>
+  <%= render "form_errors", object: item %>
 
   <% invalid = item.errors.include?(:name) %>
   <div class="form-group field mb-3">

@@ -7,14 +7,15 @@ class HomeController < ApplicationController
 
   def search
     @query = params["query"]
-    return @auction_lots if @query == ''
+    # return @auction_lots if @query == ''
     @auction_lots = AuctionLot.where("code LIKE ?", "%#{@query}%")
     items = Item.where("name LIKE ?", "%#{@query}%").each {|item| item if item.auction_lots.present?}
-    if items.present?
+    if items.present? && @query != ''
       other_lots = items.map { |x| x.auction_lots }
       other_lots.flatten!
       @auction_lots = @auction_lots + other_lots
     end
+    @auction_lots = @auction_lots.where.not(status: [:pending, :canceled])
   end
 
 

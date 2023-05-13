@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
 
+body {
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  background-color: #3d3525;
+  color:rgb(219, 219, 219);
+}
+
 .navbar button {
   border:0;
   background-color:transparent;
@@ -22,6 +28,18 @@ h3 {
 }
 
 .clean-link {
-  color: black;
+  color: #c75000;
   display: block;
+}
+
+.clean-link:hover {
+  color: #c06e37;
+}
+
+a {
+  color: #c75000;
+}
+
+a:hover {
+  color: #c06e37;
 }

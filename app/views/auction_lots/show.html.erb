@@ -119,7 +119,7 @@
   </div>
 
   <% if @auction_lot.bids.present? && @auction_lot.biddable? %>
-    <div class="mb-3 border rounded px-2">
+    <div class="mb-3 border rounded p-2">
       <h3>Lances recebidos</h3>
       <% @auction_lot.bids.each_with_index do |bid, idx| %>
         <div class="mb-2">

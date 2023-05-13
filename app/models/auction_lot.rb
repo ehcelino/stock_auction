@@ -2,6 +2,7 @@ class AuctionLot < ApplicationRecord
 
   validate :check_code
   validate :check_end_date
+  validate :check_admin
   # Validação desabilitada para possibilitar a criação de lotes com data retroativa
   # validate :check_start_date
   validates :code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, presence: true
@@ -61,6 +62,12 @@ class AuctionLot < ApplicationRecord
   def check_user
     if self.creator == self.approver
       self.errors.add(:base, 'Um lote não pode ser aprovado pelo usuário que o criou')
+    end
+  end
+
+  def check_admin
+    if self.creator.role != "admin" || (self.approver.present? && self.approver.role != "admin")
+      self.errors.add(:base, 'Para manipular um lote o usuário deve ser administrador')
     end
   end
 

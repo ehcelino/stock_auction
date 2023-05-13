@@ -53,6 +53,43 @@ RSpec.describe AuctionLot, type: :model do
       expect(auction_lot.errors[:base]).to include 'Um lote não pode ser aprovado pelo usuário que o criou'
 
     end
+
+    it 'deve ser criado por um administrador' do
+      # Arrange
+      user = User.create!(name: 'John', cpf: 31887493093, email: 'john@ig.com.br',
+                            role: 0, password: 'password')
+      admin = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
+                            role: 1, password: 'password')
+      auction_lot = AuctionLot.new(code:'XPG035410', start_date: 1.day.from_now, end_date: 1.month.from_now,
+                                  min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: user, approver: admin)
+
+      # Act
+      auction_lot.valid?
+      result = auction_lot.errors.include?(:base)
+
+      #Assert
+      expect(result).to be true
+      expect(auction_lot.errors[:base]).to include 'Para manipular um lote o usuário deve ser administrador'
+    end
+
+    it 'deve ser aprovado por um administrador' do
+      # Arrange
+      user = User.create!(name: 'John', cpf: 31887493093, email: 'john@ig.com.br',
+                            role: 0, password: 'password')
+      admin = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
+                            role: 1, password: 'password')
+      auction_lot = AuctionLot.new(code:'XPG035410', start_date: 1.day.from_now, end_date: 1.month.from_now,
+                                  min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: admin, approver: user)
+
+      # Act
+      auction_lot.valid?
+      result = auction_lot.errors.include?(:base)
+
+      #Assert
+      expect(result).to be true
+      expect(auction_lot.errors[:base]).to include 'Para manipular um lote o usuário deve ser administrador'
+    end
+
   end
 
 end

@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :bids
   has_many :auction_lots, through: :bids
   has_many :favorites
+  has_many :favorite_auction_lots, through: :favorites, source: :auction_lot
 
 
   def is_favorite?(auction_lot)

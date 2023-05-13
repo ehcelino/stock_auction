@@ -14,6 +14,8 @@ class AuctionLot < ApplicationRecord
   has_many :bids
   has_many :users, through: :bids
   has_many :qnas
+  has_many :favorites
+  has_many :favorited_by_users, through: :favorites, source: :user
   belongs_to :creator, class_name: "User"
   belongs_to :approver, class_name: "User", optional: true
 

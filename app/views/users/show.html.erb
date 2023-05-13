@@ -19,12 +19,11 @@
   </div>
 <% end %>
 
-<% if current_user.favorites.any? %>
+<% if current_user.favorite_auction_lots.any? %>
   <div class="mb=3">
     <h3>Lotes favoritos</h3>
-    <% current_user.favorites.each do |f| %>
+    <% current_user.favorite_auction_lots.each do |lot| %>
       <div class="mb-3">
-        <% lot = AuctionLot.find(f.auction_lot_id) %>
         <%= link_to lot, class:"clean-link" do %>
           Lote <%= lot.code %>
         <% end %>

@@ -12,7 +12,9 @@ admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodo
 user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                    role: 0, password: 'password')
 user_2 = User.create!(name: 'Fernando', cpf: 12920704044, email: 'fernando@ig.com.br',
-                    role: 0, password: 'password')
+                      role: 0, password: 'password')
+user_3 = User.create!(name: 'Michel', cpf: 59487334084, email: 'michel@ig.com.br',
+                      role: 0, password: 'password')
 
 BlockedCpf.create!(cpf: 12920704044)
 
@@ -63,8 +65,12 @@ bid_1 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user.id, value: 101)
 bid_1.save!(validate: false)
 bid_2 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 101)
 bid_2.save!(validate: false)
+bid_3 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user_3.id, value: 150)
+bid_3.save!(validate: false)
 
 auction_lot_6.closed!
 
 Qna.create!(auction_lot_id: auction_lot_1.id, question: 'Este lote será entregue em minha residência?',
             answer: 'Não, ele deve ser retirado na empresa.', user_id: admin_1.id)
+Qna.create!(auction_lot_id: auction_lot_5.id, question: 'Quanto tempo eu tenho para retirar os produtos?',
+              answer: 'Até 30 dias do final do leilão.', user_id: admin_2.id)

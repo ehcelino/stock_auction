@@ -6,7 +6,7 @@
   <% invalid = @bid.errors.include?(:value) %>
   <div class="field mb-3">
     <%= f.label :value, class:"form-label" %>
-    <%= f.number_field :value, autofocus: true, class:"form-control #{'is-invalid' if invalid}" %>
+    <%= f.number_field :value, step: 0.01, autofocus: true, class:"form-control #{'is-invalid' if invalid}" %>
     <% if invalid %>
       <div class="invalid-feedback d-block">
         <% @bid.errors.full_messages_for(:value).each do |error_message| %>

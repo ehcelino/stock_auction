@@ -12,7 +12,7 @@ class HomeController < ApplicationController
       return @auction_lots
     end
     @auction_lots = AuctionLot.where("code LIKE ?", "%#{@query}%")
-    items = Item.where("name LIKE ?", "%#{@query}%").each {|item| item if item.auction_lots.present?}
+    items = Item.where("name LIKE ?", "%#{@query}%").includes([:auction_lots])
     if items.present? && @query != ''
       other_lots = items.map { |x| x.auction_lots }
       other_lots.flatten!

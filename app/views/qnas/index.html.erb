@@ -3,7 +3,7 @@
 </div>
 
 <% if @qnas.any? %>
-  <% @qnas.each do |qna| %>
+  <% @qnas.includes([:auction_lot]).each do |qna| %>
     <div class="mb-3">
       <%= link_to auction_lot_path(qna.auction_lot.id), class:"clean-link" do %>
         <p>Lote <%= qna.auction_lot.code %></p>
@@ -17,7 +17,11 @@
       <% else %>
         <p><%= link_to "Responder", answer_auction_lot_qna_path(qna.auction_lot_id, qna), id: dom_id(qna) %> </p>
       <% end %>
-      <%= button_to "Ocultar", hidden_auction_lot_qna_path(qna.auction_lot_id, qna), method: :post, class:"btn btn-secondary", id: "ocultar-#{dom_id(qna)}" %>
+      <% if qna.hidden? %>
+        <p>Esta pergunta foi ocultada pela administração</p>
+      <% else %>
+        <%= button_to "Ocultar", hidden_auction_lot_qna_path(qna.auction_lot_id, qna), method: :post, class:"btn btn-secondary", id: "ocultar-#{dom_id(qna)}" %>
+      <% end %>
     </div>
   <% end %>
 <% end %>

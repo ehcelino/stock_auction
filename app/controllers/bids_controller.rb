@@ -13,8 +13,13 @@ class BidsController < ApplicationController
       flash[:success] = 'Lance registrado com sucesso'
       return redirect_to @auction_lot
     end
-    flash[:danger] = 'Não foi possível registrar seu lance'
-    render :new
+    if current_user.admin?
+      flash[:danger] = 'Usuários administradores não podem participar de leilões'
+      return redirect_to @auction_lot
+    else
+      flash[:danger] = 'Não foi possível registrar seu lance'
+      render :new
+    end
   end
 
   private

@@ -2,7 +2,7 @@
   <div class="col-8">
     <div class="mb-3">
       <h3>
-        Lote para leilão código <%= @auction_lot.code %>
+        Lote para leilão código <span class="text-orange"><%= @auction_lot.code %></span>
         <% if @auction_lot.items.present? %>
          - Itens: <%= @auction_lot.items.count %>
         <% end %>
@@ -31,7 +31,7 @@
   </div>
   <div class="col">
     <div class="px-3 border rounded shadow" id="actionDiv">
-      <% if !current_user.nil? && current_user.admin? %>
+      <% if user_signed_in? && current_user.admin? %>
         <% if @auction_lot.status == "pending" %>
           <div class="my-3">
             <div class="d-flex gap-3">
@@ -71,12 +71,22 @@
         </div>
       <% end %>
     </div>
+
+    <% if !user_signed_in? %>
+      <div>
+        <span>
+          <%= link_to "Cadastre-se", new_user_registration_path %> para ter acesso às funções do site.
+        </span>
+      </div>
+    <% end %>
+
   </div>
+
 </div>
 <div>
   <% if @auction_lot.status == "closed" %>
     <div class="my-3">
-      <h3>Este lote foi finalizado. Usuário vencedor: <%= @auction_lot.users.last.name %> - <%= @auction_lot.users.last.email %></h3>
+      <h3 class="text-orange">Este lote foi finalizado. Usuário vencedor: <%= @auction_lot.users.last.name %> - <%= @auction_lot.users.last.email %></h3>
     </div>
   <% end %>
 
@@ -113,7 +123,7 @@
       <% if @auction_lot.status != "canceled" %>
         <h3>Este lote ainda não possui itens cadastrados</h3>
       <% else %>
-        <h3>Este lote foi cancelado.</h3>
+        <h3 class="text-orange">Este lote foi cancelado.</h3>
       <% end %>
     <% end %>
   </div>

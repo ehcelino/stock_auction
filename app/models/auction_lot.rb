@@ -41,6 +41,10 @@ class AuctionLot < ApplicationRecord
     (self.status == "pending" || self.status == "approved") && self.start_date > Date.today
   end
 
+  def expired?
+    self.end_date < Date.today
+  end
+
   def minimum_value
     if self.bids.none?
       self.min_bid_amount + 1
@@ -50,13 +54,7 @@ class AuctionLot < ApplicationRecord
   end
 
   def release_items
-    if self.items.count > 0
-      self.lot_items.destroy_all
-    end
-  end
-
-  def expired?
-    self.end_date < Date.today
+    self.lot_items.destroy_all if self.items.count > 0
   end
 
   private

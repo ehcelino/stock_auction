@@ -7,9 +7,8 @@ class Bid < ApplicationRecord
   before_validation :check_user
 
   def check_value
-    auction_lot = AuctionLot.find(self.auction_lot_id)
     unless self.value.nil?
-      if (auction_lot.bids.none? && self.value < auction_lot.min_bid_amount + 1) || (!auction_lot.bids.none? && self.value < auction_lot.bids.last.value + auction_lot.min_bid_difference)
+      if (self.auction_lot.bids.none? && self.value < self.auction_lot.min_bid_amount + 1) || (!self.auction_lot.bids.none? && self.value < self.auction_lot.bids.last.value + self.auction_lot.min_bid_difference)
         return self.errors.add(:value, 'menor que o valor mínimo para este lance')
       end
     end

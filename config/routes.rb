@@ -24,4 +24,5 @@ Rails.application.routes.draw do
   get 'search', to: 'home#search'
   get 'qna/index', to: 'qnas#index'
   post 'answerquestion', to: 'qnas#answer'
+  resources :categories, only: [:new, :create, :index]
 end

@@ -1,0 +1,12 @@
+<div class="mb-5 text-center">
+  <h3>Categorias</h3>
+  <hr>
+</div>
+
+<%= link_to "Nova categoria", new_category_path %>
+
+<% @categories.each do |c| %>
+  <div class="mt-3">
+    <%= c.name %>
+  </div>
+<% end %>

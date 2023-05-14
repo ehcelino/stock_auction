@@ -7,8 +7,9 @@ describe 'Admin vê os lotes expirados' do
                               role: 1, password: 'password')
     second_admin = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                                 role: 1, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
+    auction_lot = AuctionLot.new(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
                                     min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: first_admin, approver: second_admin)
+    auction_lot.save!(validate: false)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
@@ -34,8 +35,9 @@ describe 'Admin vê os lotes expirados' do
                                 role: 1, password: 'password')
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
+    auction_lot = AuctionLot.new(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
                                     min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: first_admin, approver: second_admin)
+    auction_lot.save!(validate: false)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)

@@ -62,8 +62,9 @@ describe 'Administrador bloqueia um CPF' do
                 role: 1, password: 'password')
     admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                 role: 1, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '01/05/2023', end_date: 1.month.from_now,
+    auction_lot = AuctionLot.new(code:'XPG035410', start_date: '01/05/2023', end_date: 1.month.from_now,
                               min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: admin_1, approver: admin_2)
+    auction_lot.save!(validate: false)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)

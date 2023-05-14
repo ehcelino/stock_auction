@@ -41,18 +41,22 @@ item_4.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg"
 item_5.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg")), filename: "tdrive.jpg")
 item_6.image.attach(io: File.open(Rails.root.join("app/assets/images/tdrive.jpg")), filename: "tdrive.jpg")
 
-auction_lot_1 = AuctionLot.create!(code:'XPG035410', start_date: '01/05/2023', end_date: 1.month.from_now,
+auction_lot_1 = AuctionLot.new(code:'XPG035410', start_date: '01/05/2023', end_date: 1.month.from_now,
                                   min_bid_amount: 100, min_bid_difference: 2, status: 5, creator: admin_1, approver: admin_2)
+auction_lot_1.save!(validate: false)
 auction_lot_2 = AuctionLot.create!(code:'BGO570364', start_date: 2.months.from_now, end_date: 3.months.from_now,
                                   min_bid_amount: 500, min_bid_difference: 10, status: 0, creator: admin_1)
-auction_lot_3 = AuctionLot.create!(code:'PGA359841', start_date: '01/04/2023', end_date: '20/04/2023',
+auction_lot_3 = AuctionLot.new(code:'PGA359841', start_date: '01/04/2023', end_date: '20/04/2023',
                                   min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
-auction_lot_4 = AuctionLot.create!(code:'JKY174683', start_date: '01/03/2023', end_date: '20/03/2023',
+auction_lot_3.save!(validate: false)
+auction_lot_4 = AuctionLot.new(code:'JKY174683', start_date: '01/03/2023', end_date: '20/03/2023',
                                   min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
+auction_lot_4.save!(validate: false)
 auction_lot_5 = AuctionLot.create!(code:'CVZ574198', start_date: 10.days.from_now, end_date: 1.month.from_now,
                                   min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
-auction_lot_6 = AuctionLot.create!(code:'LHD753159', start_date: '01/02/2023', end_date: '20/02/2023',
+auction_lot_6 = AuctionLot.new(code:'LHD753159', start_date: '01/02/2023', end_date: '20/02/2023',
                                   min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
+auction_lot_6.save!(validate: false)
 
 LotItem.create!(auction_lot_id: auction_lot_1.id, item_id: item_1.id)
 LotItem.create!(auction_lot_id: auction_lot_3.id, item_id: item_2.id)
@@ -67,6 +71,8 @@ bid_2 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 101)
 bid_2.save!(validate: false)
 bid_3 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user_3.id, value: 150)
 bid_3.save!(validate: false)
+bid_4 = Bid.new(auction_lot_id: auction_lot_1.id, user_id: user_3.id, value: 150)
+bid_4.save!(validate: false)
 
 auction_lot_6.closed!
 

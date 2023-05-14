@@ -7,8 +7,9 @@ describe 'Admin entra no sistema' do
                               role: 1, password: 'password')
     second_admin = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                                 role: 1, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
+    auction_lot = AuctionLot.new(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
                                     min_bid_amount: 300, min_bid_difference: 50, status: 9, creator: first_admin, approver: second_admin)
+    auction_lot.save!(validate: false)
 
     # Act
     login_as first_admin

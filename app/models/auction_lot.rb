@@ -3,8 +3,7 @@ class AuctionLot < ApplicationRecord
   validate :check_code
   validate :check_end_date
   validate :check_admin
-  # Validação desabilitada para possibilitar a criação de lotes com data retroativa
-  # validate :check_start_date
+  validate :check_start_date, on: :create
   validates :code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, presence: true
   validates :code, uniqueness: true
   validates :min_bid_amount, :min_bid_difference, numericality: { greater_than: 1 }

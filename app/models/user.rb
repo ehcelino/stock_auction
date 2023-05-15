@@ -37,10 +37,6 @@ class User < ApplicationRecord
     "#{name} - #{email}"
   end
 
-  def formatted_cpf
-    self.cpf.to_s.gsub(/(\d{3})(\d{3})(\d{3})(\d{2})/, '\1.\2.\3-\4')
-  end
-
   def block_user
     list = BlockedCpf.all.map {|x| x.cpf}
     unless list.count == 0

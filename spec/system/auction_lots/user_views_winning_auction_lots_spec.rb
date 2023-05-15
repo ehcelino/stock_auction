@@ -37,8 +37,10 @@ describe 'Usuário vê lotes vencedores' do
     expect(page).to have_content 'Lotes finalizados'
     expect(page).to have_content 'Lote XPG035410'
     expect(page).to have_content 'Iniciado em: 10/03/2023 Finalizado em: 01/04/2023'
+    expect(page).to have_content 'Lance vencedor: Michael - R$ 301,00'
     expect(page).to have_content 'Lote ABC035410'
     expect(page).to have_content 'Iniciado em: 20/04/2023 Finalizado em: 01/05/2023'
+    expect(page).to have_content 'Lance vencedor: Michael - R$ 301,00'
 
   end
 

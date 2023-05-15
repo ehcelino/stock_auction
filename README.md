@@ -34,15 +34,15 @@ administradores:
 
 john@leilaodogalpao.com.br
 
-daniel@leilaodogalpao.com.br
+paul@leilaodogalpao.com.br
 
 usuários:
 
-michael@ig.com.br
+george@ig.com.br
 
-fernando@ig.com.br (usuário restrito por CPF)
+ringo@ig.com.br (usuário restrito por CPF)
 
-michel@ig.com.br
+pete@ig.com.br
 
 Originalmente meu sistema havia sido desenvolvido para cadastrar administradores apenas pelo console, por isso existem duas validações relacionadas no modelo User. Porém depois de uma pergunta de um colega durante um dos encontros alterei o sistema para que qualquer usuário cadastrado com o domínio @leilaodogalpao.com.br seja automaticamente transformado em administrador.
 

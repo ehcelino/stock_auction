@@ -7,13 +7,13 @@
 #   Character.create(name: "Luke", movie: movies.first)
 admin_1 = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                       role: 1, password: 'password')
-admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
+admin_2 = User.create!(name: 'Paul', cpf: 92063172021, email: 'paul@leilaodogalpao.com.br',
                       role: 1, password: 'password')
-user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
+user = User.create!(name: 'George', cpf: 62059576040, email: 'george@ig.com.br',
                    role: 0, password: 'password')
-user_2 = User.create!(name: 'Fernando', cpf: 12920704044, email: 'fernando@ig.com.br',
+user_2 = User.create!(name: 'Ringo', cpf: 12920704044, email: 'ringo@ig.com.br',
                       role: 0, password: 'password')
-user_3 = User.create!(name: 'Michel', cpf: 59487334084, email: 'michel@ig.com.br',
+user_3 = User.create!(name: 'Pete', cpf: 59487334084, email: 'pete@ig.com.br',
                       role: 0, password: 'password')
 
 BlockedCpf.create!(cpf: 12920704044)

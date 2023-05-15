@@ -16,6 +16,10 @@
         <span> Finalizado em: </span>
         <%= I18n.localize(lot.end_date) %>
       </div>
+      <div>
+        <span>Lance vencedor:</span>
+        <%= lot.users.last.name %> - <%= number_to_currency(lot.bids.last.value) %>
+      </div>
     <% end %>
   <% else %>
     <p>Nenhum lote</p>

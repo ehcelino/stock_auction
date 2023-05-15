@@ -4,7 +4,7 @@
   <% invalid = @blocked_cpf.errors.include?(:cpf) %>
   <div class="field mb-3">
     <%= f.label :cpf, class:"form-label" %>
-    <%= f.number_field :cpf, autofocus: true, class:"form-control #{'is-invalid' if invalid}" %>
+    <%= f.text_field :cpf, autofocus: true, class:"form-control #{'is-invalid' if invalid}" %>
     <% if invalid %>
       <div class="invalid-feedback d-block">
         <% @blocked_cpf.errors.full_messages_for(:cpf).each do |error_message| %>

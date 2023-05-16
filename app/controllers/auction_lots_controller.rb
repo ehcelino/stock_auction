@@ -94,7 +94,7 @@ class AuctionLotsController < ApplicationController
   private
 
   def auction_lot_params
-    params.require(:auction_lot).permit(:code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, :status, :created_by, :approved_by, :creator_id, :approver_id)
+    params.require(:auction_lot).permit(:code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, :status, :creator_id, :approver_id)
   end
 
   def set_auction_lot

@@ -41,7 +41,11 @@
             <% if current_user.try(:admin?) %>
               <%= link_to current_user.user_email, user_path, class:"nav-link text-danger" %>
             <% else %>
-              <%= link_to current_user.user_email, user_path, class:"nav-link text-primary" %>
+              <a href="<%= url_for(user_path) %>" class="nav-link text-primary" style="position:relative;">
+                <% if current_user.auction_lots.closed != [] %>
+                  <span class="position-absolute top-20 start-100 translate-middle badge rounded-pill bg-danger" id="badge"><%= current_user.auction_lots.closed.count %></span>
+                <% end %>
+              <%= current_user.user_email %></a>
             <% end %>
           </li>
           <li class="nav-item">

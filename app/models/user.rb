@@ -22,12 +22,7 @@ class User < ApplicationRecord
 
 
   def is_favorite?(auction_lot)
-    self.favorites.each do |fav|
-      if auction_lot.id == fav.auction_lot_id
-        return true
-      end
-    end
-    false
+    self.favorites.find_by(auction_lot_id: auction_lot.id) != nil
   end
 
   def user_email
@@ -38,12 +33,9 @@ class User < ApplicationRecord
   end
 
   def block_user
-    list = BlockedCpf.all.map {|x| x.cpf}
-    unless list.count == 0
-      if list.include?(self.cpf)
-        self.status = 5
-        self.save!(validate: false)
-      end
+    if BlockedCpf.find_by(cpf: self.cpf) != nil
+      self.status = 5
+      self.save!(validate: false)
     end
   end
 
@@ -74,11 +66,8 @@ class User < ApplicationRecord
   end
 
   def cpf_is_blocked
-    list = BlockedCpf.all.map {|x| x.cpf}
-    unless list.count == 0
-      if list.include?(self.cpf)
+    if BlockedCpf.find_by(cpf: self.cpf) != nil
         self.errors.add(:cpf, 'está bloqueado para criação de nova conta')
-      end
     end
   end
 

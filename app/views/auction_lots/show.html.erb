@@ -16,7 +16,7 @@
     <p>
     <%= AuctionLot.human_attribute_name(:end_date) %>: <%= I18n.localize(@auction_lot.end_date) %>
     <% if @auction_lot.start_date <= Date.today && @auction_lot.end_date > Date.today %>
-      <strong class="text-primary">em andamento</strong>
+      <strong class="text-primary">em <%= distance_of_time_in_words(Date.today, @auction_lot.end_date) %></strong>
     <% end %>
     </p>
     <p><strong><%= AuctionLot.human_attribute_name(:min_bid_amount) %>: <%= number_to_currency(@auction_lot.min_bid_amount) %></strong></p>
@@ -56,7 +56,7 @@
           <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-danger" %>
         </div>
       <% end %>
-      <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.favoritable? %>
+      <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.questionable_and_favoritable? %>
         <div class="my-3">
           <% if current_user.is_favorite?(@auction_lot) %>
             <%= button_to "Remover dos favoritos", unfavorite_auction_lot_path(@auction_lot), method: :delete, class:"btn btn-secondary" %>
@@ -159,7 +159,7 @@
     </div>
   <% end %>
 
-  <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.questionable? %>
+  <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.questionable_and_favoritable? %>
     <div class="mb-3">
       <%= link_to "Fazer uma pergunta", new_auction_lot_qna_path(@auction_lot), class:"btn btn-secondary" %>
     </div>

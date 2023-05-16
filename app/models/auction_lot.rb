@@ -28,12 +28,8 @@ class AuctionLot < ApplicationRecord
     self.status == 'approved' && self.end_date > Date.today && self.start_date < Date.today
   end
 
-  def questionable?
+  def questionable_and_favoritable?
     self.status == 'approved' && self.end_date > Date.today
-  end
-
-  def favoritable?
-    self.status != "closed" && self.status != "pending" && self.end_date > Date.today
   end
 
   def editable?

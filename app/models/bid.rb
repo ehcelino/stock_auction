@@ -8,7 +8,7 @@ class Bid < ApplicationRecord
 
   def check_value
     unless self.value.nil?
-      if (self.auction_lot.bids.none? && self.value < self.auction_lot.min_bid_amount + 1) || (!self.auction_lot.bids.none? && self.value < self.auction_lot.bids.last.value + self.auction_lot.min_bid_difference)
+      if (self.auction_lot.bids.none? && self.value < self.auction_lot.min_bid_amount) || (!self.auction_lot.bids.none? && self.value < self.auction_lot.bids.last.value + self.auction_lot.min_bid_difference)
         return self.errors.add(:value, 'menor que o valor mínimo para este lance')
       end
     end

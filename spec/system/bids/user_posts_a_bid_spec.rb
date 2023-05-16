@@ -22,12 +22,12 @@ describe 'Usuário vê um leilão e dá um lance' do
     visit root_path
     click_on 'Lote XPG035410'
     click_on 'Dar um lance'
-    fill_in 'Valor', with: '301'
+    fill_in 'Valor', with: '300'
     click_on 'Confirmar lance'
 
     # Assert
     expect(page).to have_content 'Lance registrado com sucesso'
-    expect(page).to have_content 'Michael - R$ 301,00'
+    expect(page).to have_content 'Michael - R$ 300,00'
     expect(auction_lot.bids.count).to eq 1
   end
 

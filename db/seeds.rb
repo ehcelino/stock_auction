@@ -57,12 +57,16 @@ auction_lot_5 = AuctionLot.create!(code:'CVZ574198', start_date: 10.days.from_no
 auction_lot_6 = AuctionLot.new(code:'LHD753159', start_date: '01/02/2023', end_date: '20/02/2023',
                                   min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
 auction_lot_6.save!(validate: false)
+auction_lot_7 = AuctionLot.new(code:'DNB326710', start_date: '01/05/2023', end_date: 1.month.from_now,
+                              min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
+auction_lot_7.save!(validate: false)
 
 LotItem.create!(auction_lot_id: auction_lot_1.id, item_id: item_1.id)
 LotItem.create!(auction_lot_id: auction_lot_3.id, item_id: item_2.id)
 LotItem.create!(auction_lot_id: auction_lot_4.id, item_id: item_3.id)
 LotItem.create!(auction_lot_id: auction_lot_5.id, item_id: item_4.id)
 LotItem.create!(auction_lot_id: auction_lot_6.id, item_id: item_6.id)
+LotItem.create!(auction_lot_id: auction_lot_7.id, item_id: item_5.id)
 
 
 bid_1 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user.id, value: 101)

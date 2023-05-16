@@ -42,7 +42,7 @@ class AuctionLot < ApplicationRecord
 
   def minimum_value
     if self.bids.none?
-      self.min_bid_amount + 1
+      self.min_bid_amount
     else
       self.bids.last.value + self.min_bid_difference
     end

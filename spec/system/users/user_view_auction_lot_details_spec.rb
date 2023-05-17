@@ -9,7 +9,7 @@ describe 'Usuário vê detalhes de um lote' do
                 role: 1, password: 'password')
     admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                 role: 1, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
+    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 1.month.from_now,
                                     min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: admin_1, approver: admin_2)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
@@ -22,8 +22,8 @@ describe 'Usuário vê detalhes de um lote' do
 
     # Assert
     expect(page).to have_content 'Lote para leilão código XPG035410'
-    expect(page).to have_content 'Data de início: 20/05/2024'
-    expect(page).to have_content 'Data de término: 10/06/2024'
+    expect(page).to have_content "Data de início: #{1.day.from_now.strftime("%d/%m/%Y")}"
+    expect(page).to have_content "Data de término: #{1.month.from_now.strftime("%d/%m/%Y")}"
     expect(page).to have_content 'Lance inicial: R$ 300,00'
     expect(page).to have_content 'Diferença entre lances: R$ 50,00'
     expect(page).to have_content 'Status: Aprovado'
@@ -48,7 +48,7 @@ describe 'Usuário vê detalhes de um lote' do
                 role: 1, password: 'password')
     user = User.create!(name: 'Fernando', cpf: 88262301021, email: 'fernando@ig.com.br',
                         role: 0, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
+    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 1.month.from_now,
                                     min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: admin_1, approver: admin_2)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
@@ -62,8 +62,8 @@ describe 'Usuário vê detalhes de um lote' do
 
     # Assert
     expect(page).to have_content 'Lote para leilão código XPG035410'
-    expect(page).to have_content 'Data de início: 20/05/2024'
-    expect(page).to have_content 'Data de término: 10/06/2024'
+    expect(page).to have_content "Data de início: #{1.day.from_now.strftime("%d/%m/%Y")}"
+    expect(page).to have_content "Data de término: #{1.month.from_now.strftime("%d/%m/%Y")}"
     expect(page).to have_content 'Lance inicial: R$ 300,00'
     expect(page).to have_content 'Diferença entre lances: R$ 50,00'
     expect(page).to have_content 'Status: Aprovado'

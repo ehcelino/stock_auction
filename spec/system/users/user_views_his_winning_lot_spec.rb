@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveSupport::Testing::TimeHelpers
 
 describe 'Usuário vê lotes vencedores' do
   it 'com sucesso' do
@@ -10,15 +11,17 @@ describe 'Usuário vê lotes vencedores' do
                                 role: 1, password: 'password')
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
-    auction_lot = AuctionLot.new(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
+    travel_to(2.months.ago) do
+    @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 45.days.from_now,
                                     min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
-    auction_lot.save!(validate: false)
+    end
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
-    LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
-    bid = Bid.new(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
-    bid.save!(validate: false)
+    LotItem.create!(auction_lot_id: @auction_lot.id, item_id: item.id)
+    travel_to(30.days.ago) do
+    bid = Bid.create!(auction_lot_id: @auction_lot.id, user_id: user.id, value: 301)
+    end
 
     # Act
     login_as user

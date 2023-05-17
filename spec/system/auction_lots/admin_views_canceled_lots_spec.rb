@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveSupport::Testing::TimeHelpers
 
 describe 'Admin entra no sistema' do
   it 'e lista os lotes cancelados' do
@@ -7,9 +8,10 @@ describe 'Admin entra no sistema' do
                               role: 1, password: 'password')
     second_admin = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                                 role: 1, password: 'password')
-    auction_lot = AuctionLot.new(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
+    travel_to(Time.zone.local(2023, 4, 18, 10, 10, 10)) do
+    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
                                     min_bid_amount: 300, min_bid_difference: 50, status: 9, creator: first_admin, approver: second_admin)
-    auction_lot.save!(validate: false)
+    end
 
     # Act
     login_as first_admin

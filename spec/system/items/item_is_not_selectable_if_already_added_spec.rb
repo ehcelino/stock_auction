@@ -11,7 +11,7 @@ describe 'Administrador visualiza um lote e tenta cadastrar um item' do
                           role: 1, password: 'password')
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
+    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 1.month.from_now,
                                     min_bid_amount: 300, min_bid_difference: 50, status: 0, creator: admin_1)
     second_auction_lot = AuctionLot.create!(code:'BGO570364', start_date: '20/03/2024', end_date: '10/04/2024',
                                             min_bid_amount: 500, min_bid_difference: 10, status: 7, creator: admin_1, approver: admin_2)
@@ -44,9 +44,9 @@ describe 'Administrador visualiza um lote e tenta cadastrar um item' do
     # Arrange
     admin = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
                       role: 1, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
+    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 1.month.from_now,
                                     min_bid_amount: 300, min_bid_difference: 50, status: 0, creator: admin)
-    second_auction_lot = AuctionLot.create!(code:'BGO570364', start_date: '20/06/2024', end_date: '10/07/2024',
+    second_auction_lot = AuctionLot.create!(code:'BGO570364', start_date: 1.month.from_now, end_date: 2.months.from_now,
                                             min_bid_amount: 500, min_bid_difference: 10, status: 0, creator: admin)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,

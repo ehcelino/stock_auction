@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveSupport::Testing::TimeHelpers
 
 describe 'Administrador bloqueia um CPF' do
   it 'adicionando o cpf ao sistema' do
@@ -62,13 +63,14 @@ describe 'Administrador bloqueia um CPF' do
                 role: 1, password: 'password')
     admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                 role: 1, password: 'password')
-    auction_lot = AuctionLot.new(code:'XPG035410', start_date: '01/05/2023', end_date: 1.month.from_now,
+    travel_to(1.month.ago) do
+    @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 2.months.from_now,
                               min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: admin_1, approver: admin_2)
-    auction_lot.save!(validate: false)
+    end
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
-    LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
+    LotItem.create!(auction_lot_id: @auction_lot.id, item_id: item.id)
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
     BlockedCpf.create!(cpf: 62059576040)
@@ -91,7 +93,7 @@ describe 'Administrador bloqueia um CPF' do
                 role: 1, password: 'password')
     admin_2 = User.create!(name: 'Daniel', cpf: 92063172021, email: 'daniel@leilaodogalpao.com.br',
                 role: 1, password: 'password')
-    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/05/2024', end_date: '10/06/2024',
+    auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 1.month.from_now,
                               min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: admin_1, approver: admin_2)
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,

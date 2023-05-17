@@ -1,4 +1,5 @@
 require 'rails_helper'
+include ActiveSupport::Testing::TimeHelpers
 
 describe 'Usuário entra no sistema' do
   it 'e adiciona um lote aos favoritos' do
@@ -9,21 +10,23 @@ describe 'Usuário entra no sistema' do
             role: 1, password: 'password')
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
     role: 0, password: 'password')
-    auction_lot = AuctionLot.new(code:'XPG035410', start_date: '20/04/2023', end_date: 1.month.from_now,
+    travel_to(1.month.ago) do
+    @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 2.months.from_now,
                 min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: first_admin, approver: second_admin)
-    auction_lot.save!(validate: false)
+    end
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
     width: 6, height: 3, depth: 11, category_id: category.id)
-    LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
-    Bid.create!(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
-    second_auction_lot = AuctionLot.new(code:'ABC035410', start_date: '20/04/2023', end_date: 1.month.from_now,
+    LotItem.create!(auction_lot_id: @auction_lot.id, item_id: item.id)
+    Bid.create!(auction_lot_id: @auction_lot.id, user_id: user.id, value: 301)
+    travel_to(1.month.ago) do
+    @second_auction_lot = AuctionLot.create!(code:'ABC035410', start_date: 1.day.from_now, end_date: 2.months.from_now,
                       min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: first_admin, approver: second_admin)
-    second_auction_lot.save!(validate: false)
+    end
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse sem fio', weight: 200,
           width: 6, height: 3, depth: 11, category_id: category.id)
-    LotItem.create!(auction_lot_id: second_auction_lot.id, item_id: second_item.id)
-    Bid.create!(auction_lot_id: second_auction_lot.id, user_id: user.id, value: 301)
+    LotItem.create!(auction_lot_id: @second_auction_lot.id, item_id: second_item.id)
+    Bid.create!(auction_lot_id: @second_auction_lot.id, user_id: user.id, value: 301)
 
     # Act
     login_as user
@@ -46,22 +49,24 @@ describe 'Usuário entra no sistema' do
                                 role: 1, password: 'password')
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
-    auction_lot = AuctionLot.new(code:'XPG035410', start_date: '20/04/2023', end_date: 1.month.from_now,
+    travel_to(1.month.ago) do
+    @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 2.months.from_now,
                                     min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: first_admin, approver: second_admin)
-    auction_lot.save!(validate: false)
+    end
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
                         width: 6, height: 3, depth: 11, category_id: category.id)
-    LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
-    Bid.create!(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
-    second_auction_lot = AuctionLot.new(code:'ABC035410', start_date: '20/04/2023', end_date: 1.month.from_now,
+    LotItem.create!(auction_lot_id: @auction_lot.id, item_id: item.id)
+    Bid.create!(auction_lot_id: @auction_lot.id, user_id: user.id, value: 301)
+    travel_to(1.month.ago) do
+    @second_auction_lot = AuctionLot.create!(code:'ABC035410', start_date: 1.day.from_now, end_date: 2.months.from_now,
                                             min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: first_admin, approver: second_admin)
-    second_auction_lot.save!(validate: false)
+    end
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse sem fio', weight: 200,
                               width: 6, height: 3, depth: 11, category_id: category.id)
-    LotItem.create!(auction_lot_id: second_auction_lot.id, item_id: second_item.id)
-    Bid.create!(auction_lot_id: second_auction_lot.id, user_id: user.id, value: 301)
-    Favorite.create!(user_id: user.id, auction_lot_id: auction_lot.id)
+    LotItem.create!(auction_lot_id: @second_auction_lot.id, item_id: second_item.id)
+    Bid.create!(auction_lot_id: @second_auction_lot.id, user_id: user.id, value: 301)
+    Favorite.create!(user_id: user.id, auction_lot_id: @auction_lot.id)
 
     # Act
     login_as user
@@ -82,24 +87,28 @@ describe 'Usuário entra no sistema' do
                                 role: 1, password: 'password')
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
-    auction_lot = AuctionLot.new(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
+    travel_to(2.months.ago) do
+    @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 40.days.from_now,
                                     min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: first_admin, approver: second_admin)
-    auction_lot.save!(validate: false)
+    end
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
     width: 6, height: 3, depth: 11, category_id: category.id)
-    LotItem.create!(auction_lot_id: auction_lot.id, item_id: item.id)
-    bid = Bid.new(auction_lot_id: auction_lot.id, user_id: user.id, value: 301)
-    bid.save!(validate: false)
-    second_auction_lot = AuctionLot.new(code:'ABC035410', start_date: '20/04/2023', end_date: 1.month.from_now,
+    LotItem.create!(auction_lot_id: @auction_lot.id, item_id: item.id)
+    travel_to(1.month.ago) do
+    bid = Bid.create!(auction_lot_id: @auction_lot.id, user_id: user.id, value: 301)
+    end
+    travel_to(1.month.ago) do
+    @second_auction_lot = AuctionLot.create!(code:'ABC035410', start_date: 1.day.from_now, end_date: 2.months.from_now,
                                             min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: first_admin, approver: second_admin)
-    second_auction_lot.save!(validate: false)
+    end
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse sem fio', weight: 200,
                               width: 6, height: 3, depth: 11, category_id: category.id)
-    LotItem.create!(auction_lot_id: second_auction_lot.id, item_id: second_item.id)
-    second_bid = Bid.new(auction_lot_id: second_auction_lot.id, user_id: user.id, value: 301)
-    second_bid.save!(validate: false)
-    Favorite.create!(user_id: user.id, auction_lot_id: auction_lot.id)
+    LotItem.create!(auction_lot_id: @second_auction_lot.id, item_id: second_item.id)
+    travel_to(10.days.ago) do
+    second_bid = Bid.new(auction_lot_id: @second_auction_lot.id, user_id: user.id, value: 301)
+    end
+    Favorite.create!(user_id: user.id, auction_lot_id: @auction_lot.id)
 
     # Act
     login_as user

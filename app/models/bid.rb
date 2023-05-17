@@ -4,7 +4,8 @@ class Bid < ApplicationRecord
   validates :value, presence: true
   before_validation :check_value
   before_validation :check_date
-  before_validation :check_user
+  before_validation :check_for_admin
+  before_validation :check_for_blocked_user
 
   def check_value
     unless self.value.nil?
@@ -20,9 +21,15 @@ class Bid < ApplicationRecord
     end
   end
 
-  def check_user
+  def check_for_admin
     if self.user.present? && self.user.role == "admin"
       self.errors.add(:base, 'Usuários administradores não podem fazer lances')
+    end
+  end
+
+  def check_for_blocked_user
+    if self.user.present? && self.user.status == "blocked"
+      self.errors.add(:base, 'Usuários bloqueados não podem fazer lances')
     end
   end
 

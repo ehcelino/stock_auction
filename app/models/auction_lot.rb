@@ -68,7 +68,7 @@ class AuctionLot < ApplicationRecord
 
   def check_code
     if self.code.present?
-      unless self.code =~ /[a-zA-Z]{3}[0-9]{6}/
+      unless self.code =~ /[A-Z]{3}[0-9]{6}/
         self.errors.add(:code, 'inválido. O formato é XXX000000')
       end
     end

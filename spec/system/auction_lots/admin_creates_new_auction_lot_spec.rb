@@ -13,8 +13,8 @@ describe 'Admin cria um novo lote' do
     click_on 'Funções administrativas'
     click_on 'Novo lote para leilão'
     fill_in 'Código', with: 'ABC123456'
-    fill_in 'Data de início', with: '20/05/2023'
-    fill_in 'Data de término', with: '30/05/2023'
+    fill_in 'Data de início', with: 10.days.from_now
+    fill_in 'Data de término', with: 1.month.from_now
     fill_in 'Lance inicial', with: 100
     fill_in 'Diferença entre lances', with: 50
     click_on 'Criar lote'
@@ -22,8 +22,8 @@ describe 'Admin cria um novo lote' do
     # Assert
     expect(page).to have_content 'Lote criado com sucesso'
     expect(page).to have_content 'Lote para leilão código ABC123456'
-    expect(page).to have_content 'Data de início: 20/05/2023'
-    expect(page).to have_content 'Data de término: 30/05/2023'
+    expect(page).to have_content "Data de início: #{10.days.from_now.strftime("%d/%m/%Y")}"
+    expect(page).to have_content "Data de término: #{1.month.from_now.strftime("%d/%m/%Y")}"
     expect(page).to have_content 'Lance inicial: R$ 100,00'
     expect(page).to have_content 'Diferença entre lances: R$ 50,00'
     expect(page).to have_content 'Status: Aguardando aprovação'
@@ -42,8 +42,8 @@ describe 'Admin cria um novo lote' do
     click_on 'Funções administrativas'
     click_on 'Novo lote para leilão'
     fill_in 'Código', with: '123456ABC'
-    fill_in 'Data de início', with: '20/05/2023'
-    fill_in 'Data de término', with: '30/05/2023'
+    fill_in 'Data de início', with: 10.days.from_now
+    fill_in 'Data de término', with: 1.month.from_now
     fill_in 'Lance inicial', with: 100
     fill_in 'Diferença entre lances', with: 50
     click_on 'Criar lote'

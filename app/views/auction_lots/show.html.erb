@@ -143,6 +143,14 @@
     </div>
   <% end %>
 
+  <% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" && @auction_lot.bids.count > 0 %>
+    <% bid = @auction_lot.bids.last %>
+    <div class="mb-3 border rounded p-2 bids-board">
+      <%= bid.user.name %> - <%= bid.user.email %> - <%= number_to_currency(bid.value) %> <span class="text-danger">Lance vencedor</span>
+    </div>
+  <% end %>
+
+
   <% if @auction_lot.qnas.present? %>
     <h3>Perguntas e respostas</h3>
     <div class="mb-3">

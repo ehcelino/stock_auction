@@ -41,7 +41,7 @@
           </div>
         <% end %>
       <% end %>
-      <% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" %>
+      <% if is_lot_expired?(@auction_lot) %>
         <h3 class="my-3">Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
         <div class="my-3">
           <% if @auction_lot.bids.count == 0 %>
@@ -51,12 +51,12 @@
           <% end %>
         </div>
       <% end %>
-      <% if user_signed_in? && @auction_lot.biddable? && current_user.status != "blocked" %>
+      <% if can_i_bid?(@auction_lot) %>
         <div class="my-3">
           <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-danger" %>
         </div>
       <% end %>
-      <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.questionable_and_favoritable? %>
+      <% if can_i_fav?(@auction_lot) %>
         <div class="my-3">
           <% if current_user.is_favorite?(@auction_lot) %>
             <%= button_to "Remover dos favoritos", unfavorite_auction_lot_path(@auction_lot), method: :delete, class:"btn btn-secondary" %>
@@ -65,7 +65,7 @@
           <% end %>
         </div>
       <% end %>
-      <% if user_signed_in? && current_user.admin? && @auction_lot.editable? %>
+      <% if can_i_edit?(@auction_lot) %>
         <div class="my-3">
           <%= link_to "Editar lote", edit_auction_lot_path(@auction_lot.id), class:"btn btn-secondary" %>
         </div>
@@ -143,7 +143,7 @@
     </div>
   <% end %>
 
-  <% if user_signed_in? && @auction_lot.expired? && current_user.admin? && @auction_lot.status != "closed" && @auction_lot.status != "canceled" && @auction_lot.bids.count > 0 %>
+  <% if expired_with_bids?(@auction_lot) %>
     <% bid = @auction_lot.bids.last %>
     <div class="mb-3 border rounded p-2 bids-board">
       <%= bid.user.name %> - <%= bid.user.email %> - <%= number_to_currency(bid.value) %> <span class="text-danger">Lance vencedor</span>
@@ -167,7 +167,7 @@
     </div>
   <% end %>
 
-  <% if user_signed_in? && current_user.status != "blocked" && @auction_lot.questionable_and_favoritable? %>
+  <% if can_i_ask_question?(@auction_lot) %>
     <div class="mb-3">
       <%= link_to "Fazer uma pergunta", new_auction_lot_qna_path(@auction_lot), class:"btn btn-secondary" %>
     </div>

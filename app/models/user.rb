@@ -12,7 +12,7 @@ class User < ApplicationRecord
   # validate :email_for_admin
   # validate :not_admin_email
   before_validation :set_admin_by_email_domain, on: :create
-  validate :cpf_is_blocked
+  validate :cpf_is_blocked, on: :create
   validates :email, :cpf, uniqueness: true
   validates :name, presence: true
   has_many :bids
@@ -33,9 +33,11 @@ class User < ApplicationRecord
   end
 
   def block_user
-    if BlockedCpf.find_by(cpf: self.cpf) != nil
-      self.status = 5
-      self.save!(validate: false)
+    is_blocked = BlockedCpf.find_by(cpf: self.cpf)
+    if  is_blocked != nil
+      self.blocked!
+    elsif self.blocked? && is_blocked == nil
+      self.normal!
     end
   end
 

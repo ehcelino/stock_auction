@@ -41,21 +41,21 @@ class User < ApplicationRecord
 
   private
 
-  def email_for_admin
-    if self.email.present? && self.role.present? && self.role == "admin"
-      unless self.email =~ /\A[\w.+-]+@leilaodogalpao.com.br/
-        self.errors.add(:email, 'de administrador deve ter o domínio @leilaodogalpao.com.br')
-      end
-    end
-  end
+  # def email_for_admin
+  #   if self.email.present? && self.role.present? && self.role == "admin"
+  #     unless self.email =~ /\A[\w.+-]+@leilaodogalpao.com.br/
+  #       self.errors.add(:email, 'de administrador deve ter o domínio @leilaodogalpao.com.br')
+  #     end
+  #   end
+  # end
 
-  def not_admin_email
-    if self.email.present? && self.role.present? && self.role == "default"
-      if self.email =~ /\A[\w.+-]+@leilaodogalpao.com.br/
-        self.errors.add(:email, 'não pode pertencer a este domínio')
-      end
-    end
-  end
+  # def not_admin_email
+  #   if self.email.present? && self.role.present? && self.role == "default"
+  #     if self.email =~ /\A[\w.+-]+@leilaodogalpao.com.br/
+  #       self.errors.add(:email, 'não pode pertencer a este domínio')
+  #     end
+  #   end
+  # end
 
   def set_admin_by_email_domain
     if self.email.present?

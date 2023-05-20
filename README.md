@@ -77,6 +77,8 @@ jsbundling-rails - javascript bundling
 
 rspec-rails e capybara - testes
 
+simplecov - cobertura de testes
+
 
 ### Breve histórico de desenvolvimento
 

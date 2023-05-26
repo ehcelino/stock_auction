@@ -145,3 +145,22 @@ describe 'Administrador bloqueia um CPF' do
 
 
 end
+
+describe 'Admin retira um cpf da lista de bloqueio' do
+  it 'e usuário volta a ter privilégios' do
+    # Arrange
+    admin = User.create!(name: 'John', cpf: 31887493093, email: 'john@leilaodogalpao.com.br',
+          role: 1, password: 'password')
+    user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
+                  role: 0, password: 'password')
+    BlockedCpf.create!(cpf: 62059576040)
+
+    # Act
+    login_as admin
+    visit blocked_cpfs_path
+    find(:css, '#remover-blocked_cpf_1').click
+
+    # Assert
+    expect(user.normal?).to eq true
+  end
+end

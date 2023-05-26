@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       post 'hidden', on: :member
     end
   end
-  resources :blocked_cpfs, only: [:new, :create, :index]
+  resources :blocked_cpfs, only: [:new, :create, :index, :destroy]
   get 'search', to: 'home#search'
   get 'qna/index', to: 'qnas#index'
   post 'answerquestion', to: 'qnas#answer'

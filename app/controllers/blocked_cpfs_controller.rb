@@ -18,6 +18,13 @@ class BlockedCpfsController < ApplicationController
     render :new
   end
 
+  def destroy
+    @blocked_cpf = BlockedCpf.find(params[:id])
+    @blocked_cpf.destroy
+    flash[:success] = 'CPF retirado da lista de bloqueio'
+    redirect_to blocked_cpfs_path
+  end
+
   private
 
   def blocked_cpf_params

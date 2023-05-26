@@ -7,7 +7,8 @@ impedidos, e aqueles que já tem conta terão seu acesso limitado.
 <%= link_to 'Adicionar CPF à lista de bloqueio', new_blocked_cpf_path, class:"clean-link" %>
 </p>
 <% @blocked_cpfs.each do |bc| %>
-  <p>
+  <div class="d-flex gap-3 mb-3 align-items-center">
     <%= bc.formatted_cpf %>
-  </p>
+    <%= button_to "Remover", blocked_cpf_path(bc), method: :delete, class:"btn btn-secondary btn-sm", id:"remover-#{dom_id(bc)}" %>
+  </div>
 <% end %>

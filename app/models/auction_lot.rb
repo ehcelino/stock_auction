@@ -3,6 +3,7 @@ class AuctionLot < ApplicationRecord
   validate :check_code
   validate :check_end_date
   validate :check_admin
+  validate :check_editable, on: :update
   validate :check_start_date, on: :create
   validates :code, :start_date, :end_date, :min_bid_amount, :min_bid_difference, presence: true
   validates :code, uniqueness: true
@@ -87,6 +88,12 @@ class AuctionLot < ApplicationRecord
       unless start_date > Date.today
         self.errors.add(:start_date, 'deve ser futura')
       end
+    end
+  end
+
+  def check_editable
+    if !self.editable? && self.end_date > Date.today
+      self.errors.add(:base, 'Um lote em andamento não pode ser modificado')
     end
   end
 

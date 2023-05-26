@@ -1,5 +1,5 @@
 class AuctionLotsController < ApplicationController
-  before_action :admin_only, only: [:new, :create, :index]
+  before_action :admin_only, only: [:new, :create, :index, :expired, :canceled_list]
   before_action :set_auction_lot, only: [:show, :approved, :closed, :canceled, :favorite, :unfavorite, :edit, :update]
 
 

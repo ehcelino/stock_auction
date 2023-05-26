@@ -1,4 +1,5 @@
 class QnasController < ApplicationController
+  before_action :admin_only, only: [:index, :answer]
 
   def new
     @auction_lot = AuctionLot.find(params[:auction_lot_id])

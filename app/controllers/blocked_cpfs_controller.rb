@@ -1,4 +1,5 @@
 class BlockedCpfsController < ApplicationController
+  before_action :admin_only, only: [:index, :new, :create, :destroy]
 
   def index
     @blocked_cpfs = BlockedCpf.all

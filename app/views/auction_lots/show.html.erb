@@ -31,16 +31,7 @@
   </div>
   <div class="col">
     <div class="px-3 border rounded shadow" id="actionDiv">
-      <% if user_signed_in? && current_user.admin? %>
-        <% if @auction_lot.status == "pending" %>
-          <div class="my-3">
-            <div class="d-flex gap-3">
-              <%= link_to 'Adicionar itens', new_auction_lot_lot_item_path(@auction_lot), class:"btn btn-secondary" %>
-              <%= button_to 'Aprovar lote', approved_auction_lot_path, class:"btn btn-secondary" %>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
+      <%= action_pending(@auction_lot) %>
       <% if is_lot_expired?(@auction_lot) %>
         <h3 class="my-3">Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
         <div class="my-3">
@@ -51,25 +42,9 @@
           <% end %>
         </div>
       <% end %>
-      <% if can_i_bid?(@auction_lot) %>
-        <div class="my-3">
-          <%= link_to 'Dar um lance', new_auction_lot_bid_path(@auction_lot), class:"btn btn-danger" %>
-        </div>
-      <% end %>
-      <% if can_i_fav?(@auction_lot) %>
-        <div class="my-3">
-          <% if current_user.is_favorite?(@auction_lot) %>
-            <%= button_to "Remover dos favoritos", unfavorite_auction_lot_path(@auction_lot), method: :delete, class:"btn btn-secondary" %>
-          <% else %>
-            <%= button_to "Adicionar aos favoritos", favorite_auction_lot_path(@auction_lot), method: :post, class:"btn btn-secondary" %>
-          <% end %>
-        </div>
-      <% end %>
-      <% if can_i_edit?(@auction_lot) %>
-        <div class="my-3">
-          <%= link_to "Editar lote", edit_auction_lot_path(@auction_lot.id), class:"btn btn-secondary" %>
-        </div>
-      <% end %>
+      <%= action_bid(@auction_lot) %>
+      <%= action_favorite(@auction_lot) %>
+      <%= action_edit(@auction_lot) %>
     </div>
 
     <% if !user_signed_in? %>
@@ -84,12 +59,7 @@
 
 </div>
 <div>
-  <% if @auction_lot.status == "closed" %>
-    <div class="my-3">
-      <h3 class="text-orange">Este lote foi finalizado. Usuário vencedor: <%= @auction_lot.users.last.name %> - <%= @auction_lot.users.last.email %></h3>
-    </div>
-  <% end %>
-
+  <%= status_closed(@auction_lot) %>
   <div class="mb-3">
     <% if @auction_lot.items.present? %>
       <h3>Itens deste Lote</h3>
@@ -120,11 +90,7 @@
         <% end %>
       </table>
     <% else %>
-      <% if @auction_lot.status != "canceled" %>
-        <h3>Este lote ainda não possui itens cadastrados</h3>
-      <% else %>
-        <h3 class="text-orange">Este lote foi cancelado.</h3>
-      <% end %>
+      <%= status_canceled(@auction_lot) %>
     <% end %>
   </div>
 

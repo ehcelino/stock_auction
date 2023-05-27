@@ -11,6 +11,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def user_only
+    if current_user.try(:admin?)
+      flash[:danger] = 'Esta função não é permitida para administradores'
+      redirect_to (request.referer || root_path)
+    end
+  end
+
   protected
 
   def set_blocked_user

@@ -1,5 +1,6 @@
 class BidsController < ApplicationController
   before_action :set_auction_lot, only: [:new, :create]
+  before_action :user_only, only: [:new]
 
   def new
     @bid = Bid.new

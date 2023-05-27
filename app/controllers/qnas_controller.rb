@@ -1,5 +1,6 @@
 class QnasController < ApplicationController
   before_action :admin_only, only: [:index, :answer]
+  before_action :user_only, only: [:new]
 
   def new
     @auction_lot = AuctionLot.find(params[:auction_lot_id])
@@ -10,6 +11,10 @@ class QnasController < ApplicationController
     @auction_lot = AuctionLot.find(params[:auction_lot_id])
     @qna = Qna.new(qna_params)
     @qna.auction_lot_id = @auction_lot.id
+    if current_user.try(:admin?)
+      flash[:danger] = 'Administradores não podem fazer perguntas.'
+      return redirect_to @auction_lot
+    end
     if @qna.save
       flash[:success] = 'Sua pergunta foi registrada'
       return redirect_to @auction_lot

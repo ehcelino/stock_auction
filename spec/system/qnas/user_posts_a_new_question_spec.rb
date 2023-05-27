@@ -157,7 +157,7 @@ describe 'Usuário entra no sistema' do
     click_on 'Lote XPG035410'
 
     # Assert
-    expect(page).not_to have_content 'Questão: Este lote será entregue em minha residência?'
+    expect(page).not_to have_content 'Pergunta: Este lote será entregue em minha residência?'
 
   end
 end

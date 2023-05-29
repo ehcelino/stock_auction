@@ -17,7 +17,7 @@ class AuctionLotPresenter < SimpleDelegator
   end
 
   def actions
-    if ApplicationController.user_logged? && current_user.admin? && @auction_lot.status == "pending"
+    if user_signed_in? && current_user.admin? && @auction_lot.status == "pending"
       helpers.content_tag(:div, class:"my-3") do
         helpers.content_tag(:div, class:"d-flex gap-3") do
           link_to('Adicionar itens', new_auction_lot_lot_item_path(@auction_lot), class:"btn btn-secondary")

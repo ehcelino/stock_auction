@@ -93,7 +93,7 @@ class AuctionLot < ApplicationRecord
 
   def check_editable
     if !self.editable? && self.end_date > Date.today
-      self.errors.add(:base, 'Um lote em andamento não pode ser modificado')
+      self.errors.add(:base, 'Este lote não pode ser modificado')
     end
   end
 

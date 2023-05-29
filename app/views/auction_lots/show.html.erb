@@ -3,21 +3,16 @@
     <div class="mb-3">
       <h3>
         Lote para leilão código <span class="text-orange"><%= @auction_lot.code %></span>
-        <% if @auction_lot.items.present? %>
-         - Itens: <%= @auction_lot.items.count %>
-        <% end %>
+        <%= display_items_qtty(@auction_lot) %>
       </h3>
     </div>
     <p><%= AuctionLot.human_attribute_name(:start_date) %>: <%= I18n.localize(@auction_lot.start_date) %>
-    <% if @auction_lot.start_date > Date.today %>
-      <strong class="text-primary">em <%= distance_of_time_in_words(Date.today, @auction_lot.start_date) %></strong>
-    <% end %>
+    <%= display_time_to_begin(@auction_lot) %>
     </p>
     <p>
     <%= AuctionLot.human_attribute_name(:end_date) %>: <%= I18n.localize(@auction_lot.end_date) %>
-    <% if @auction_lot.start_date <= Date.today && @auction_lot.end_date > Date.today %>
-      <strong class="text-primary">em <%= distance_of_time_in_words(Date.today, @auction_lot.end_date) %></strong>
-    <% end %>
+    <%= display_time_to_end(@auction_lot) %>
+
     </p>
     <p><strong><%= AuctionLot.human_attribute_name(:min_bid_amount) %>: <%= number_to_currency(@auction_lot.min_bid_amount) %></strong></p>
     <p><%= AuctionLot.human_attribute_name(:min_bid_difference) %>: <%= number_to_currency(@auction_lot.min_bid_difference) %></p>
@@ -32,28 +27,15 @@
   <div class="col">
     <div class="px-3 border rounded shadow" id="actionDiv">
       <%= action_pending(@auction_lot) %>
-      <% if is_lot_expired?(@auction_lot) %>
-        <h3 class="my-3">Este lote está expirado. Foram feitos <%= @auction_lot.bids.count %> lances.</h3>
-        <div class="my-3">
-          <% if @auction_lot.bids.count == 0 %>
-            <%= button_to 'Cancelar o lote', canceled_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
-          <% else %>
-            <%= button_to 'Finalizar o lote', closed_auction_lot_path(@auction_lot), class:"btn btn-secondary" %>
-          <% end %>
-        </div>
-      <% end %>
+      <%= status_expired(@auction_lot) %>
       <%= action_bid(@auction_lot) %>
       <%= action_favorite(@auction_lot) %>
       <%= action_edit(@auction_lot) %>
     </div>
 
-    <% if !user_signed_in? %>
-      <div>
-        <span>
-          <%= link_to "Cadastre-se", new_user_registration_path %> para ter acesso às funções do site.
-        </span>
-      </div>
-    <% end %>
+    <div>
+      <%= action_new_user() %>
+    </div>
 
   </div>
 
@@ -94,52 +76,10 @@
     <% end %>
   </div>
 
-  <% if @auction_lot.bids.present? && @auction_lot.biddable? %>
-    <div class="mb-3 border rounded p-2 bids-board">
-      <h3 class="text-center">Lances recebidos</h3>
-      <% @auction_lot.bids.each_with_index do |bid, idx| %>
-        <div class="mb-2">
-          <% if idx == (@auction_lot.bids.size - 1) %>
-            <%= l bid.created_at.in_time_zone("America/Sao_Paulo"), format: :short %> - <%= bid.user.name %> - <%= number_to_currency(bid.value) %> <span class="text-danger">Lance vencedor no momento</span>
-          <% else %>
-            <%= l bid.created_at.in_time_zone("America/Sao_Paulo"), format: :short %> - <%= bid.user.name %> - <%= number_to_currency(bid.value) %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
-
-  <% if expired_with_bids?(@auction_lot) %>
-    <% bid = @auction_lot.bids.last %>
-    <div class="mb-3 border rounded p-2 bids-board">
-      <%= bid.user.name %> - <%= bid.user.email %> - <%= number_to_currency(bid.value) %> <span class="text-danger">Lance vencedor</span>
-    </div>
-  <% end %>
-
-
-  <% if @auction_lot.qnas.present? %>
-    <h3>Perguntas e respostas</h3>
-    <div class="mb-3">
-      <% @auction_lot.qnas.each do |qna| %>
-        <% if qna.status != 'hidden' %>
-          <p>Pergunta: <%= qna.question %></p>
-          <p>Resposta: <%= qna.answer %> </p>
-          <% if qna.user_id.present? %>
-            <p>Respondida por: <%= User.find(qna.user_id).email %> </p>
-          <% end %>
-        <% end %>
-        <hr>
-      <% end %>
-    </div>
-  <% end %>
-
-  <% if can_i_ask_question?(@auction_lot) %>
-    <div class="mb-3">
-      <%= link_to "Fazer uma pergunta", new_auction_lot_qna_path(@auction_lot), class:"btn btn-secondary" %>
-    </div>
-  <% end %>
-
-
+  <%= status_bids(@auction_lot) %>
+  <%= status_expired_with_bids(@auction_lot) %>
+  <%= display_questions(@auction_lot) %>
+  <%= action_ask(@auction_lot) %>
   <%= link_to "Voltar", :back %>
 </div>
 

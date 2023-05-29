@@ -91,7 +91,7 @@ describe 'Admin edita um lote' do
 
     # Assert
     expect(page).to have_content 'Atenção:'
-    expect(page).to have_content 'Um lote em andamento não pode ser modificado'
+    expect(page).to have_content 'Este lote não pode ser modificado'
 
   end
 end

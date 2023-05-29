@@ -1,7 +1,20 @@
 <% if flash.any? %>
   <% flash.each do |key, value| %>
-    <div class="alert flash alert-<%= key %>">
+    <div class="alert flash alert-<%= key %>" id="flashMessage">
       <%= value %>
     </div>
   <% end %>
 <% end %>
+
+<script>
+  const flashMessage = getElementById('flashMessage')
+  if (flashMessage) {
+    const timeOutDuration = 5000;
+    const removeFlash = () => {
+      flashMessage.remove();
+    };
+    setTimeout(() => {
+      removeFlash;
+    }, timeOutDuration);
+  }
+</script>

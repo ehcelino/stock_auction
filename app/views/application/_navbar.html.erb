@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <i class="bi bi-hammer clean-link"></i><span>&nbsp;&nbsp;</span>
+    <%= image_tag 'gavel.png', class:"navbar-brand"%>
     <span class="navbar-brand mb-0 h1 main-brand"><%= link_to "Leilão do Galpão", root_path, class:"nav-link" %></span>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <% if user_signed_in? %>

@@ -63,3 +63,19 @@ RSpec.describe User, type: :model do
 
   end
 end
+
+describe 'Retira um usuário do bloqueio de CPF' do
+  it 'com sucesso' do
+    # Arrange
+    user = User.create!(name: 'João', cpf: 62053621044, email: 'joao@ig.com.br', password: 'password')
+    # blocked_cpf = BlockedCpf.create!(cpf: 62053621044)
+
+    # Act
+    user.blocked!
+    user.block_user
+    result = user.blocked?
+
+    # Assert
+    expect(result).to eq false
+  end
+end

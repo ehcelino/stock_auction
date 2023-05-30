@@ -44,9 +44,13 @@ ringo@ig.com.br (usuário restrito por CPF)
 
 pete@ig.com.br
 
+michael@ig.com.br
+
+alex@ig.com.br
+
 Originalmente meu sistema havia sido desenvolvido para cadastrar administradores apenas pelo console, por isso existem duas validações relacionadas no modelo User. Porém depois de uma pergunta de um colega durante um dos encontros alterei o sistema para que qualquer usuário cadastrado com o domínio @leilaodogalpao.com.br seja automaticamente transformado em administrador.
 
-
+Para executar: bin/dev
 
 ### Documento usado durante o desenvolvimento do aplicativo:
 [documento do google](https://docs.google.com/document/d/1nbUgFEDsCoDWohQGvsMc1p699bbuLrHR4jbBfwN2npI/edit?usp=sharing)

@@ -71,6 +71,10 @@ class AuctionLotsController < ApplicationController
   end
 
   def closed_list
+    if !user_signed_in?
+      flash[:danger] = 'É necessário estar logado.'
+      return redirect_to root_path
+    end
     @auction_lots = AuctionLot.closed
   end
 

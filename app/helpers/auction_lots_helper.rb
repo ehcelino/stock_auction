@@ -87,8 +87,10 @@ module AuctionLotsHelper
         auction_lot.bids.map.with_index do |bid, idx|
           content_tag(:div, class: "mb-2") do
             if idx == (auction_lot.bids.size - 1)
-              "#{l(bid.created_at.in_time_zone("America/Sao_Paulo"), format: :short)} - #{bid.user.name} - #{number_to_currency(bid.value)}".html_safe +
-               content_tag(:span, " - Lance vencedor no momento", class: "text-danger")
+              content_tag(:strong) do
+                "#{l(bid.created_at.in_time_zone("America/Sao_Paulo"), format: :short)} - #{bid.user.name} - #{number_to_currency(bid.value)}".html_safe +
+                content_tag(:span, " - Lance vencedor no momento", class: "text-danger")
+              end
             else
               "#{l(bid.created_at.in_time_zone("America/Sao_Paulo"), format: :short)} - #{bid.user.name} - #{number_to_currency(bid.value)}".html_safe
             end
@@ -99,11 +101,23 @@ module AuctionLotsHelper
   end
 
   def status_expired_with_bids(auction_lot)
-    if user_signed_in? && auction_lot.expired? && current_user.admin? && !auction_lot.closed? && !auction_lot.canceled? && auction_lot.bids.count > 0
-      bid = auction_lot.bids.last
-      content_tag(:div, class:"mb-3 border rounded p-2 bids-board") do
-        "#{bid.user.name} - #{bid.user.email} - #{number_to_currency(bid.value)}".html_safe +
-        content_tag(:span, " - Lance vencedor", class:"text-danger")
+    if user_signed_in? && auction_lot.expired? && current_user.admin? && !auction_lot.canceled? && auction_lot.bids.count > 0
+      content_tag(:div, class: "mb-3 border rounded p-2 bids-board") do
+        content_tag(:div) do
+          content_tag(:h3, "Histórico de lances", class: "text-center")
+        end +
+        auction_lot.bids.map.with_index do |bid, idx|
+          content_tag(:div, class: "mb-2") do
+            if idx == (auction_lot.bids.size - 1)
+              content_tag(:strong) do
+                "#{l(bid.created_at.in_time_zone("America/Sao_Paulo"), format: :short)} - #{bid.user.name} - #{number_to_currency(bid.value)}".html_safe +
+                content_tag(:span, " - Lance vencedor", class: "text-danger")
+              end
+            else
+              "#{l(bid.created_at.in_time_zone("America/Sao_Paulo"), format: :short)} - #{bid.user.name} - #{number_to_currency(bid.value)}".html_safe
+            end
+          end
+        end.join('').html_safe
       end
     end
   end

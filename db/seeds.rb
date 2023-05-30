@@ -15,6 +15,11 @@ user_2 = User.create!(name: 'Ringo', cpf: 12920704044, email: 'ringo@ig.com.br',
                       role: 0, password: 'password')
 user_3 = User.create!(name: 'Pete', cpf: 59487334084, email: 'pete@ig.com.br',
                       role: 0, password: 'password')
+user_4 = User.create!(name: 'Michael', cpf: 88283189026, email: 'michael@ig.com.br',
+                        role: 0, password: 'password')
+user_5 = User.create!(name: 'Alexander', cpf: 97489383013, email: 'alex@ig.com.br',
+                      role: 0, password: 'password')
+
 
 BlockedCpf.create!(cpf: 12920704044)
 
@@ -77,6 +82,15 @@ bid_3 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user_3.id, value: 150
 bid_3.save!(validate: false)
 bid_4 = Bid.new(auction_lot_id: auction_lot_1.id, user_id: user_3.id, value: 150)
 bid_4.save!(validate: false)
+bid_5 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user_4.id, value: 150)
+bid_5.save!(validate: false)
+bid_6 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 200)
+bid_6.save!(validate: false)
+bid_7 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user_5.id, value: 250)
+bid_7.save!(validate: false)
+bid_8 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user_4.id, value: 250)
+bid_8.save!(validate: false)
+
 
 auction_lot_6.closed!
 

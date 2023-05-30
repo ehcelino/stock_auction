@@ -38,6 +38,8 @@ describe 'Admin vê os lotes expirados' do
                                 role: 1, password: 'password')
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
+    user_2 = User.create!(name: 'Ringo', cpf: 12920704044, email: 'ringo@ig.com.br',
+                          role: 0, password: 'password')
     travel_to(Time.zone.local(2023, 4, 18, 10, 10, 10)) do
     @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '20/04/2023', end_date: '01/05/2023',
                                     min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: first_admin, approver: second_admin)
@@ -48,6 +50,8 @@ describe 'Admin vê os lotes expirados' do
     LotItem.create!(auction_lot_id: @auction_lot.id, item_id: item.id)
     travel_to(Time.zone.local(2023, 4, 22, 10, 10, 10)) do
     bid = Bid.create!(auction_lot_id: @auction_lot.id, user_id: user.id, value: 301)
+    bid_2 = Bid.create!(auction_lot_id: @auction_lot.id, user_id: user_2.id, value: 400)
+
     end
 
     # Act

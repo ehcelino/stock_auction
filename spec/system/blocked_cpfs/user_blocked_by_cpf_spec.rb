@@ -54,7 +54,7 @@ describe 'Administrador bloqueia um CPF' do
     click_on 'Entrar no sistema'
 
     # Assert
-    expect(page).to have_content 'Seu usuário está bloqueado para as funções do site. Fale com seu administrador.'
+    expect(page).to have_content 'Atenção: seu usuário está bloqueado. Fale com um administrador.'
   end
 
   it 'e usuário não pode dar lances' do
@@ -158,7 +158,10 @@ describe 'Admin retira um cpf da lista de bloqueio' do
     # Act
     login_as admin
     visit blocked_cpfs_path
-    find(:css, '#remover-blocked_cpf_1').click
+    find(:css, '#remove-blocked_cpf_1').click
+    logout(admin)
+    login_as user
+    visit root_path
 
     # Assert
     expect(user.normal?).to eq true

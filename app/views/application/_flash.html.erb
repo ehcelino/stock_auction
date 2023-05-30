@@ -1,20 +1,27 @@
 <% if flash.any? %>
-  <% flash.each do |key, value| %>
-    <div class="alert flash alert-<%= key %>" id="flashMessage">
-      <%= value %>
-    </div>
-  <% end %>
+  <div class="flash-outer" id="flashMessage">
+    <% flash.each do |key, value| %>
+      <div class="alert flash alert-<%= key %>">
+        <%= value %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% if show_blocked_banner? %>
+  <div class="alert alert-danger blocked-banner">
+    <span>Atenção: seu usuário está bloqueado. Fale com um administrador.</span>
+  </div>
 <% end %>
 
 <script>
-  const flashMessage = getElementById('flashMessage')
-  if (flashMessage) {
-    const timeOutDuration = 5000;
-    const removeFlash = () => {
-      flashMessage.remove();
-    };
-    setTimeout(() => {
-      removeFlash;
-    }, timeOutDuration);
-  }
+  document.addEventListener('DOMContentLoaded', function () {
+    const flashMessage = document.getElementById('flashMessage')
+    if (flashMessage) {
+      const timeOutDuration = 5000;
+      setTimeout(() => {
+        flashMessage.remove();
+      }, timeOutDuration);
+    }
+  });
 </script>

@@ -9,6 +9,6 @@ impedidos, e aqueles que já tem conta terão seu acesso limitado.
 <% @blocked_cpfs.each do |bc| %>
   <div class="d-flex gap-3 mb-3 align-items-center">
     <%= bc.formatted_cpf %>
-    <%= button_to "Remover", blocked_cpf_path(bc), method: :delete, class:"btn btn-secondary btn-sm", id:"remover-#{dom_id(bc)}" %>
+    <%= button_to "Remover", blocked_cpf_path(bc), method: :delete, class:"btn btn-secondary btn-sm", id:"remove-#{dom_id(bc)}" %>
   </div>
 <% end %>

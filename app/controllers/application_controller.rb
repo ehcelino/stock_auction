@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_blocked_user, only: [:create]
+  # before_action :show_blocked_banner
   add_flash_types :danger, :info, :warning, :success, :messages
 
 
@@ -18,12 +19,29 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # def show_blocked_banner
+  #   user_signed_in? && current_user.blocked?
+  # end
+
+  # helper_method :show_blocked_banner
+
+  def show_blocked_banner?
+    session[:blocked] || (current_user.blocked? if user_signed_in?)
+  end
+
+  helper_method :show_blocked_banner?
+
   protected
 
   def set_blocked_user
     if user_signed_in?
       current_user.block_user
-      flash[:danger] = 'Seu usuário está bloqueado para as funções do site. Fale com seu administrador.' if current_user.status == "blocked"
+      if current_user.status == "blocked"
+        # flash[:danger] = 'Seu usuário está bloqueado para as funções do site. Fale com seu administrador.'
+        session[:blocked] = true
+      else
+        session[:blocked] = false
+      end
     end
   end
 

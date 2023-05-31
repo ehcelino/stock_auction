@@ -60,7 +60,7 @@ describe 'Usuário vê lotes vencedores' do
                         role: 0, password: 'password')
     travel_to(Time.zone.local(2023, 3, 8, 10, 10, 10)) do
     @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '10/03/2023', end_date: '01/04/2023',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin, winner: user)
     end
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
@@ -71,7 +71,7 @@ describe 'Usuário vê lotes vencedores' do
     end
     travel_to(Time.zone.local(2023, 4, 8, 10, 10, 10)) do
     @second_auction_lot = AuctionLot.create!(code:'ABC035410', start_date: '20/04/2023', end_date: '01/05/2023',
-                                           min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
+                                           min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin, winner: user)
     end
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse sem fio', weight: 200,
                               width: 6, height: 3, depth: 11, category_id: category.id)
@@ -140,7 +140,7 @@ describe 'Usuário vê lotes vencedores' do
                         role: 0, password: 'password')
     travel_to(Time.zone.local(2023, 3, 8, 10, 10, 10)) do
     @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: '10/03/2023', end_date: '01/04/2023',
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin, winner: user)
     end
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,
@@ -151,7 +151,7 @@ describe 'Usuário vê lotes vencedores' do
     end
     travel_to(Time.zone.local(2023, 4, 8, 10, 10, 10)) do
     @second_auction_lot = AuctionLot.create!(code:'ABC035410', start_date: '20/04/2023', end_date: '01/05/2023',
-                                           min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
+                                           min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin, winner: user)
     end
     second_item = Item.create!(name:'Mouse Microsoft', description:'Mouse sem fio', weight: 200,
                               width: 6, height: 3, depth: 11, category_id: category.id)

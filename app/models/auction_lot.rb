@@ -18,6 +18,7 @@ class AuctionLot < ApplicationRecord
   has_many :favorited_by_users, through: :favorites, source: :user
   belongs_to :creator, class_name: "User"
   belongs_to :approver, class_name: "User", optional: true
+  belongs_to :winner, class_name: "User", optional: true
 
   enum status: { pending: 0, approved: 5, closed: 7, canceled: 9 }
 

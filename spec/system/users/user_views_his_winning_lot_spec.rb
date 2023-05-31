@@ -13,7 +13,7 @@ describe 'Usuário vê lotes vencedores' do
                         role: 0, password: 'password')
     travel_to(2.months.ago) do
     @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 45.days.from_now,
-                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin)
+                                    min_bid_amount: 300, min_bid_difference: 50, status: 7, creator: first_admin, approver: second_admin, winner: user)
     end
     category = Category.create!(name:'Informática')
     item = Item.create!(name:'Mouse Logitech', description:'Mouse Gamer 1200dpi', weight: 200,

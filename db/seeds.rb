@@ -60,7 +60,7 @@ auction_lot_4.save!(validate: false)
 auction_lot_5 = AuctionLot.create!(code:'CVZ574198', start_date: 10.days.from_now, end_date: 1.month.from_now,
                                   min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
 auction_lot_6 = AuctionLot.new(code:'LHD753159', start_date: '01/02/2023', end_date: '20/02/2023',
-                                  min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
+                                  min_bid_amount: 100, min_bid_difference: 10, status: 7, creator: admin_1, approver: admin_2, winner: user_5)
 auction_lot_6.save!(validate: false)
 auction_lot_7 = AuctionLot.new(code:'DNB326710', start_date: '01/05/2023', end_date: 1.month.from_now,
                               min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
@@ -73,23 +73,23 @@ LotItem.create!(auction_lot_id: auction_lot_5.id, item_id: item_4.id)
 LotItem.create!(auction_lot_id: auction_lot_6.id, item_id: item_6.id)
 LotItem.create!(auction_lot_id: auction_lot_7.id, item_id: item_5.id)
 
-
-bid_1 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user.id, value: 101)
+bid_1 = Bid.new(auction_lot_id: auction_lot_1.id, user_id: user_3.id, value: 150)
 bid_1.save!(validate: false)
-bid_2 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 101)
+bid_2 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user.id, value: 101)
 bid_2.save!(validate: false)
 bid_3 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user_3.id, value: 150)
 bid_3.save!(validate: false)
-bid_4 = Bid.new(auction_lot_id: auction_lot_1.id, user_id: user_3.id, value: 150)
+bid_4 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user_4.id, value: 250)
 bid_4.save!(validate: false)
-bid_5 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user_4.id, value: 150)
+bid_5 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 101)
 bid_5.save!(validate: false)
-bid_6 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 200)
+bid_6 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user_4.id, value: 150)
 bid_6.save!(validate: false)
-bid_7 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user_5.id, value: 250)
+bid_7 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user.id, value: 200)
 bid_7.save!(validate: false)
-bid_8 = Bid.new(auction_lot_id: auction_lot_3.id, user_id: user_4.id, value: 250)
+bid_8 = Bid.new(auction_lot_id: auction_lot_6.id, user_id: user_5.id, value: 250)
 bid_8.save!(validate: false)
+
 
 
 auction_lot_6.closed!

@@ -58,6 +58,10 @@ class AuctionLotsController < ApplicationController
   end
 
   def closed
+    if @auction_lot.bids.present?
+      @auction_lot.winner_id = @auction_lot.bids.last.user_id
+      @auction_lot.save!
+    end
     @auction_lot.closed!
     flash[:success] = 'Lote finalizado com sucesso'
     redirect_to @auction_lot

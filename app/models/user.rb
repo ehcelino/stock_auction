@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :auction_lots, through: :bids
   has_many :favorites
   has_many :favorite_auction_lots, through: :favorites, source: :auction_lot
+  has_many :winning_lots, foreign_key: "winner_id", class_name: "AuctionLot"
 
 
   def is_favorite?(auction_lot)

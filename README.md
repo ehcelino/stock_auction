@@ -1,5 +1,11 @@
 # stock_auction
 
+<p align="center">
+  <img src="http://img.shields.io/static/v1?label=Ruby&message=3.2.2&color=red&style=for-the-badge&logo=ruby"/>
+  <img src="http://img.shields.io/static/v1?label=Ruby%20On%20Rails%20&message=7.0.4.3&color=red&style=for-the-badge&logo=ruby"/>
+  <img src="http://img.shields.io/static/v1?label=TESTES&message=%3E100&color=GREEN&style=for-the-badge"/>
+</p>
+
 Projeto de leilão de lotes
 
 Usa bootstrap para estilos e active storage para imagens dos produtos.

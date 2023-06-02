@@ -112,7 +112,7 @@ module AuctionLotsHelper
         content_tag(:div) do
           content_tag(:h3, "Histórico de lances", class: "text-center")
         end +
-        auction_lot.bids.map.with_index do |bid, idx|
+        auction_lot.bids.includes([:user]).map.with_index do |bid, idx|
           content_tag(:div, class: "mb-2") do
             if idx == (auction_lot.bids.size - 1)
               content_tag(:strong) do

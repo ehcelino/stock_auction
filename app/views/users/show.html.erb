@@ -15,16 +15,15 @@
   </div>
   <div class="col">
     <% if current_user.favorite_auction_lots.any? %>
-      <div class="mb=3">
+      <div class="mb=3 px-3 border rounded shadow">
         <h3>Lotes favoritos</h3>
         <% current_user.favorite_auction_lots.each do |lot| %>
           <div class="mb-3">
-            <%= link_to lot, class:"clean-link" do %>
-              Lote <%= lot.code %>
-            <% end %>
+            <%= link_to  "Lote #{lot.code}", lot, class:"clean-link" %>
             <% if lot.end_date < Date.today %>
               (vencido)
             <% end %>
+            <%= button_to("Remover dos favoritos", unfavorite_auction_lot_path(lot), method: :delete, class:"btn btn-secondary") %>
           </div>
         <% end %>
       </div>

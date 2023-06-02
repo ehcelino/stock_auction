@@ -65,9 +65,9 @@ auction_lot_6.save!(validate: false)
 auction_lot_7 = AuctionLot.new(code:'DNB326710', start_date: '01/05/2023', end_date: 1.month.from_now,
                               min_bid_amount: 100, min_bid_difference: 10, status: 5, creator: admin_1, approver: admin_2)
 auction_lot_7.save!(validate: false)
-auction_lot_7 = AuctionLot.new(code:'AZX564798', start_date: '01/05/2023', end_date: '20/05/2023',
+auction_lot_8 = AuctionLot.new(code:'AZX564798', start_date: '01/05/2023', end_date: '20/05/2023',
                               min_bid_amount: 100, min_bid_difference: 10, status: 0, creator: admin_1)
-auction_lot_7.save!(validate: false)
+auction_lot_8.save!(validate: false)
 
 
 

@@ -105,7 +105,10 @@ class AuctionLotsController < ApplicationController
   def unfavorite
     favorites = Favorite.where(user_id: current_user.id, auction_lot_id: @auction_lot.id)
     favorites[0].destroy
-    flash[:success] = 'Lote removido dos favoritos'
+    flash[:success] = "Lote removido dos favoritos"
+    if request.referer == user_url
+      return redirect_to user_path
+    end
     redirect_to @auction_lot
   end
 

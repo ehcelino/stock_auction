@@ -1,0 +1,27 @@
+<div class="mb-5 text-center">
+  <h3>Lotes entregues</h3>
+  <hr>
+</div>
+
+<div class="mb-3">
+  <% if @auction_lots.any? %>
+    <% @auction_lots.each do |lot| %>
+      <div class="mb-2">
+        <h5><%= link_to auction_lot_path(lot.id), class:"clean-link" do %>
+          <span>Lote </span>
+          <%= lot.code %>
+        <% end %></h5>
+        <span>Iniciado em: </span>
+        <%= I18n.localize(lot.start_date) %>
+        <span> Finalizado em: </span>
+        <%= I18n.localize(lot.end_date) %>
+      </div>
+      <div>
+        <span>Lance vencedor:</span>
+        <%= lot.users.last.name %> - <%= number_to_currency(lot.bids.last.value) %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Nenhum lote</p>
+  <% end %>
+</div>

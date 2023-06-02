@@ -20,11 +20,11 @@ class AuctionLot < ApplicationRecord
   belongs_to :approver, class_name: "User", optional: true
   belongs_to :winner, class_name: "User", optional: true
 
-  enum status: { pending: 0, approved: 5, closed: 7, canceled: 9 }
+  enum status: { pending: 0, approved: 5, closed: 7, delivered: 8, canceled: 9 }
 
   scope :current,  -> { where('start_date <= ? AND end_date >= ?', Date.today, Date.today) }
   scope :future,  -> { where('start_date > ?', Date.today) }
-  scope :expired, -> { where('end_date < ?', Date.today) }
+  scope :expired, -> { where('end_date < ? AND status != 7 AND status != 8 AND status != 9', Date.today) }
 
   def biddable?
     self.status == 'approved' && self.end_date > Date.today && self.start_date < Date.today

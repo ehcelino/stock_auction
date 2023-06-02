@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     get 'expired', on: :collection
     get 'closed_list', on: :collection
     post 'favorite', on: :member
+    post 'delivered', on: :member
+    get 'delivered_list', on: :collection
     delete 'unfavorite', on: :member
     get 'canceled_list', on: :collection
     resources :qnas, only: [:new, :create] do

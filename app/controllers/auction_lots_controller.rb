@@ -1,6 +1,6 @@
 class AuctionLotsController < ApplicationController
   before_action :admin_only, only: [:new, :create, :index, :expired, :canceled_list]
-  before_action :set_auction_lot, only: [:show, :approved, :closed, :canceled, :favorite, :unfavorite, :edit, :update]
+  before_action :set_auction_lot, only: [:show, :approved, :closed, :canceled, :favorite, :unfavorite, :edit, :update, :delivered]
 
 
   def new
@@ -31,7 +31,7 @@ class AuctionLotsController < ApplicationController
   end
 
   def index
-    @auction_lots = AuctionLot.pending
+    @auction_lots = AuctionLot.future.pending
   end
 
   def show
@@ -54,7 +54,7 @@ class AuctionLotsController < ApplicationController
   end
 
   def expired
-    @auction_lots = AuctionLot.expired.approved
+    @auction_lots = AuctionLot.expired
   end
 
   def closed
@@ -74,6 +74,12 @@ class AuctionLotsController < ApplicationController
     redirect_to @auction_lot
   end
 
+  def delivered
+    @auction_lot.delivered!
+    flash[:success] = 'Lote marcado como entregue'
+    redirect_to @auction_lot
+  end
+
   def closed_list
     if !user_signed_in?
       flash[:danger] = 'É necessário estar logado.'
@@ -84,6 +90,10 @@ class AuctionLotsController < ApplicationController
 
   def canceled_list
     @auction_lots = AuctionLot.canceled
+  end
+
+  def delivered_list
+    @auction_lots = AuctionLot.delivered
   end
 
   def favorite

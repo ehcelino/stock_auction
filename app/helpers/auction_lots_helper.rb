@@ -1,7 +1,7 @@
 module AuctionLotsHelper
 
   def action_pending(auction_lot)
-    if user_signed_in? && current_user.admin? && auction_lot.status == "pending"
+    if user_signed_in? && current_user.admin? && auction_lot.pending? && !auction_lot.expired?
       content_tag(:div, class:"my-3") do
         content_tag(:div, class:"d-flex gap-3") do
           link_to('Adicionar itens', new_auction_lot_lot_item_path(auction_lot), class:"btn btn-secondary") +
@@ -41,6 +41,12 @@ module AuctionLotsHelper
     end
   end
 
+  def action_deliver(auction_lot)
+    if user_signed_in? && current_user.admin? && auction_lot.closed? && !auction_lot.delivered? && auction_lot.winner.present?
+      content_tag(:div, button_to("Marcar como entregue", delivered_auction_lot_path(auction_lot), method: :post, class:"btn btn-secondary"), class:"my-3" )
+    end
+  end
+
   def action_new_user
     if !user_signed_in?
       link_to("Cadastre-se", new_user_registration_path) + " para ter acesso às funções do site."
@@ -66,7 +72,7 @@ module AuctionLotsHelper
   end
 
   def status_expired(auction_lot)
-    if user_signed_in? && auction_lot.expired? && current_user.admin? && !auction_lot.closed? && !auction_lot.canceled?
+    if user_signed_in? && auction_lot.expired? && current_user.admin? && !auction_lot.closed? && !auction_lot.canceled? && !auction_lot.delivered?
       content_tag(:h3, "Este lote está expirado. Foram feitos #{auction_lot.bids.count} lances.", class:"my-3") +
       content_tag(:div, class:"my-3") do
         if auction_lot.bids.count == 0

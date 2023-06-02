@@ -18,6 +18,7 @@ class HomeController < ApplicationController
       other_lots.flatten!
       @auction_lots = @auction_lots + other_lots
     end
+    @auction_lots = @auction_lots.select {|z| z.approved? || z.closed?}
   end
 
 

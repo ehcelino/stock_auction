@@ -8,18 +8,10 @@
       <h5>E-mail: <%= current_user.email %></h5>
       <h5>CPF: <%= current_user.formatted_cpf %></h5>
     </div>
-
-    <% if current_user.winning_lots.count > 0 %>
-      <div class="mb-3">
-        <h3>Leilões vencedores</h3>
-        <% current_user.winning_lots.each do |al| %>
-          <%= link_to al, class:"clean-link" do %>
-            <h5>Lote: <%= al.code %> </h5>
-          <% end %>
-          <p>Valor: <%= number_to_currency(al.bids.last.value) %> </p>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="mb-3">
+      <h3>Leilões vencedores</h3>
+      <%= list_winning_lots(current_user) %>
+    </div>
   </div>
   <div class="col">
     <% if current_user.favorite_auction_lots.any? %>

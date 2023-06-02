@@ -23,7 +23,7 @@
             <% if lot.end_date < Date.today %>
               (vencido)
             <% end %>
-            <%= button_to("Remover dos favoritos", unfavorite_auction_lot_path(lot), method: :delete, class:"btn btn-secondary") %>
+            <%= button_to("Remover dos favoritos", unfavorite_auction_lot_path(lot), method: :delete, class:"btn btn-secondary", id:"#{dom_id(lot)}") %>
           </div>
         <% end %>
       </div>

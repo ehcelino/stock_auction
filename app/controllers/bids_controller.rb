@@ -1,6 +1,8 @@
 class BidsController < ApplicationController
   before_action :set_auction_lot, only: [:new, :create]
   before_action :user_only, only: [:new]
+  before_action :block_restricted_user, only: [:new]
+  before_action :not_signed_in, only: [:new]
 
   def new
     @bid = Bid.new

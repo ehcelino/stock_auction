@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get 'answer', on: :member
       post 'answered', on: :member
       post 'hidden', on: :member
+      post 'approved', on: :member
     end
   end
   resources :blocked_cpfs, only: [:new, :create, :index, :destroy]

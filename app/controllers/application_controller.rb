@@ -12,6 +12,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def block_restricted_user
+    if current_user.try(:blocked?)
+      flash[:danger] = 'Seu usuário não tem permissão para acessar este recurso'
+      redirect_to root_path
+    end
+  end
+
+  def not_signed_in
+    if !user_signed_in?
+      flash[:danger] = 'Você deve estar logado no sistema para acessar este recurso'
+      redirect_to root_path
+    end
+  end
+
   def user_only
     if current_user.try(:admin?)
       flash[:danger] = 'Esta função não é permitida para administradores'

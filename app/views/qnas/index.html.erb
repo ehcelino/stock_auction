@@ -9,18 +9,16 @@
         <p>Lote <%= qna.auction_lot.code %></p>
       <% end %>
       <p>Pergunta: <%= qna.question %></p>
-      <% if qna.status == "hidden" %>
-        <span class="text-danger">Pergunta oculta por administrador</span>
-      <% end %>
       <% if qna.answer.present? %>
         <p>Resposta: <%= qna.answer %></p>
       <% else %>
         <p><%= link_to "Responder", answer_auction_lot_qna_path(qna.auction_lot_id, qna), id: dom_id(qna) %> </p>
       <% end %>
       <% if qna.hidden? %>
-        <p>Esta pergunta foi ocultada pela administração</p>
+        <p class="text-danger">Esta pergunta foi ocultada pela administração</p>
+        <%= button_to "Restaurar", approved_auction_lot_qna_path(qna.auction_lot_id, qna), method: :post, class:"btn btn-secondary", id: "approved-#{dom_id(qna)}" %>
       <% else %>
-        <%= button_to "Ocultar", hidden_auction_lot_qna_path(qna.auction_lot_id, qna), method: :post, class:"btn btn-secondary", id: "ocultar-#{dom_id(qna)}" %>
+        <%= button_to "Ocultar", hidden_auction_lot_qna_path(qna.auction_lot_id, qna), method: :post, class:"btn btn-secondary", id: "hidden-#{dom_id(qna)}" %>
       <% end %>
     </div>
   <% end %>

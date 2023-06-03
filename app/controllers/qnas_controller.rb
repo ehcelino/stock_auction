@@ -1,6 +1,8 @@
 class QnasController < ApplicationController
   before_action :admin_only, only: [:index, :answer]
   before_action :user_only, only: [:new]
+  before_action :block_restricted_user, only: [:new]
+  before_action :not_signed_in, only: [:new]
 
   def new
     @auction_lot = AuctionLot.find(params[:auction_lot_id])
@@ -49,6 +51,13 @@ class QnasController < ApplicationController
     @qna = Qna.find(params[:id])
     @qna.hidden!
     flash[:success] = 'Pergunta oculta por administrador'
+    redirect_to qna_index_path
+  end
+
+  def approved
+    @qna = Qna.find(params[:id])
+    @qna.approved!
+    flash[:success] = 'Pergunta restaurada por administrador'
     redirect_to qna_index_path
   end
 

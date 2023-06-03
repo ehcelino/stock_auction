@@ -25,7 +25,7 @@
     </p>
   </div>
   <div class="col">
-    <div class="px-3 border rounded shadow" id="actionDiv">
+    <div class="px-3 border rounded shadow bg-grey" id="actionDiv">
       <%= action_pending(@auction_lot) %>
       <%= status_expired(@auction_lot) %>
       <%= action_bid(@auction_lot) %>
@@ -43,9 +43,9 @@
 </div>
 <div>
   <%= status_closed(@auction_lot) %>
-  <div class="mb-3">
+  <div class="mb-3 border rounded p-2 bids-board">
     <% if @auction_lot.items.present? %>
-      <h3>Itens deste Lote</h3>
+      <h3 class="text-center">Itens deste Lote</h3>
       <table class="table">
         <tr>
           <th>Imagem</th>
@@ -59,16 +59,16 @@
         <% @auction_lot.items.each do |item| %>
           <tr>
             <% if item.image.attached? %>
-              <td><%= image_tag item.image, class:"img-resize" %> </td>
+              <td class="align-middle"><%= image_tag item.image, class:"img-resize" %> </td>
             <% else %>
               <td></td>
             <% end %>
-            <td><%= item.name %></td>
-            <td><%= item.description %></td>
-            <td><%= item.weight %> g.</td>
-            <td><%= item.width %> x <%= item.height %> x <%= item.depth %> cm</td>
-            <td><%= item.code %></td>
-            <td><%= item.category.name %></td>
+            <td class="align-middle"><%= item.name %></td>
+            <td class="align-middle"><%= item.description %></td>
+            <td class="align-middle"><%= item.weight %> g.</td>
+            <td class="align-middle"><%= item.width %> x <%= item.height %> x <%= item.depth %> cm</td>
+            <td class="align-middle"><%= item.code %></td>
+            <td class="align-middle"><%= item.category.name %></td>
           </tr>
         <% end %>
       </table>

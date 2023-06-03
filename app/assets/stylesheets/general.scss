@@ -6,7 +6,7 @@ body {
   color:rgb(219, 219, 219);
 }
 
-.navbar button {
+.navbar .button-style {
   border:0;
   background-color:transparent;
 }
@@ -46,6 +46,10 @@ a:hover {
 
 .text-orange {
   color: #c75000;
+}
+
+.bg-grey {
+  background-color: rgb(219, 219, 219);
 }
 
 .bids-board {

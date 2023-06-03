@@ -3,9 +3,9 @@ module AuctionLotsHelper
   def action_pending(auction_lot)
     if user_signed_in? && current_user.admin? && auction_lot.pending? && !auction_lot.expired?
       content_tag(:div, class:"my-3") do
-        content_tag(:div, class:"d-flex gap-3") do
-          link_to('Adicionar itens', new_auction_lot_lot_item_path(auction_lot), class:"btn btn-secondary") +
-          button_to('Aprovar lote', approved_auction_lot_path, class:"btn btn-secondary")
+        content_tag(:div, class:"d-flex flex-column gap-3") do
+          button_to(raw("<i class=\"bi bi-plus-circle\"></i> Adicionar itens"), new_auction_lot_lot_item_path(auction_lot), method: :get, class:"btn btn-secondary") +
+          button_to(raw("<i class=\"bi bi-check\"></i> Aprovar lote"), approved_auction_lot_path, class:"btn btn-secondary")
         end
       end
     end
@@ -14,7 +14,7 @@ module AuctionLotsHelper
   def action_bid(auction_lot)
     if user_signed_in? && auction_lot.biddable? && !current_user.blocked?
       content_tag(:div, class:'my-3') do
-        link_to('Dar um lance', new_auction_lot_bid_path(auction_lot), class:"btn btn-danger")
+        link_to(raw("<i class=\"bi bi-hammer\"></i> Dar um lance"), new_auction_lot_bid_path(auction_lot), class:"btn btn-danger")
       end
     end
   end
@@ -22,28 +22,28 @@ module AuctionLotsHelper
   def action_favorite(auction_lot)
     if auction_lot.questionable_and_favoritable? && user_signed_in?
       if current_user.is_favorite?(auction_lot)
-        content_tag(:div, button_to("Remover dos favoritos", unfavorite_auction_lot_path(auction_lot), method: :delete, class:"btn btn-secondary"), class:"my-3" )
+        content_tag(:div, button_to(raw("<i class=\"bi bi-bookmark-star-fill\"></i> Remover dos favoritos"), unfavorite_auction_lot_path(auction_lot), method: :delete, class:"btn btn-secondary"), class:"my-3" )
       else
-        content_tag(:div, button_to("Adicionar aos favoritos", favorite_auction_lot_path(@auction_lot), method: :post, class:"btn btn-secondary"), class:"my-3")
+        content_tag(:div, button_to(raw("<i class=\"bi bi-bookmark-star\"></i> Adicionar aos favoritos"), favorite_auction_lot_path(@auction_lot), method: :post, class:"btn btn-secondary"), class:"my-3")
       end
     end
   end
 
   def action_edit(auction_lot)
     if user_signed_in? && current_user.admin? && auction_lot.editable?
-      content_tag(:div, link_to("Editar lote", edit_auction_lot_path(auction_lot.id), class:"btn btn-secondary"), class:"my-3")
+      content_tag(:div, link_to(raw("<i class=\"bi bi-pencil\"></i> Editar lote"), edit_auction_lot_path(auction_lot.id), class:"btn btn-secondary"), class:"my-3")
     end
   end
 
   def action_ask(auction_lot)
     if user_signed_in? && !current_user.blocked? && auction_lot.questionable_and_favoritable?
-      content_tag(:div, link_to("Fazer uma pergunta", new_auction_lot_qna_path(@auction_lot), class:"btn btn-secondary"), class:"mb-3")
+      content_tag(:div, link_to(raw("<i class=\"bi bi-question-circle\"></i> Fazer uma pergunta"), new_auction_lot_qna_path(@auction_lot), class:"btn btn-secondary"), class:"mb-3")
     end
   end
 
   def action_deliver(auction_lot)
     if user_signed_in? && current_user.admin? && auction_lot.closed? && !auction_lot.delivered? && auction_lot.winner.present?
-      content_tag(:div, button_to("Marcar como entregue", delivered_auction_lot_path(auction_lot), method: :post, class:"btn btn-secondary"), class:"my-3" )
+      content_tag(:div, button_to(raw("<i class=\"bi bi-truck\"></i> Marcar como entregue"), delivered_auction_lot_path(auction_lot), method: :post, class:"btn btn-secondary"), class:"my-3" )
     end
   end
 
@@ -73,12 +73,12 @@ module AuctionLotsHelper
 
   def status_expired(auction_lot)
     if user_signed_in? && auction_lot.expired? && current_user.admin? && !auction_lot.closed? && !auction_lot.canceled? && !auction_lot.delivered?
-      content_tag(:h3, "Este lote está expirado. Foram feitos #{auction_lot.bids.count} lances.", class:"my-3") +
+      content_tag(:h3, "Este lote está expirado. Foram feitos #{auction_lot.bids.count} lances.", class:"my-3 text-orange") +
       content_tag(:div, class:"my-3") do
         if auction_lot.bids.count == 0
-          button_to('Cancelar o lote', canceled_auction_lot_path(auction_lot), class:"btn btn-secondary")
+          button_to(raw("<i class=\"bi bi-x-square\"></i> Cancelar o lote"), canceled_auction_lot_path(auction_lot), class:"btn btn-secondary")
         else
-          button_to('Finalizar o lote', closed_auction_lot_path(auction_lot), class:"btn btn-secondary")
+          button_to(raw("<i class=\"bi bi-send\"></i> Finalizar o lote"), closed_auction_lot_path(auction_lot), class:"btn btn-secondary")
         end
       end
     end
@@ -130,8 +130,8 @@ module AuctionLotsHelper
 
   def display_questions(auction_lot)
     if auction_lot.qnas.present?
-      content_tag(:div, class:"mb-3") do
-        content_tag(:h3, "Perguntas e respostas") +
+      content_tag(:div, class:"mb-3 border rounded p-2 bids-board") do
+        content_tag(:h3, "Perguntas e respostas", class:"text-center") +
         content_tag(:hr) +
         content_tag(:div, class:"mb-3") do
           auction_lot.qnas.map do |qna|

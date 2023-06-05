@@ -143,7 +143,7 @@ describe 'Usuário tenta postar um lance' do
     user = User.create!(name: 'Michael', cpf: 62059576040, email: 'michael@ig.com.br',
                         role: 0, password: 'password')
     travel_to(1.month.ago) do
-    @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: '05/05/2023',
+    @auction_lot = AuctionLot.create!(code:'XPG035410', start_date: 1.day.from_now, end_date: 3.days.from_now,
                                     min_bid_amount: 300, min_bid_difference: 50, status: 5, creator: first_admin, approver: second_admin)
     end
     category = Category.create!(name:'Informática')

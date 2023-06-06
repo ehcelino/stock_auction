@@ -1,0 +1,17 @@
+<div class="mb-3 border rounded p-2 bids-board">
+  <h3 class="text-center">Usuários cadastrados</h3>
+  <table class="table">
+    <tr>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>CPF</th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.formatted_cpf %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

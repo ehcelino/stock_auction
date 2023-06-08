@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :admin_only, only: [:index]
 
   def show
     if !user_signed_in?
